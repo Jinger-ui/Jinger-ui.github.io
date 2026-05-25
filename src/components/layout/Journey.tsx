@@ -89,22 +89,22 @@ function JourneyTitleImage({
   darkSrc: string;
   sizeClass: string;
 }) {
-  const imageClass = `${sizeClass} w-auto max-w-[5rem] object-contain shrink-0`;
+  const imageClass = `${sizeClass} w-auto max-w-[7rem] object-contain shrink-0`;
 
   return (
     <span className="inline-flex shrink-0" aria-hidden="true">
       <Image
         src={lightSrc}
         alt=""
-        width={80}
-        height={20}
+        width={112}
+        height={28}
         className={`${imageClass} dark:hidden`}
       />
       <Image
         src={darkSrc}
         alt=""
-        width={80}
-        height={20}
+        width={112}
+        height={28}
         className={`${imageClass} hidden dark:block`}
       />
     </span>
@@ -247,8 +247,8 @@ export default function Journey({
       ? panelRoundedClass
       : `${panelBaseClass} ${panelSizeClass}`;
 
-  const titleSizeClass = isFullscreen ? 'text-2xl' : 'text-sm';
-  const titleImageSizeClass = isFullscreen ? 'h-8' : 'h-[1.25rem]';
+  const titleSizeClass = isFullscreen ? 'text-4xl' : 'text-lg';
+  const titleImageSizeClass = isFullscreen ? 'h-12' : 'h-7';
   const resolvedDarkImage = titleImageDark ?? titleImage;
 
   return (
@@ -258,28 +258,21 @@ export default function Journey({
       className={`w-full min-w-0 ${fillHeight ? 'flex flex-col lg:flex-1 lg:min-h-0 lg:h-full' : ''} ${className}`}
     >
       <div
-        className={`flex items-center gap-2 mb-3 ${titleAlign === 'left' ? 'justify-start' : 'justify-end'}`}
+        className={`flex items-center gap-2.5 mb-3 ${titleAlign === 'left' ? 'justify-start' : 'justify-end'}`}
       >
-        {titleImage && titleAlign === 'left' && resolvedDarkImage && (
-          <JourneyTitleImage
-            lightSrc={titleImage}
-            darkSrc={resolvedDarkImage}
-            sizeClass={titleImageSizeClass}
-          />
-        )}
         <h2
           className={`${titleSizeClass} font-serif font-bold text-primary tracking-tight leading-none`}
         >
           {title}
         </h2>
-        {titleImage && titleAlign === 'right' && resolvedDarkImage && (
+        {titleImage && resolvedDarkImage && (
           <JourneyTitleImage
             lightSrc={titleImage}
             darkSrc={resolvedDarkImage}
             sizeClass={titleImageSizeClass}
           />
         )}
-        <span className="text-[10px] uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
+        <span className="text-xs uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
           wheel ↓
         </span>
       </div>
