@@ -2,7 +2,9 @@ import { notFound } from 'next/navigation';
 import { getPageConfig, getMarkdownContent, getBibtexContent } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import { parseBibTeX } from '@/lib/bibtexParser';
+import { processSections } from '@/lib/sections';
 import DynamicPageClient, { type DynamicPageLocaleData } from '@/components/pages/DynamicPageClient';
+import AboutPageClient, { type AboutPageLocaleData } from '@/components/pages/AboutPageClient';
 import {
   BasePageConfig,
   PublicationPageConfig,
@@ -50,10 +52,31 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
   return null;
 }
 
+function loadAboutPageData(locale?: string): AboutPageLocaleData | null {
+  const aboutConfig = getPageConfig<{
+    profile?: { research_interests?: string[] };
+    sections?: Parameters<typeof processSections>[0];
+  }>('about', locale);
+
+  if (!aboutConfig?.sections) {
+    return null;
+  }
+
+  const localeConfig = getConfig(locale);
+
+  return {
+    author: localeConfig.author,
+    social: localeConfig.social,
+    features: localeConfig.features,
+    researchInterests: aboutConfig.profile?.research_interests,
+    sections: processSections(aboutConfig.sections, locale),
+  };
+}
+
 export function generateStaticParams() {
   const config = getConfig();
   return config.navigation
-    .filter((nav) => nav.type === 'page' && nav.target !== 'about')
+    .filter((nav) => nav.type === 'page' && nav.href !== '/')
     .map((nav) => ({
       slug: nav.target,
     }));
@@ -75,6 +98,32 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
+  if (slug === 'about') {
+    const baseConfig = getConfig();
+    const runtimeI18n = getRuntimeI18nConfig(baseConfig.i18n);
+    const targetLocales = runtimeI18n.enabled ? runtimeI18n.locales : [runtimeI18n.defaultLocale];
+
+    const dataByLocale: Record<string, AboutPageLocaleData> = {};
+
+    for (const locale of targetLocales) {
+      const localizedData = loadAboutPageData(locale);
+      if (localizedData) {
+        dataByLocale[locale] = localizedData;
+      }
+    }
+
+    const defaultData = loadAboutPageData();
+    if (defaultData) {
+      dataByLocale[runtimeI18n.defaultLocale] = dataByLocale[runtimeI18n.defaultLocale] || defaultData;
+    }
+
+    if (Object.keys(dataByLocale).length === 0) {
+      notFound();
+    }
+
+    return <AboutPageClient dataByLocale={dataByLocale} defaultLocale={runtimeI18n.defaultLocale} />;
+  }
 
   const baseConfig = getConfig();
   const runtimeI18n = getRuntimeI18nConfig(baseConfig.i18n);

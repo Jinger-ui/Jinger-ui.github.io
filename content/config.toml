@@ -2,7 +2,7 @@
 title = "Jingjia Huang"
 description = "Incoming MSc Artificial Intelligence (NTU) · Graduate Diploma in Systems Analysis (NUS-ISS). ML/CV, full-stack engineering, privacy computing."
 favicon = "/favicon.svg"
-last_updated = "January 2026"
+last_updated = "May 2026"
 
 [author]
 name = "Jingjia Huang"
@@ -20,7 +20,7 @@ linkedin = "https://www.linkedin.com/in/jingjia-cleveland"
 
 [features]
 enable_likes = false
-enable_one_page_mode = true
+enable_one_page_mode = false
 
 [i18n]
 enabled = false
@@ -32,22 +32,16 @@ persist = false
 switcher = false
 
 [[navigation]]
-title = "About"
+title = "Home"
 type = "page"
-target = "about"
+target = "home"
 href = "/"
 
 [[navigation]]
-title = "Publications"
+title = "About"
 type = "page"
-target = "publications"
-href = "/publications"
-
-[[navigation]]
-title = "Projects"
-type = "page"
-target = "projects"
-href = "/projects"
+target = "about"
+href = "/about"
 
 [[navigation]]
 title = "Awards"
