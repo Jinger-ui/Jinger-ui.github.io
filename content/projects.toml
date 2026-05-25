@@ -74,7 +74,7 @@ content = """- Built/evaluated multiple models (**Python**, Pandas, scikit-learn
 
 [[items]]
 title = "Classroom Behavior Analytics Platform"
-subtitle = "Individual Developer · XMUM Dept. Computer Science"
+subtitle = "Individual Developer · Xiamen University Dept. Computer Science"
 date = "2024"
 tags = ["YOLOv8", "Face recognition", "ByteTrack", "MySQL", "Docker"]
 content = """- End-to-end behavior analytics for **high-density classrooms** (~30+ students): occlusion, viewpoint, fragmented IDs.
@@ -84,7 +84,7 @@ content = """- End-to-end behavior analytics for **high-density classrooms** (~3
 
 [[items]]
 title = "Multimodal Attention Analysis System"
-subtitle = "Individual Developer · XMUM Dept. Computer Science"
+subtitle = "Individual Developer · Xiamen University Dept. Computer Science"
 date = "2024"
 tags = ["YOLOv8", "Gaze tracking"]
 content = """- Attention analysis for **restricted study/exam** settings (small groups ~1–3): study-focus reporting vs automated exam modes; timestamps, realtime viz, backend logging.
@@ -113,7 +113,7 @@ content = """- Survey of heterogeneous architectures (**Apple M1**, Tesla FSD, *
 
 [[items]]
 title = "Privacy-Preserving Financial Computing"
-subtitle = "Project Researcher · XMUM × Industrial Bank & Hyperfusion · 2023"
+subtitle = "Project Researcher · Xiamen University × Industrial Bank & Hyperfusion · 2023"
 date = "2023"
 tags = ["SecretFlow", "SPU", "PSI", "Federated Learning", "React"]
 content = """- Encrypted migration pipeline for **Industrial Bank** credit records to **Hyperfusion Cloud**.
@@ -146,7 +146,7 @@ content = """- Two-person publication team: automotive review **topic** + **sent
 
 [[items]]
 title = "Campus Digital Twin — Navigation Platform"
-subtitle = "Technical Lead · Award-winning · XMUM · 2023"
+subtitle = "Technical Lead · Award-winning · Xiamen University · 2023"
 date = "2023"
 tags = ["Unity", "LOD"]
 content = """- Led **~8-member**, **nine-month** Unity digital twin for historical campuses: reconstruction, navigation, interactive digital-human guide.
