@@ -31,6 +31,8 @@ export interface SiteConfig {
   features: {
     enable_likes: boolean;
     enable_one_page_mode?: boolean;
+    enable_visitor_count?: boolean;
+    visitor_count_key?: string;
   };
   navigation: Array<{
     title: string;

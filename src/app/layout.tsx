@@ -192,6 +192,8 @@ export default function RootLayout({
               lastUpdated={config.site.last_updated}
               lastUpdatedByLocale={lastUpdatedByLocale}
               defaultLocale={runtimeI18n.defaultLocale}
+              enableVisitorCount={config.features.enable_visitor_count}
+              visitorCountKey={config.features.visitor_count_key}
             />
           </LocaleProvider>
         </ThemeProvider>

@@ -21,6 +21,8 @@ linkedin = "https://www.linkedin.com/in/jingjia-cleveland"
 [features]
 enable_likes = false
 enable_one_page_mode = false
+enable_visitor_count = true
+visitor_count_key = "jinger-ui.github.io-visits"
 
 [i18n]
 enabled = false

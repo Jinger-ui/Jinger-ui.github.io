@@ -2,17 +2,22 @@
 
 import { useLocaleStore } from '@/lib/stores/localeStore';
 import { useMessages } from '@/lib/i18n/useMessages';
+import VisitorCount from '@/components/layout/VisitorCount';
 
 interface FooterProps {
   lastUpdated?: string;
   lastUpdatedByLocale?: Record<string, string | undefined>;
   defaultLocale?: string;
+  enableVisitorCount?: boolean;
+  visitorCountKey?: string;
 }
 
 export default function Footer({
   lastUpdated,
   lastUpdatedByLocale,
   defaultLocale = 'en',
+  enableVisitorCount = false,
+  visitorCountKey,
 }: FooterProps) {
   const locale = useLocaleStore((state) => state.locale);
   const messages = useMessages();
@@ -37,6 +42,10 @@ export default function Footer({
             <span className="ml-2">🚀</span>
           </p>
         </div>
+
+        {enableVisitorCount && visitorCountKey && (
+          <VisitorCount counterKey={visitorCountKey} />
+        )}
       </div>
     </footer>
   );
