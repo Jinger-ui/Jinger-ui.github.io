@@ -89,22 +89,22 @@ function JourneyTitleImage({
   darkSrc: string;
   sizeClass: string;
 }) {
-  const imageClass = `${sizeClass} w-auto max-w-[7rem] object-contain shrink-0`;
+  const imageClass = `${sizeClass} w-auto max-w-[12rem] object-contain shrink-0`;
 
   return (
     <span className="inline-flex shrink-0" aria-hidden="true">
       <Image
         src={lightSrc}
         alt=""
-        width={112}
-        height={28}
+        width={192}
+        height={44}
         className={`${imageClass} dark:hidden`}
       />
       <Image
         src={darkSrc}
         alt=""
-        width={112}
-        height={28}
+        width={192}
+        height={44}
         className={`${imageClass} hidden dark:block`}
       />
     </span>
@@ -248,7 +248,7 @@ export default function Journey({
       : `${panelBaseClass} ${panelSizeClass}`;
 
   const titleSizeClass = isFullscreen ? 'text-4xl' : 'text-lg';
-  const titleImageSizeClass = isFullscreen ? 'h-12' : 'h-7';
+  const titleImageSizeClass = isFullscreen ? 'h-24' : 'h-11';
   const resolvedDarkImage = titleImageDark ?? titleImage;
 
   return (
