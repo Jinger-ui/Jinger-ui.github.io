@@ -9,6 +9,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import LanguageToggle from '@/components/ui/LanguageToggle';
+import NavContactLinks from '@/components/layout/NavContactLinks';
 import type { SiteConfig } from '@/lib/config';
 import { useLocaleStore } from '@/lib/stores/localeStore';
 import { useMessages } from '@/lib/i18n/useMessages';
@@ -17,19 +18,23 @@ import type { I18nRuntimeConfig } from '@/types/i18n';
 interface NavigationProps {
   items: SiteConfig['navigation'];
   siteTitle: string;
+  social: SiteConfig['social'];
   enableOnePageMode?: boolean;
   i18n: I18nRuntimeConfig;
   itemsByLocale?: Record<string, SiteConfig['navigation']>;
   siteTitleByLocale?: Record<string, string>;
+  socialByLocale?: Record<string, SiteConfig['social']>;
 }
 
 export default function Navigation({
   items,
   siteTitle,
+  social,
   enableOnePageMode,
   i18n,
   itemsByLocale,
   siteTitleByLocale,
+  socialByLocale,
 }: NavigationProps) {
   const pathname = usePathname();
   const locale = useLocaleStore((state) => state.locale);
@@ -53,6 +58,10 @@ export default function Navigation({
   const effectiveSiteTitle = useMemo(() => {
     return siteTitleByLocale?.[resolvedLocale] || siteTitleByLocale?.[i18n.defaultLocale] || siteTitle;
   }, [i18n.defaultLocale, resolvedLocale, siteTitle, siteTitleByLocale]);
+
+  const effectiveSocial = useMemo(() => {
+    return socialByLocale?.[resolvedLocale] || socialByLocale?.[i18n.defaultLocale] || social;
+  }, [i18n.defaultLocale, resolvedLocale, social, socialByLocale]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -187,11 +196,11 @@ export default function Navigation({
                   </Link>
                 </motion.div>
 
-                <div className="hidden lg:block">
-                  <div className="ml-10 flex items-center space-x-3">
+                <div className="hidden lg:flex items-center min-w-0 flex-1 justify-end ml-6">
+                  <div className="flex items-center gap-2 min-w-0">
                     <div
                       ref={navContainerRef}
-                      className="relative flex items-baseline space-x-1"
+                      className="relative flex items-baseline space-x-1 shrink-0"
                       onMouseLeave={() => setHoveredHref(null)}
                     >
                       {indicatorStyle && (
@@ -242,6 +251,7 @@ export default function Navigation({
                         );
                       })}
                     </div>
+                    <NavContactLinks social={effectiveSocial} variant="desktop" />
                     <LanguageToggle i18n={i18n} />
                     <ThemeToggle />
                   </div>
@@ -314,6 +324,7 @@ export default function Navigation({
                         </motion.div>
                       );
                     })}
+                    <NavContactLinks social={effectiveSocial} variant="mobile" />
                   </div>
                 </motion.div>
               </Disclosure.Panel>

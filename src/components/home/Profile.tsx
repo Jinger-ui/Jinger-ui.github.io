@@ -32,9 +32,10 @@ interface ProfileProps {
     social: SiteConfig['social'];
     features: SiteConfig['features'];
     researchInterests?: string[];
+    hideContactLinks?: boolean;
 }
 
-export default function Profile({ author, social, features, researchInterests }: ProfileProps) {
+export default function Profile({ author, social, features, researchInterests, hideContactLinks = false }: ProfileProps) {
     const messages = useMessages();
 
     const [hasLiked, setHasLiked] = useState(false);
@@ -137,6 +138,7 @@ export default function Profile({ author, social, features, researchInterests }:
             </div>
 
             {/* Contact Links */}
+            {!hideContactLinks && (
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2">
                 {socialLinks.map((link) => {
                     const IconComponent = link.icon;
@@ -302,6 +304,7 @@ export default function Profile({ author, social, features, researchInterests }:
                     );
                 })}
             </div>
+            )}
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (

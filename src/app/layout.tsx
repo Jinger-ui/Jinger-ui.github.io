@@ -97,17 +97,20 @@ function buildLocalizedConfigMaps(
   siteTitleByLocale: Record<string, string>;
   lastUpdatedByLocale: Record<string, string | undefined>;
   journeyByLocale: Record<string, JourneyItem[]>;
+  socialByLocale: Record<string, SiteConfig['social']>;
 } {
   const navigationByLocale: Record<string, SiteConfig['navigation']> = {};
   const siteTitleByLocale: Record<string, string> = {};
   const lastUpdatedByLocale: Record<string, string | undefined> = {};
   const journeyByLocale: Record<string, JourneyItem[]> = {};
+  const socialByLocale: Record<string, SiteConfig['social']> = {};
 
   for (const locale of locales) {
     const localizedConfig = getConfig(locale);
     navigationByLocale[locale] = localizedConfig.navigation;
     siteTitleByLocale[locale] = localizedConfig.site.title;
     lastUpdatedByLocale[locale] = localizedConfig.site.last_updated;
+    socialByLocale[locale] = localizedConfig.social;
 
     const journeyData = getTomlContent<{ news: JourneyItem[] }>('news.toml', locale);
     journeyByLocale[locale] = journeyData?.news || [];
@@ -118,6 +121,7 @@ function buildLocalizedConfigMaps(
     siteTitleByLocale,
     lastUpdatedByLocale,
     journeyByLocale,
+    socialByLocale,
   };
 }
 
@@ -135,6 +139,7 @@ export default function RootLayout({
     siteTitleByLocale,
     lastUpdatedByLocale,
     journeyByLocale,
+    socialByLocale,
   } = buildLocalizedConfigMaps(targetLocales);
 
   return (
@@ -182,10 +187,12 @@ export default function RootLayout({
             <Navigation
               items={config.navigation}
               siteTitle={config.site.title}
+              social={config.social}
               enableOnePageMode={config.features.enable_one_page_mode}
               i18n={runtimeI18n}
               itemsByLocale={navigationByLocale}
               siteTitleByLocale={siteTitleByLocale}
+              socialByLocale={socialByLocale}
             />
             <main className="min-h-screen pt-16 lg:pt-20">
               {children}

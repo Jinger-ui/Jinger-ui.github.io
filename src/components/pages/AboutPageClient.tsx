@@ -37,6 +37,7 @@ export default function AboutPageClient({ dataByLocale, defaultLocale }: AboutPa
             social={data.social}
             features={data.features}
             researchInterests={data.researchInterests}
+            hideContactLinks
           />
         </div>
 
