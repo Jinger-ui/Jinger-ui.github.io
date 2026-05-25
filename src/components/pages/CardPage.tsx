@@ -33,9 +33,18 @@ const markdownComponents = {
  * Framer Motion SSR for static export emitted `opacity:0` on cards; if JS is slow or blocked,
  * only the first batches could appear visible — all items must show without client animation.
  */
-export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
+export default function CardPage({
+    config,
+    embedded = false,
+    hideHeader = false,
+}: {
+    config: CardPageConfig;
+    embedded?: boolean;
+    hideHeader?: boolean;
+}) {
     return (
         <div>
+            {!hideHeader && (
             <div className={embedded ? "mb-4" : "mb-8"}>
                 <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
                 {config.description && (
@@ -46,6 +55,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                     </div>
                 )}
             </div>
+            )}
 
             <div className={`grid ${embedded ? "gap-4" : "gap-6"}`}>
                 {config.items.map((item, index) => (

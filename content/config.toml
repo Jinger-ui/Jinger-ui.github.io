@@ -52,6 +52,12 @@ target = "selected-projects"
 href = "/#selected-projects"
 
 [[navigation]]
+title = "By Year"
+type = "page"
+target = "projects-by-year"
+href = "/projects-by-year"
+
+[[navigation]]
 title = "Awards"
 type = "section"
 target = "awards"

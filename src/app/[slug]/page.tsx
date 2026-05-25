@@ -5,6 +5,9 @@ import { parseBibTeX } from '@/lib/bibtexParser';
 import { processSections } from '@/lib/sections';
 import DynamicPageClient, { type DynamicPageLocaleData } from '@/components/pages/DynamicPageClient';
 import AboutPageClient, { type AboutPageLocaleData } from '@/components/pages/AboutPageClient';
+import ProjectsByYearPageClient, {
+  type ProjectsByYearPageLocaleData,
+} from '@/components/pages/ProjectsByYearPageClient';
 import type { JourneyItem } from '@/components/layout/Journey';
 import {
   BasePageConfig,
@@ -51,6 +54,21 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
   }
 
   return null;
+}
+
+function loadProjectsByYearPageData(locale?: string): ProjectsByYearPageLocaleData | null {
+  const pageConfig = getPageConfig<{ title: string; description?: string }>('projects-by-year', locale);
+  const projectsConfig = getPageConfig('projects', locale) as CardPageConfig | null;
+
+  if (!pageConfig || !projectsConfig?.items?.length) {
+    return null;
+  }
+
+  return {
+    title: pageConfig.title,
+    description: pageConfig.description,
+    items: projectsConfig.items,
+  };
 }
 
 function loadAboutPageData(locale?: string): AboutPageLocaleData | null {
@@ -101,6 +119,38 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
+  if (slug === 'projects-by-year') {
+    const baseConfig = getConfig();
+    const runtimeI18n = getRuntimeI18nConfig(baseConfig.i18n);
+    const targetLocales = runtimeI18n.enabled ? runtimeI18n.locales : [runtimeI18n.defaultLocale];
+
+    const dataByLocale: Record<string, ProjectsByYearPageLocaleData> = {};
+
+    for (const locale of targetLocales) {
+      const localizedData = loadProjectsByYearPageData(locale);
+      if (localizedData) {
+        dataByLocale[locale] = localizedData;
+      }
+    }
+
+    const defaultData = loadProjectsByYearPageData();
+    if (defaultData) {
+      dataByLocale[runtimeI18n.defaultLocale] =
+        dataByLocale[runtimeI18n.defaultLocale] || defaultData;
+    }
+
+    if (Object.keys(dataByLocale).length === 0) {
+      notFound();
+    }
+
+    return (
+      <ProjectsByYearPageClient
+        dataByLocale={dataByLocale}
+        defaultLocale={runtimeI18n.defaultLocale}
+      />
+    );
+  }
 
   if (slug === 'about') {
     const baseConfig = getConfig();
