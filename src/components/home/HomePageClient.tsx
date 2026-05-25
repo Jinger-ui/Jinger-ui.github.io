@@ -44,7 +44,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
     <div className="bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <section id="home-intro" className="mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start lg:items-stretch">
             <div className="lg:col-span-1">
               <Profile
                 author={data.author}
@@ -56,13 +56,13 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
             </div>
 
             {data.journeyItems.length > 0 && (
-              <div className="lg:col-span-2 lg:col-start-2 lg:row-start-1 self-start w-full">
+              <div className="lg:col-span-2 lg:col-start-2 flex flex-col min-h-0 h-full w-full">
                 <Journey
                   items={data.journeyItems}
                   title="Journey"
                   titleAlign="left"
                   variant="compact"
-                  panelClassName="h-[25svh] min-h-[10rem]"
+                  fillHeight
                 />
               </div>
             )}

@@ -13,6 +13,8 @@ interface JourneyProps {
   titleAlign?: 'left' | 'right';
   variant?: 'compact' | 'fullscreen';
   panelClassName?: string;
+  /** Stretch panel to fill parent height (e.g. align with Profile column on Home). */
+  fillHeight?: boolean;
 }
 
 const kindStyles: Record<'education' | 'internship' | 'research', string> = {
@@ -41,6 +43,7 @@ export default function Journey({
   titleAlign = 'right',
   variant = 'compact',
   panelClassName,
+  fillHeight = false,
 }: JourneyProps) {
   const isFullscreen = variant === 'fullscreen';
 
@@ -48,11 +51,27 @@ export default function Journey({
     return null;
   }
 
+  const panelBaseClass =
+    'relative rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm';
+
+  const panelSizeClass = panelClassName
+    ? panelClassName
+    : fillHeight
+      ? 'h-72 lg:h-auto lg:flex-1 lg:min-h-0'
+      : isFullscreen
+        ? 'flex-1 min-h-[min(72vh,calc(100svh-11rem))] rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-md'
+        : 'h-72';
+
+  const panelRoundedClass =
+    panelClassName || fillHeight || !isFullscreen
+      ? panelBaseClass
+      : 'relative flex-1 min-h-[min(72vh,calc(100svh-11rem))] rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-md';
+
   return (
     <section
       id="journey"
       aria-label={title}
-      className={`w-full min-w-0 ${className}`}
+      className={`w-full min-w-0 ${fillHeight ? 'flex flex-col lg:flex-1 lg:min-h-0 lg:h-full' : ''} ${className}`}
     >
       <div
         className={`flex items-center gap-2 mb-3 ${titleAlign === 'left' ? 'justify-start' : 'justify-end'}`}
@@ -73,11 +92,9 @@ export default function Journey({
 
       <div
         className={
-          panelClassName
-            ? `relative rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm ${panelClassName}`
-            : isFullscreen
-              ? 'relative flex-1 min-h-[min(72vh,calc(100svh-11rem))] rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-md'
-              : 'relative h-72 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm'
+          isFullscreen && !panelClassName && !fillHeight
+            ? panelRoundedClass
+            : `${panelBaseClass} ${panelSizeClass}`
         }
       >
         <div
