@@ -5,8 +5,10 @@ import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
 import { LocaleProvider } from '@/components/ui/LocaleProvider';
 import { getConfig } from '@/lib/config';
+import { getTomlContent } from '@/lib/content';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import type { SiteConfig } from '@/lib/config';
+import type { JourneyItem } from '@/components/layout/Journey';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
@@ -94,22 +96,28 @@ function buildLocalizedConfigMaps(
   navigationByLocale: Record<string, SiteConfig['navigation']>;
   siteTitleByLocale: Record<string, string>;
   lastUpdatedByLocale: Record<string, string | undefined>;
+  journeyByLocale: Record<string, JourneyItem[]>;
 } {
   const navigationByLocale: Record<string, SiteConfig['navigation']> = {};
   const siteTitleByLocale: Record<string, string> = {};
   const lastUpdatedByLocale: Record<string, string | undefined> = {};
+  const journeyByLocale: Record<string, JourneyItem[]> = {};
 
   for (const locale of locales) {
     const localizedConfig = getConfig(locale);
     navigationByLocale[locale] = localizedConfig.navigation;
     siteTitleByLocale[locale] = localizedConfig.site.title;
     lastUpdatedByLocale[locale] = localizedConfig.site.last_updated;
+
+    const journeyData = getTomlContent<{ news: JourneyItem[] }>('news.toml', locale);
+    journeyByLocale[locale] = journeyData?.news || [];
   }
 
   return {
     navigationByLocale,
     siteTitleByLocale,
     lastUpdatedByLocale,
+    journeyByLocale,
   };
 }
 
@@ -126,6 +134,7 @@ export default function RootLayout({
     navigationByLocale,
     siteTitleByLocale,
     lastUpdatedByLocale,
+    journeyByLocale,
   } = buildLocalizedConfigMaps(targetLocales);
 
   return (
@@ -185,6 +194,8 @@ export default function RootLayout({
               lastUpdated={config.site.last_updated}
               lastUpdatedByLocale={lastUpdatedByLocale}
               defaultLocale={runtimeI18n.defaultLocale}
+              journeyByLocale={journeyByLocale}
+              journeyTitle="Journey"
             />
           </LocaleProvider>
         </ThemeProvider>

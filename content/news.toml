@@ -1,19 +1,24 @@
 [[news]]
 date = "2026-04"
+kind = "internship"
 content = "Starting Systems Automation Engineering internship at SP Group (Singapore) — forecasting, sensing, Azure & CI/CD."
 
 [[news]]
 date = "2025-08"
+kind = "internship"
 content = "IT internship at Bank of China (Guizhou): private RAG assistant (Qwen3-8B, Docker/Ollama) and provincial server rollout."
 
 [[news]]
 date = "2025-02"
+kind = "education"
 content = "Began Graduate Diploma in Systems Analysis at NUS-ISS (full-stack, cloud, agile, ML pipelines)."
 
 [[news]]
 date = "2025-01"
+kind = "education"
 content = "Graduated / completed bachelor track in Computer Science (XMUM) — continued focus on ML, systems, and software engineering."
 
 [[news]]
 date = "2024-08"
+kind = "internship"
 content = "Rural commercial bank IT internship: ~20 loan-data RPA flows, honeypot & security tooling, ISO 20000–aligned ops."
