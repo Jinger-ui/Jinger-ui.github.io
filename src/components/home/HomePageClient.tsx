@@ -1,5 +1,6 @@
 'use client';
 
+import Profile from '@/components/home/Profile';
 import PublicationsList from '@/components/publications/PublicationsList';
 import CardPage from '@/components/pages/CardPage';
 import type { SiteConfig } from '@/lib/config';
@@ -36,6 +37,18 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen">
+      <header className="mb-12 flex justify-center">
+        <div className="w-full max-w-xl">
+          <Profile
+            author={data.author}
+            social={data.social}
+            features={data.features}
+            researchInterests={data.researchInterests}
+            hideContactLinks
+          />
+        </div>
+      </header>
+
       <div className="space-y-12">
         {data.pagesToShow.map((page) => (
           <section key={page.id} id={page.id} className="scroll-mt-24">
