@@ -1,0 +1,45 @@
+type = "card"
+title = "Selected Projects"
+description = "Industry collaborations, coursework, research software, and capstone."
+
+[[items]]
+title = "EcoGo — Capstone (NUS-ISS)"
+subtitle = "Technical Lead · Sustainability mobility"
+date = "2026"
+tags = ["Kotlin", "Spring Boot", "React", "RAG", "Elasticsearch", "Kafka", "CI/CD"]
+content = """Led a 6-person capstone integrating **carbon-aware routing** (NextBus + Google Directions), **Kotlin** Android client, Java **Spring Boot** services, MongoDB/MySQL/Redis/MinIO, and a **LoRA² + RAG** assistant with Elasticsearch hybrid retrieval and Kafka-based indexing pipelines (**GitHub Actions**, SonarQube, Docker)."""
+
+[[items]]
+title = "Codex Code Book Platform"
+subtitle = "Team project · NUS-ISS"
+date = "2025"
+tags = ["React", "Spring Security", "SQL"]
+content = """Full-stack reference-book web app (**React**, **Spring Boot**, **Spring Security**, relational schema, CRUD); Figma-aligned UI."""
+
+[[items]]
+title = "Classroom Behavior Analytics"
+subtitle = "Individual thesis-style system · XMUM CS"
+date = "2024"
+tags = ["YOLOv8", "ByteTrack", "MySQL", "Docker"]
+content = """YOLO + face + ByteTrack pipeline for multi-behavior labeling; asynchronous ingestion to **MySQL**; PyQt5 live client + web batch dashboard; Docker + CI/CD."""
+
+[[items]]
+title = "Multimodal Attention Analysis"
+subtitle = "XMUM CS"
+date = "2024"
+tags = ["Vision", "Gaze tracking", "YOLOv8"]
+content = """Gaze–object synchronization for restricted study environments; laptops/tablets/smartphones/paper detection."""
+
+[[items]]
+title = "Privacy-preserving MPC / Federated workloads"
+subtitle = "RA · Joint with Industrial Bank & Hyperfusion"
+date = "2022–2023"
+tags = ["SecretFlow", "SPU", "PSI", "React"]
+content = """Encrypted credit-data pipeline for cloud migration; ciphertext ML with **SecretFlow SPU**; **React** control portal; PSI-based entity alignment; three-party latency optimization."""
+
+[[items]]
+title = "Campus Digital Twin (Unity)"
+subtitle = "Provincial IT competition — Third Prize"
+date = "2023"
+tags = ["Unity", "LOD", "Navigation"]
+content = """Led ~8-member 9‑month rebuild: LOD for 40+ models, spatial navigation & digital-human guide; pilots in 10+ provinces."""

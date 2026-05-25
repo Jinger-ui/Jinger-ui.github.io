@@ -1,27 +1,21 @@
 type = "card"
 title = "Awards"
-description = "Honors and awards I have received."
+description = "Selected competitions and university honors."
 
 [[items]]
-title = "Example Award"
-subtitle = "Organization"
-date = "2025"
-content = "Description of the award."
-
-[[items]]
-title = "Example Award"
-subtitle = "Organization"
-date = "2024"
-content = "Description of the award."
-
-[[items]]
-title = "Example Award"
-subtitle = "Organization"
+title = "Third Prize"
+subtitle = "13th Cross-Strait Information Service Innovation & 17th Fujian Computer Software Design Contest"
 date = "2023"
-content = "Description of the award."
+content = "Cross-strait provincial software / IT innovation contest recognition."
 
 [[items]]
-title = "Example Award"
-subtitle = "Organization"
-date = "2022"
-content = "Description of the award."
+title = "Silver Medal"
+subtitle = "Internet+ Innovation and Entrepreneurship Competition · XMU"
+date = ""
+content = "University-level entrepreneurship & innovation recognition."
+
+[[items]]
+title = "Second Prize"
+subtitle = "XMU Mathematical Modeling Competition"
+date = "2023"
+content = "Mathematical modeling placement at university contest."

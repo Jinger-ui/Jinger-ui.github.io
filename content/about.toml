@@ -3,16 +3,18 @@ title = "About"
 
 [profile]
 research_interests = [
-  "Computational Physics",
-  "Mathematical Principles",
-  "Proof of Theorems"
+  "Artificial Intelligence / Machine Learning",
+  "Systems & ML Engineering (CI/CD, MLOps, Cloud)",
+  "Privacy-preserving computing & federated learning",
+  "Computer Vision & NLP",
+  "Full-stack & mobile engineering"
 ]
 
 [[sections]]
 id = "about"
 type = "markdown"
 source = "bio.md"
-title = "About"
+title = "Bio"
 
 [[sections]]
 id = "featured_publications"
@@ -24,6 +26,5 @@ limit = 5
 [[sections]]
 id = "news"
 type = "list"
-title = "News"
+title = "Updates"
 source = "news.toml"
-
