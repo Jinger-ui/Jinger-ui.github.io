@@ -8,7 +8,7 @@ last_updated = "May 2026"
 name = "Jingjia Huang"
 title = "Graduate Diploma (NUS-ISS) · Incoming MSc AI Student (NTU, Aug 2026)"
 institution = "National University of Singapore Institute of Systems Science · Nanyang Technological University"
-avatar = "/avatar.svg"
+avatar = "/avatar.png"
 
 [social]
 email = "e1511449@u.nus.edu"
@@ -42,9 +42,3 @@ title = "About"
 type = "page"
 target = "about"
 href = "/about"
-
-[[navigation]]
-title = "Awards"
-type = "page"
-target = "awards"
-href = "/awards"

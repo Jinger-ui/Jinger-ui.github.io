@@ -1,6 +1,8 @@
 'use client';
 
 import Profile from '@/components/home/Profile';
+import SkillsGrid, { type SkillCategory } from '@/components/home/SkillsGrid';
+import HomeContact from '@/components/home/HomeContact';
 import PublicationsList from '@/components/publications/PublicationsList';
 import CardPage from '@/components/pages/CardPage';
 import Journey, { type JourneyItem } from '@/components/layout/Journey';
@@ -20,6 +22,7 @@ export interface HomePageLocaleData {
   enableOnePageMode?: boolean;
   researchInterests?: string[];
   journeyItems: JourneyItem[];
+  skillCategories: SkillCategory[];
   pagesToShow: PageData[];
 }
 
@@ -40,17 +43,40 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
   return (
     <div className="bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <header className="mb-12 flex justify-center">
-          <div className="w-full max-w-xl">
-            <Profile
-              author={data.author}
-              social={data.social}
-              features={data.features}
-              researchInterests={data.researchInterests}
-              hideContactLinks
-            />
+        <section id="home-intro" className="mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-1">
+              <Profile
+                author={data.author}
+                social={data.social}
+                features={data.features}
+                researchInterests={data.researchInterests}
+                hideContactLinks
+              />
+            </div>
+
+            {data.journeyItems.length > 0 && (
+              <div className="lg:col-span-2 lg:col-start-2 lg:row-start-1 self-start w-full">
+                <Journey
+                  items={data.journeyItems}
+                  title="Journey"
+                  titleAlign="left"
+                  variant="compact"
+                  panelClassName="h-[25svh] min-h-[10rem]"
+                />
+              </div>
+            )}
           </div>
-        </header>
+
+          {data.skillCategories.length > 0 && (
+            <SkillsGrid categories={data.skillCategories} className="mt-10" />
+          )}
+
+          <HomeContact
+            social={data.social}
+            className="mt-10 pt-8 border-t border-neutral-200/60 dark:border-neutral-800/60"
+          />
+        </section>
 
         <div className="space-y-12">
           {data.pagesToShow.map((page) => (
@@ -69,22 +95,6 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
           ))}
         </div>
       </div>
-
-      {data.journeyItems.length > 0 && (
-        <section
-          id="journey-home"
-          className="snap-start snap-always min-h-[100svh] scroll-mt-24 flex flex-col justify-center px-4 sm:px-6 lg:px-8 pt-24 pb-16 mt-24 border-t border-neutral-200/40 dark:border-neutral-800/60 bg-neutral-50/30 dark:bg-neutral-900/20"
-        >
-          <div className="w-full max-w-2xl mx-auto flex flex-col min-h-[calc(100svh-8rem)] justify-center">
-            <Journey
-              items={data.journeyItems}
-              title="Journey"
-              titleAlign="left"
-              variant="fullscreen"
-            />
-          </div>
-        </section>
-      )}
     </div>
   );
 }

@@ -12,6 +12,7 @@ interface JourneyProps {
   className?: string;
   titleAlign?: 'left' | 'right';
   variant?: 'compact' | 'fullscreen';
+  panelClassName?: string;
 }
 
 const kindStyles: Record<'education' | 'internship' | 'research', string> = {
@@ -39,6 +40,7 @@ export default function Journey({
   className = '',
   titleAlign = 'right',
   variant = 'compact',
+  panelClassName,
 }: JourneyProps) {
   const isFullscreen = variant === 'fullscreen';
 
@@ -71,9 +73,11 @@ export default function Journey({
 
       <div
         className={
-          isFullscreen
-            ? 'relative flex-1 min-h-[min(72vh,calc(100svh-11rem))] rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-md'
-            : 'relative h-72 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm'
+          panelClassName
+            ? `relative rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm ${panelClassName}`
+            : isFullscreen
+              ? 'relative flex-1 min-h-[min(72vh,calc(100svh-11rem))] rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-md'
+              : 'relative h-72 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm'
         }
       >
         <div

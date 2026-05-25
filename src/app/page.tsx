@@ -5,6 +5,7 @@ import HomePageClient, { type HomePageLocaleData } from '@/components/home/HomeP
 import { CardPageConfig, PublicationPageConfig } from '@/types/page';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import type { JourneyItem } from '@/components/layout/Journey';
+import type { SkillCategory } from '@/components/home/SkillsGrid';
 
 const SELECTED_PROJECT_COUNT = 5;
 
@@ -65,7 +66,17 @@ function loadHomePageData(locale?: string): HomePageLocaleData {
     });
   }
 
+  const awardsConfig = getPageConfig('awards', locale) as CardPageConfig | null;
+  if (awardsConfig?.items?.length) {
+    pagesToShow.push({
+      type: 'card',
+      id: 'awards',
+      config: awardsConfig,
+    });
+  }
+
   const journeyData = getTomlContent<{ news: JourneyItem[] }>('news.toml', locale);
+  const skillsData = getTomlContent<{ skills: SkillCategory[] }>('skills.toml', locale);
 
   return {
     author: localeConfig.author,
@@ -74,6 +85,7 @@ function loadHomePageData(locale?: string): HomePageLocaleData {
     enableOnePageMode: false,
     researchInterests: aboutConfig?.profile?.research_interests,
     journeyItems: journeyData?.news || [],
+    skillCategories: skillsData?.skills || [],
     pagesToShow,
   };
 }
