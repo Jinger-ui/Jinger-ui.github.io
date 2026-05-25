@@ -1,9 +1,10 @@
 import { getConfig } from '@/lib/config';
-import { getBibtexContent, getPageConfig } from '@/lib/content';
+import { getBibtexContent, getPageConfig, getTomlContent } from '@/lib/content';
 import { parseBibTeX } from '@/lib/bibtexParser';
 import HomePageClient, { type HomePageLocaleData } from '@/components/home/HomePageClient';
 import { CardPageConfig, PublicationPageConfig } from '@/types/page';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
+import type { JourneyItem } from '@/components/layout/Journey';
 
 const SELECTED_PROJECT_COUNT = 5;
 
@@ -64,12 +65,15 @@ function loadHomePageData(locale?: string): HomePageLocaleData {
     });
   }
 
+  const journeyData = getTomlContent<{ news: JourneyItem[] }>('news.toml', locale);
+
   return {
     author: localeConfig.author,
     social: localeConfig.social,
     features: localeConfig.features,
     enableOnePageMode: false,
     researchInterests: aboutConfig?.profile?.research_interests,
+    journeyItems: journeyData?.news || [],
     pagesToShow,
   };
 }

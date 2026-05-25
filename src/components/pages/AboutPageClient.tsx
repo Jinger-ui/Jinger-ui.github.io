@@ -63,6 +63,7 @@ export default function AboutPageClient({ dataByLocale, defaultLocale }: AboutPa
               items={data.journeyItems}
               title="Journey"
               titleAlign="left"
+              variant="compact"
             />
           )}
         </div>

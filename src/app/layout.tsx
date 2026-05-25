@@ -5,10 +5,8 @@ import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
 import { LocaleProvider } from '@/components/ui/LocaleProvider';
 import { getConfig } from '@/lib/config';
-import { getTomlContent, getPageConfig } from '@/lib/content';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import type { SiteConfig } from '@/lib/config';
-import type { JourneyItem } from '@/components/layout/Journey';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
@@ -96,18 +94,12 @@ function buildLocalizedConfigMaps(
   navigationByLocale: Record<string, SiteConfig['navigation']>;
   siteTitleByLocale: Record<string, string>;
   lastUpdatedByLocale: Record<string, string | undefined>;
-  journeyByLocale: Record<string, JourneyItem[]>;
   socialByLocale: Record<string, SiteConfig['social']>;
-  authorByLocale: Record<string, SiteConfig['author']>;
-  researchInterestsByLocale: Record<string, string[] | undefined>;
 } {
   const navigationByLocale: Record<string, SiteConfig['navigation']> = {};
   const siteTitleByLocale: Record<string, string> = {};
   const lastUpdatedByLocale: Record<string, string | undefined> = {};
-  const journeyByLocale: Record<string, JourneyItem[]> = {};
   const socialByLocale: Record<string, SiteConfig['social']> = {};
-  const authorByLocale: Record<string, SiteConfig['author']> = {};
-  const researchInterestsByLocale: Record<string, string[] | undefined> = {};
 
   for (const locale of locales) {
     const localizedConfig = getConfig(locale);
@@ -115,23 +107,13 @@ function buildLocalizedConfigMaps(
     siteTitleByLocale[locale] = localizedConfig.site.title;
     lastUpdatedByLocale[locale] = localizedConfig.site.last_updated;
     socialByLocale[locale] = localizedConfig.social;
-    authorByLocale[locale] = localizedConfig.author;
-
-    const aboutConfig = getPageConfig<{ profile?: { research_interests?: string[] } }>('about', locale);
-    researchInterestsByLocale[locale] = aboutConfig?.profile?.research_interests;
-
-    const journeyData = getTomlContent<{ news: JourneyItem[] }>('news.toml', locale);
-    journeyByLocale[locale] = journeyData?.news || [];
   }
 
   return {
     navigationByLocale,
     siteTitleByLocale,
     lastUpdatedByLocale,
-    journeyByLocale,
     socialByLocale,
-    authorByLocale,
-    researchInterestsByLocale,
   };
 }
 
@@ -148,13 +130,8 @@ export default function RootLayout({
     navigationByLocale,
     siteTitleByLocale,
     lastUpdatedByLocale,
-    journeyByLocale,
     socialByLocale,
-    authorByLocale,
-    researchInterestsByLocale,
   } = buildLocalizedConfigMaps(targetLocales);
-
-  const aboutConfig = getPageConfig<{ profile?: { research_interests?: string[] } }>('about');
 
   return (
     <html lang={runtimeI18n.defaultLocale} className="scroll-smooth" suppressHydrationWarning>
@@ -208,19 +185,13 @@ export default function RootLayout({
               siteTitleByLocale={siteTitleByLocale}
               socialByLocale={socialByLocale}
             />
-            <main className="min-h-screen pt-16 lg:pt-20">
+            <main className="min-h-screen pt-16 lg:pt-20 snap-y snap-proximity scroll-smooth">
               {children}
             </main>
             <Footer
               lastUpdated={config.site.last_updated}
               lastUpdatedByLocale={lastUpdatedByLocale}
               defaultLocale={runtimeI18n.defaultLocale}
-              journeyByLocale={journeyByLocale}
-              journeyTitle="Journey"
-              author={config.author}
-              authorByLocale={authorByLocale}
-              researchInterests={aboutConfig?.profile?.research_interests}
-              researchInterestsByLocale={researchInterestsByLocale}
             />
           </LocaleProvider>
         </ThemeProvider>

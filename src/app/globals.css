@@ -247,6 +247,7 @@ body {
 .journey-scroll {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  overscroll-behavior: contain;
 }
 
 .journey-scroll::-webkit-scrollbar {
