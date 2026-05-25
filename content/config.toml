@@ -42,3 +42,15 @@ title = "About"
 type = "page"
 target = "about"
 href = "/about"
+
+[[navigation]]
+title = "Projects"
+type = "section"
+target = "selected-projects"
+href = "/#selected-projects"
+
+[[navigation]]
+title = "Awards"
+type = "section"
+target = "awards"
+href = "/#awards"

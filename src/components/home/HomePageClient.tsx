@@ -63,6 +63,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                   titleAlign="left"
                   variant="compact"
                   fillHeight
+                  layout="split"
                 />
               </div>
             )}

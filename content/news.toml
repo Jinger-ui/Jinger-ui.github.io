@@ -1,10 +1,12 @@
 [[news]]
 date = "2026-04"
+end_date = "2026-08"
 kind = "internship"
 content = "Systems Automation Engineering internship at SP Group (Singapore) — vibration sensing, forecasting, Azure migration & CI/CD."
 
 [[news]]
 date = "2025-08"
+end_date = "2025-11"
 kind = "internship"
 content = "IT internship at Bank of China (Guizhou): private RAG assistant (Qwen3-8B, Docker/Ollama) and provincial server rollout."
 
@@ -20,11 +22,13 @@ content = "Graduated / completed bachelor track in Computer Science (Xiamen Univ
 
 [[news]]
 date = "2024-08"
+end_date = "2025-01"
 kind = "internship"
 content = "Rural commercial bank IT internship: ~20 loan-data RPA flows, honeypot & security tooling, ISO 20000–aligned ops."
 
 [[news]]
 date = "2023-11"
+end_date = "2024-01"
 kind = "internship"
 content = "China Southern Power Grid IT internship: CSG-YOLO (YOLOv8) pilot, Kylin OS deployment, dataset & inference review."
 
@@ -40,6 +44,7 @@ content = "Research Assistant at XMU (Industrial Bank & Hyperfusion) — SecretF
 
 [[news]]
 date = "2021-08"
+end_date = "2021-11"
 kind = "internship"
 content = "Guizhou Rural Credit Cooperative internship — SME banking ops, loan/transaction data cleansing, irregular card-behavior screening."
 

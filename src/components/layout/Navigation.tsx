@@ -26,6 +26,29 @@ interface NavigationProps {
   socialByLocale?: Record<string, SiteConfig['social']>;
 }
 
+type NavItem = SiteConfig['navigation'][number];
+
+function isHomeSectionItem(item: NavItem): boolean {
+  return item.type === 'section';
+}
+
+function getNavItemHref(item: NavItem, enableOnePageMode?: boolean): string {
+  if (isHomeSectionItem(item)) {
+    return item.href || `/#${item.target}`;
+  }
+  if (enableOnePageMode) {
+    return item.href === '/' ? '/' : `/#${item.target}`;
+  }
+  return item.href;
+}
+
+function hashForNavItem(item: NavItem): string {
+  if (item.href?.includes('#')) {
+    return item.href.slice(item.href.indexOf('#'));
+  }
+  return `#${item.target}`;
+}
+
 export default function Navigation({
   items,
   siteTitle,
@@ -73,64 +96,83 @@ export default function Navigation({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setActiveHash(window.location.hash);
+    const handleHashChange = () => setActiveHash(window.location.hash);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const homeSectionItems = useMemo(
+    () => effectiveItems.filter(isHomeSectionItem),
+    [effectiveItems]
+  );
+
   const visibleSections = useRef(new Set<string>());
 
   useEffect(() => {
-    if (enableOnePageMode) {
-      setActiveHash(window.location.hash);
-      const handleHashChange = () => setActiveHash(window.location.hash);
-      window.addEventListener('hashchange', handleHashChange);
+    const usesSectionObserver = enableOnePageMode || homeSectionItems.length > 0;
+    if (!usesSectionObserver) {
+      return;
+    }
 
-      visibleSections.current.clear();
+    visibleSections.current.clear();
 
-      const observerCallback = (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            visibleSections.current.add(entry.target.id);
-          } else {
-            visibleSections.current.delete(entry.target.id);
-          }
-        });
-
-        const firstVisible = effectiveItems.find(
-          (item) => item.type === 'page' && visibleSections.current.has(item.target)
-        );
-        if (firstVisible) {
-          setActiveHash(firstVisible.target === 'about' ? '' : `#${firstVisible.target}`);
-        }
-      };
-
-      const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0,
-      };
-
-      const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-      effectiveItems.forEach((item) => {
-        if (item.type === 'page') {
-          const element = document.getElementById(item.target);
-          if (element) observer.observe(element);
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          visibleSections.current.add(entry.target.id);
+        } else {
+          visibleSections.current.delete(entry.target.id);
         }
       });
 
-      return () => {
-        window.removeEventListener('hashchange', handleHashChange);
-        observer.disconnect();
-      };
+      const observedItems = enableOnePageMode
+        ? effectiveItems.filter((item) => item.type === 'page')
+        : homeSectionItems;
+
+      const firstVisible = observedItems.find((item) => visibleSections.current.has(item.target));
+      if (firstVisible) {
+        const nextHash = hashForNavItem(firstVisible);
+        setActiveHash(firstVisible.type === 'page' && firstVisible.target === 'about' ? '' : nextHash);
+      }
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const targets = enableOnePageMode
+      ? effectiveItems.filter((item) => item.type === 'page').map((item) => item.target)
+      : homeSectionItems.map((item) => item.target);
+
+    targets.forEach((target) => {
+      const element = document.getElementById(target);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [enableOnePageMode, effectiveItems, homeSectionItems]);
+
+  const isDesktopItemActive = (item: NavItem) => {
+    if (isHomeSectionItem(item)) {
+      return pathname === '/' && activeHash === hashForNavItem(item);
     }
-  }, [enableOnePageMode, effectiveItems]);
 
-  const isDesktopItemActive = (item: SiteConfig['navigation'][number]) =>
-    enableOnePageMode
-      ? activeHash === `#${item.target}` || (!activeHash && item.target === 'about')
-      : (item.href === '/'
-        ? pathname === '/'
-        : pathname.startsWith(item.href));
+    if (enableOnePageMode) {
+      return activeHash === `#${item.target}` || (!activeHash && item.target === 'about');
+    }
 
-  const getDesktopItemHref = (item: SiteConfig['navigation'][number]) =>
-    enableOnePageMode ? `/#${item.target}` : item.href;
+    return item.href === '/'
+      ? pathname === '/' && !activeHash
+      : pathname.startsWith(item.href);
+  };
+
+  const getDesktopItemHref = (item: NavItem) => getNavItemHref(item, enableOnePageMode);
 
   const activeItem = effectiveItems.find((item) => isDesktopItemActive(item)) ?? null;
   const activeHref = activeItem ? getDesktopItemHref(activeItem) : null;
@@ -235,7 +277,11 @@ export default function Navigation({
                             href={href}
                             data-nav-href={href}
                             prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
+                            onClick={() => {
+                              if (enableOnePageMode || isHomeSectionItem(item)) {
+                                setActiveHash(hashForNavItem(item));
+                              }
+                            }}
                             onMouseEnter={() => setHoveredHref(href)}
                             className={cn(
                               'relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
@@ -290,15 +336,15 @@ export default function Navigation({
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {effectiveItems.map((item, index) => {
-                      const isActive = enableOnePageMode
-                        ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
-                        : (item.href === '/'
-                          ? pathname === '/'
-                          : pathname.startsWith(item.href));
+                      const isActive = isHomeSectionItem(item)
+                        ? pathname === '/' && activeHash === hashForNavItem(item)
+                        : enableOnePageMode
+                          ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
+                          : (item.href === '/'
+                            ? pathname === '/' && !activeHash
+                            : pathname.startsWith(item.href));
 
-                      const href = enableOnePageMode
-                        ? (item.href === '/' ? '/' : `/#${item.target}`)
-                        : item.href;
+                      const href = getNavItemHref(item, enableOnePageMode);
 
                       return (
                         <motion.div
@@ -311,7 +357,11 @@ export default function Navigation({
                             as={Link}
                             href={href}
                             prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
+                            onClick={() => {
+                              if (enableOnePageMode || isHomeSectionItem(item)) {
+                                setActiveHash(item.href === '/' ? '' : hashForNavItem(item));
+                              }
+                            }}
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
