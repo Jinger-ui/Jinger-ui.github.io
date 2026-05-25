@@ -1,6 +1,10 @@
 'use client';
 
-import type { JourneyItem } from '@/components/layout/Journey';
+export interface JourneyItem {
+  date: string;
+  content: string;
+  kind?: 'education' | 'internship' | 'research';
+}
 
 interface JourneyProps {
   items: JourneyItem[];
@@ -134,5 +138,3 @@ export default function Journey({
     </section>
   );
 }
-
-export type { JourneyItem };
