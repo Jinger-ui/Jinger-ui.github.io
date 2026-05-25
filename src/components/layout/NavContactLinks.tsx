@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentType } from 'react';
-import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { Github, Linkedin } from 'lucide-react';
 import type { SiteConfig } from '@/lib/config';
 import { cn } from '@/lib/utils';
@@ -23,10 +23,6 @@ export default function NavContactLinks({
   variant = 'desktop',
   className,
 }: NavContactLinksProps) {
-  const phoneHref = social.phone
-    ? `tel:${String(social.phone).replace(/[^\d+]/g, '')}`
-    : undefined;
-
   const entries: {
     key: string;
     label: string;
@@ -41,15 +37,6 @@ export default function NavContactLinks({
       label: 'Email',
       href: `mailto:${social.email}`,
       icon: EnvelopeIcon,
-    });
-  }
-
-  if (social.phone && phoneHref) {
-    entries.push({
-      key: 'phone',
-      label: String(social.phone),
-      href: phoneHref,
-      icon: PhoneIcon,
     });
   }
 
