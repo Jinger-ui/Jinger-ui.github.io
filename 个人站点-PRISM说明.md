@@ -38,8 +38,9 @@ npm run build
 | `content/publications.bib` | 论文（BibTeX；`selected = {true}` 会出现在首页「Selected」区块） |
 | `content/projects.toml` | 项目卡片页 |
 | `content/awards.toml` | 奖项卡片页 |
-| `content/cv.md` / `cv.toml` | 简历长页（Markdown） |
 | `public/avatar.svg` | 头像占位（可换成你自己的 `bio.jpg` 等，并在 `config.toml` 里改 `[author].avatar`） |
+
+联系方式在 **`config.toml` 的 `[social]`** 与首页 **Profile** 区块展示；未使用独立 CV 页。
 
 如需 **中文**界面，可把上游的 `content_zh/` 对齐复制并再在 `config.toml` 打开 `[i18n]`（参见 PRISM README）。
 
