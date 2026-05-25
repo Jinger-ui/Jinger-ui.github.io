@@ -52,7 +52,7 @@ export default function Footer({
           <Journey
             items={journeyItems}
             title={journeyTitle}
-            className="order-1 lg:order-2 lg:max-w-[34rem] lg:ml-auto"
+            className="order-1 lg:order-2 w-full sm:max-w-xs lg:max-w-sm lg:ml-auto"
           />
         </div>
       </div>

@@ -37,38 +37,63 @@ export default function Journey({ items, title = 'Journey', className = '' }: Jo
       aria-label={title}
       className={`w-full ${className}`}
     >
-      <div className="flex items-center justify-end gap-2 mb-3">
+      <div className="flex items-center justify-end gap-2 mb-2.5">
         <h2 className="text-sm font-serif font-bold text-primary tracking-tight">{title}</h2>
         <span className="text-[10px] uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
-          scroll →
+          scroll ↓
         </span>
       </div>
 
       <div
-        className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth overscroll-x-contain [-webkit-overflow-scrolling:touch] [scrollbar-width:thin] justify-start lg:justify-end"
-        role="list"
+        className="relative rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-sm overflow-hidden"
+        style={{ maxHeight: '15.5rem' }}
       >
-        {items.map((item, index) => {
-          const kind = item.kind === 'education' || item.kind === 'internship' ? item.kind : 'internship';
+        <div
+          className="overflow-y-auto overscroll-y-contain scroll-smooth [-webkit-overflow-scrolling:touch] [scrollbar-width:thin] px-4 py-3.5"
+          style={{ maxHeight: '15.5rem' }}
+          role="list"
+          aria-label={`${title} timeline`}
+        >
+          <ol className="relative ml-2 border-l-2 border-neutral-200 dark:border-neutral-700">
+            {items.map((item, index) => {
+              const kind = item.kind === 'education' || item.kind === 'internship' ? item.kind : 'internship';
+              const isLast = index === items.length - 1;
 
-          return (
-            <article
-              key={`${item.date}-${index}`}
-              role="listitem"
-              className="snap-start shrink-0 w-[min(17.5rem,calc(100vw-3rem))] text-left rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-3.5 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span
-                  className={`text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full border ${kindStyles[kind]}`}
+              return (
+                <li
+                  key={`${item.date}-${index}`}
+                  role="listitem"
+                  className={`relative pl-5 ${isLast ? 'pb-0' : 'pb-5'}`}
                 >
-                  {kindLabels[kind]}
-                </span>
-                <time className="text-xs font-medium text-neutral-500 tabular-nums">{item.date}</time>
-              </div>
-              <p className="text-xs leading-relaxed text-neutral-700 dark:text-neutral-400">{item.content}</p>
-            </article>
-          );
-        })}
+                  <span
+                    className="absolute -left-[5px] top-1.5 z-10 h-2 w-2 rounded-full border-2 border-accent bg-background dark:bg-neutral-900"
+                    aria-hidden="true"
+                  />
+
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
+                    <time className="text-[11px] font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
+                      {item.date}
+                    </time>
+                    <span
+                      className={`text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full border ${kindStyles[kind]}`}
+                    >
+                      {kindLabels[kind]}
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] leading-relaxed text-neutral-700 dark:text-neutral-400">
+                    {item.content}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white/95 to-transparent dark:from-neutral-900/95"
+          aria-hidden="true"
+        />
       </div>
     </section>
   );
