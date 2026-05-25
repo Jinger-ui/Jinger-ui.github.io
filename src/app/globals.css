@@ -243,6 +243,33 @@ body {
   background: var(--neutral-500);
 }
 
+/* Journey footer panel — always show a thin scrollbar */
+.journey-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-300) transparent;
+}
+
+.journey-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.journey-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.journey-scroll::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: 999px;
+}
+
+.dark .journey-scroll {
+  scrollbar-color: var(--neutral-600) transparent;
+}
+
+.dark .journey-scroll::-webkit-scrollbar-thumb {
+  background: var(--neutral-600);
+}
+
 /* Card background utility */
 .card-bg {
   background-color: #ffffff;

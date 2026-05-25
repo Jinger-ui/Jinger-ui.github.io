@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useLocaleStore } from '@/lib/stores/localeStore';
 
 export interface JourneyItem {
@@ -26,6 +27,25 @@ const kindLabels: Record<'education' | 'internship', string> = {
 
 export default function Journey({ items, title = 'Journey', className = '' }: JourneyProps) {
   useLocaleStore((state) => state.locale);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    const onWheel = (event: WheelEvent) => {
+      const { scrollTop, scrollHeight, clientHeight } = panel;
+      const atTop = scrollTop <= 0;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+      if ((event.deltaY < 0 && !atTop) || (event.deltaY > 0 && !atBottom)) {
+        event.preventDefault();
+      }
+    };
+
+    panel.addEventListener('wheel', onWheel, { passive: false });
+    return () => panel.removeEventListener('wheel', onWheel);
+  }, []);
 
   if (!items.length) {
     return null;
@@ -35,7 +55,7 @@ export default function Journey({ items, title = 'Journey', className = '' }: Jo
     <section
       id="journey"
       aria-label={title}
-      className={`w-full ${className}`}
+      className={`w-full min-w-0 ${className}`}
     >
       <div className="flex items-center justify-end gap-2 mb-2.5">
         <h2 className="text-sm font-serif font-bold text-primary tracking-tight">{title}</h2>
@@ -44,17 +64,15 @@ export default function Journey({ items, title = 'Journey', className = '' }: Jo
         </span>
       </div>
 
-      <div
-        className="relative rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-sm overflow-hidden"
-        style={{ maxHeight: '15.5rem' }}
-      >
+      <div className="relative h-72 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
         <div
-          className="overflow-y-auto overscroll-y-contain scroll-smooth [-webkit-overflow-scrolling:touch] [scrollbar-width:thin] px-4 py-3.5"
-          style={{ maxHeight: '15.5rem' }}
+          ref={panelRef}
+          tabIndex={0}
+          className="journey-scroll h-full overflow-y-scroll overscroll-y-contain touch-pan-y px-4 py-3.5 pr-3 scroll-smooth focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-xl"
           role="list"
           aria-label={`${title} timeline`}
         >
-          <ol className="relative ml-2 border-l-2 border-neutral-200 dark:border-neutral-700">
+          <ol className="relative ml-2 border-l-2 border-accent/35 dark:border-accent/25">
             {items.map((item, index) => {
               const kind = item.kind === 'education' || item.kind === 'internship' ? item.kind : 'internship';
               const isLast = index === items.length - 1;
@@ -63,10 +81,10 @@ export default function Journey({ items, title = 'Journey', className = '' }: Jo
                 <li
                   key={`${item.date}-${index}`}
                   role="listitem"
-                  className={`relative pl-5 ${isLast ? 'pb-0' : 'pb-5'}`}
+                  className={`relative pl-5 ${isLast ? 'pb-1' : 'pb-5'}`}
                 >
                   <span
-                    className="absolute -left-[5px] top-1.5 z-10 h-2 w-2 rounded-full border-2 border-accent bg-background dark:bg-neutral-900"
+                    className="absolute -left-[6px] top-1.5 z-10 h-2.5 w-2.5 rounded-full border-2 border-accent bg-white dark:bg-neutral-900 shadow-sm"
                     aria-hidden="true"
                   />
 
@@ -91,7 +109,7 @@ export default function Journey({ items, title = 'Journey', className = '' }: Jo
         </div>
 
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white/95 to-transparent dark:from-neutral-900/95"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-8 rounded-b-xl bg-gradient-to-t from-white via-white/80 to-transparent dark:from-neutral-900 dark:via-neutral-900/80"
           aria-hidden="true"
         />
       </div>
