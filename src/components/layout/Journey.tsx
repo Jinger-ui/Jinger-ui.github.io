@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export interface JourneyItem {
   date: string;
   end_date?: string;
@@ -10,6 +12,8 @@ export interface JourneyItem {
 interface JourneyProps {
   items: JourneyItem[];
   title?: string;
+  titleImage?: string;
+  titleImageDark?: string;
   className?: string;
   titleAlign?: 'left' | 'right';
   variant?: 'compact' | 'fullscreen';
@@ -74,6 +78,37 @@ function formatJourneyPeriod(item: JourneyItem): string {
 function isAcademicKind(kind?: string): boolean {
   const resolved = resolveKind(kind);
   return resolved === 'education' || resolved === 'research';
+}
+
+function JourneyTitleImage({
+  lightSrc,
+  darkSrc,
+  sizeClass,
+}: {
+  lightSrc: string;
+  darkSrc: string;
+  sizeClass: string;
+}) {
+  const imageClass = `${sizeClass} w-auto max-w-[5rem] object-contain shrink-0`;
+
+  return (
+    <span className="inline-flex shrink-0" aria-hidden="true">
+      <Image
+        src={lightSrc}
+        alt=""
+        width={80}
+        height={20}
+        className={`${imageClass} dark:hidden`}
+      />
+      <Image
+        src={darkSrc}
+        alt=""
+        width={80}
+        height={20}
+        className={`${imageClass} hidden dark:block`}
+      />
+    </span>
+  );
 }
 
 interface TimelineListProps {
@@ -172,6 +207,8 @@ function TimelinePanel({ items, isFullscreen, ariaLabel, className = '' }: Timel
 export default function Journey({
   items,
   title = 'Journey',
+  titleImage,
+  titleImageDark,
   className = '',
   titleAlign = 'right',
   variant = 'compact',
@@ -210,6 +247,10 @@ export default function Journey({
       ? panelRoundedClass
       : `${panelBaseClass} ${panelSizeClass}`;
 
+  const titleSizeClass = isFullscreen ? 'text-2xl' : 'text-sm';
+  const titleImageSizeClass = isFullscreen ? 'h-8' : 'h-[1.25rem]';
+  const resolvedDarkImage = titleImageDark ?? titleImage;
+
   return (
     <section
       id="journey"
@@ -219,15 +260,25 @@ export default function Journey({
       <div
         className={`flex items-center gap-2 mb-3 ${titleAlign === 'left' ? 'justify-start' : 'justify-end'}`}
       >
+        {titleImage && titleAlign === 'left' && resolvedDarkImage && (
+          <JourneyTitleImage
+            lightSrc={titleImage}
+            darkSrc={resolvedDarkImage}
+            sizeClass={titleImageSizeClass}
+          />
+        )}
         <h2
-          className={
-            isFullscreen
-              ? 'text-2xl font-serif font-bold text-primary tracking-tight'
-              : 'text-sm font-serif font-bold text-primary tracking-tight'
-          }
+          className={`${titleSizeClass} font-serif font-bold text-primary tracking-tight leading-none`}
         >
           {title}
         </h2>
+        {titleImage && titleAlign === 'right' && resolvedDarkImage && (
+          <JourneyTitleImage
+            lightSrc={titleImage}
+            darkSrc={resolvedDarkImage}
+            sizeClass={titleImageSizeClass}
+          />
+        )}
         <span className="text-[10px] uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
           wheel ↓
         </span>

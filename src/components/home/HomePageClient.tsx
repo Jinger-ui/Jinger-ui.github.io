@@ -60,6 +60,8 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                 <Journey
                   items={data.journeyItems}
                   title="Journey"
+                  titleImage="/journey-light.png"
+                  titleImageDark="/black.png"
                   titleAlign="left"
                   variant="compact"
                   fillHeight
