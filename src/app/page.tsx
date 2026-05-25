@@ -5,6 +5,36 @@ import HomePageClient, { type HomePageLocaleData } from '@/components/home/HomeP
 import { CardPageConfig, PublicationPageConfig } from '@/types/page';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 
+const SELECTED_PROJECT_COUNT = 5;
+
+function splitProjectsConfig(projectsConfig: CardPageConfig): CardPageConfig[] {
+  const selectedItems = projectsConfig.items.slice(0, SELECTED_PROJECT_COUNT);
+  const playgroundItems = projectsConfig.items.slice(SELECTED_PROJECT_COUNT);
+
+  const sections: CardPageConfig[] = [
+    {
+      ...projectsConfig,
+      title: 'Selected Projects',
+      description:
+        projectsConfig.description ||
+        'Five most recent projects — capstone, NUS-ISS coursework, and team deliveries.',
+      items: selectedItems,
+    },
+  ];
+
+  if (playgroundItems.length > 0) {
+    sections.push({
+      ...projectsConfig,
+      title: 'Playground',
+      description:
+        'Earlier research, individual builds, publications, and exploratory work from undergraduate and industry collaborations.',
+      items: playgroundItems,
+    });
+  }
+
+  return sections;
+}
+
 function loadHomePageData(locale?: string): HomePageLocaleData {
   const localeConfig = getConfig(locale);
   const aboutConfig = getPageConfig<{ profile?: { research_interests?: string[] } }>('about', locale);
@@ -12,8 +42,15 @@ function loadHomePageData(locale?: string): HomePageLocaleData {
   const pagesToShow: HomePageLocaleData['pagesToShow'] = [];
 
   const projectsConfig = getPageConfig('projects', locale) as CardPageConfig | null;
-  if (projectsConfig) {
-    pagesToShow.push({ type: 'card', id: 'projects', config: projectsConfig });
+  if (projectsConfig?.items?.length) {
+    const projectSections = splitProjectsConfig(projectsConfig);
+    projectSections.forEach((config, index) => {
+      pagesToShow.push({
+        type: 'card',
+        id: index === 0 ? 'selected-projects' : 'playground',
+        config,
+      });
+    });
   }
 
   const pubConfig = getPageConfig('publications', locale) as PublicationPageConfig | null;

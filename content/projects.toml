@@ -1,6 +1,6 @@
 type = "card"
-title = "Project Experience"
-description = "All **16** resume (LaTeX v6) projects — coursework, solo work, collaborations, and published work. Full list renders without relying on animations."
+title = "Selected Projects"
+description = "Five most recent projects — capstone, NUS-ISS coursework, and team deliveries."
 
 [[items]]
 title = "EcoGo — Sustainability Capstone"
