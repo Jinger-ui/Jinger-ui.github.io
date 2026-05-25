@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
-import { getPageConfig, getMarkdownContent, getBibtexContent } from '@/lib/content';
+import { getPageConfig, getMarkdownContent, getBibtexContent, getTomlContent } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import { parseBibTeX } from '@/lib/bibtexParser';
 import { processSections } from '@/lib/sections';
 import DynamicPageClient, { type DynamicPageLocaleData } from '@/components/pages/DynamicPageClient';
 import AboutPageClient, { type AboutPageLocaleData } from '@/components/pages/AboutPageClient';
+import type { JourneyItem } from '@/components/layout/Journey';
 import {
   BasePageConfig,
   PublicationPageConfig,
@@ -63,6 +64,7 @@ function loadAboutPageData(locale?: string): AboutPageLocaleData | null {
   }
 
   const localeConfig = getConfig(locale);
+  const journeyData = getTomlContent<{ news: JourneyItem[] }>('news.toml', locale);
 
   return {
     author: localeConfig.author,
@@ -70,6 +72,7 @@ function loadAboutPageData(locale?: string): AboutPageLocaleData | null {
     features: localeConfig.features,
     researchInterests: aboutConfig.profile?.research_interests,
     sections: processSections(aboutConfig.sections, locale),
+    journeyItems: journeyData?.news || [],
   };
 }
 

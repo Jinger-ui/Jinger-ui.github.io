@@ -13,6 +13,7 @@ interface JourneyProps {
   items: JourneyItem[];
   title?: string;
   className?: string;
+  titleAlign?: 'left' | 'right';
 }
 
 const kindStyles: Record<'education' | 'internship', string> = {
@@ -25,7 +26,7 @@ const kindLabels: Record<'education' | 'internship', string> = {
   internship: 'Internship',
 };
 
-export default function Journey({ items, title = 'Journey', className = '' }: JourneyProps) {
+export default function Journey({ items, title = 'Journey', className = '', titleAlign = 'right' }: JourneyProps) {
   useLocaleStore((state) => state.locale);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +58,7 @@ export default function Journey({ items, title = 'Journey', className = '' }: Jo
       aria-label={title}
       className={`w-full min-w-0 ${className}`}
     >
-      <div className="flex items-center justify-end gap-2 mb-2.5">
+      <div className={`flex items-center gap-2 mb-2.5 ${titleAlign === 'left' ? 'justify-start' : 'justify-end'}`}>
         <h2 className="text-sm font-serif font-bold text-primary tracking-tight">{title}</h2>
         <span className="text-[10px] uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
           scroll ↓

@@ -2,6 +2,7 @@
 
 import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
+import Journey, { type JourneyItem } from '@/components/layout/Journey';
 import type { SiteConfig } from '@/lib/config';
 import { useLocaleStore } from '@/lib/stores/localeStore';
 import type { SectionConfig } from '@/lib/sections';
@@ -12,6 +13,7 @@ export interface AboutPageLocaleData {
   features: SiteConfig['features'];
   researchInterests?: string[];
   sections: SectionConfig[];
+  journeyItems: JourneyItem[];
 }
 
 interface AboutPageClientProps {
@@ -55,6 +57,14 @@ export default function AboutPageClient({ dataByLocale, defaultLocale }: AboutPa
               />
             );
           })}
+
+          {data.journeyItems.length > 0 && (
+            <Journey
+              items={data.journeyItems}
+              title="Journey"
+              titleAlign="left"
+            />
+          )}
         </div>
       </div>
     </div>
