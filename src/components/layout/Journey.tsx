@@ -6,7 +6,7 @@ import { useLocaleStore } from '@/lib/stores/localeStore';
 export interface JourneyItem {
   date: string;
   content: string;
-  kind?: 'education' | 'internship';
+  kind?: 'education' | 'internship' | 'research';
 }
 
 interface JourneyProps {
@@ -16,15 +16,24 @@ interface JourneyProps {
   titleAlign?: 'left' | 'right';
 }
 
-const kindStyles: Record<'education' | 'internship', string> = {
+const kindStyles: Record<'education' | 'internship' | 'research', string> = {
   education: 'bg-accent/15 text-accent border-accent/25',
   internship: 'bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700',
+  research: 'bg-sky-500/10 text-sky-700 border-sky-500/25 dark:text-sky-300 dark:border-sky-500/30',
 };
 
-const kindLabels: Record<'education' | 'internship', string> = {
+const kindLabels: Record<'education' | 'internship' | 'research', string> = {
   education: 'Education',
   internship: 'Internship',
+  research: 'Research',
 };
+
+function resolveKind(kind?: string): 'education' | 'internship' | 'research' {
+  if (kind === 'education' || kind === 'internship' || kind === 'research') {
+    return kind;
+  }
+  return 'internship';
+}
 
 export default function Journey({ items, title = 'Journey', className = '', titleAlign = 'right' }: JourneyProps) {
   useLocaleStore((state) => state.locale);
@@ -39,8 +48,12 @@ export default function Journey({ items, title = 'Journey', className = '', titl
       const atTop = scrollTop <= 0;
       const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
 
-      if ((event.deltaY < 0 && !atTop) || (event.deltaY > 0 && !atBottom)) {
+      if (event.deltaY > 0 && !atBottom) {
         event.preventDefault();
+        panel.scrollTop += event.deltaY;
+      } else if (event.deltaY < 0 && !atTop) {
+        event.preventDefault();
+        panel.scrollTop += event.deltaY;
       }
     };
 
@@ -61,7 +74,7 @@ export default function Journey({ items, title = 'Journey', className = '', titl
       <div className={`flex items-center gap-2 mb-2.5 ${titleAlign === 'left' ? 'justify-start' : 'justify-end'}`}>
         <h2 className="text-sm font-serif font-bold text-primary tracking-tight">{title}</h2>
         <span className="text-[10px] uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
-          scroll ↓
+          wheel ↓
         </span>
       </div>
 
@@ -69,13 +82,13 @@ export default function Journey({ items, title = 'Journey', className = '', titl
         <div
           ref={panelRef}
           tabIndex={0}
-          className="journey-scroll h-full overflow-y-scroll overscroll-y-contain touch-pan-y px-4 py-3.5 pr-3 scroll-smooth focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-xl"
+          className="journey-scroll h-full overflow-y-auto overscroll-y-contain touch-pan-y px-4 py-3.5 scroll-smooth focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-xl"
           role="list"
           aria-label={`${title} timeline`}
         >
           <ol className="relative ml-2 border-l-2 border-accent/35 dark:border-accent/25">
             {items.map((item, index) => {
-              const kind = item.kind === 'education' || item.kind === 'internship' ? item.kind : 'internship';
+              const kind = resolveKind(item.kind);
               const isLast = index === items.length - 1;
 
               return (

@@ -1,7 +1,7 @@
 [[news]]
 date = "2026-04"
 kind = "internship"
-content = "Starting Systems Automation Engineering internship at SP Group (Singapore) — forecasting, sensing, Azure & CI/CD."
+content = "Systems Automation Engineering internship at SP Group (Singapore) — vibration sensing, forecasting, Azure migration & CI/CD."
 
 [[news]]
 date = "2025-08"
@@ -22,3 +22,28 @@ content = "Graduated / completed bachelor track in Computer Science (XMUM) — c
 date = "2024-08"
 kind = "internship"
 content = "Rural commercial bank IT internship: ~20 loan-data RPA flows, honeypot & security tooling, ISO 20000–aligned ops."
+
+[[news]]
+date = "2023-11"
+kind = "internship"
+content = "China Southern Power Grid IT internship: CSG-YOLO (YOLOv8) pilot, Kylin OS deployment, dataset & inference review."
+
+[[news]]
+date = "2023-07"
+kind = "research"
+content = "Research Assistant at GUFE — credit-card fraud & illegal trading analytics, ML risk patterns, regional anti-fraud study."
+
+[[news]]
+date = "2022-06"
+kind = "research"
+content = "Research Assistant at XMU (Industrial Bank & Hyperfusion) — SecretFlow/SPU privacy-preserving ML, React orchestration portal, PSI preprocessing."
+
+[[news]]
+date = "2021-08"
+kind = "internship"
+content = "Guizhou Rural Credit Cooperative internship — SME banking ops, loan/transaction data cleansing, irregular card-behavior screening."
+
+[[news]]
+date = "2020-09"
+kind = "education"
+content = "Started B.Sc. in Computer Science and Technology at Xiamen University Malaysia (XMUM)."
