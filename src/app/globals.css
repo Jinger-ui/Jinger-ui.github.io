@@ -62,6 +62,23 @@
   --playground-accent-foreground: #f8fafc;
   --playground-section-shadow: rgba(15, 23, 42, 0.08);
 
+  /* Site background — soften edges, keep center clear for content */
+  --site-bg-image-opacity: 0.68;
+  --site-bg-vignette: radial-gradient(
+    ellipse 82% 72% at 50% 38%,
+    transparent 0%,
+    color-mix(in srgb, var(--background) 18%, transparent) 48%,
+    color-mix(in srgb, var(--background) 62%, transparent) 72%,
+    color-mix(in srgb, var(--background) 90%, transparent) 100%
+  );
+  --site-bg-edge-fade: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background) 45%, transparent) 0%,
+    transparent 14%,
+    transparent 86%,
+    color-mix(in srgb, var(--background) 40%, transparent) 100%
+  );
+
   /* Playground category accents — light */
   --pg-built-a: rgba(59, 130, 246, 0.2);
   --pg-built-b: rgba(125, 211, 252, 0.12);
@@ -212,6 +229,23 @@ html[data-locale^="zh"] {
   --playground-accent-foreground: #082f49;
   --playground-section-shadow: rgba(2, 8, 23, 0.42);
 
+  /* Site background — night */
+  --site-bg-image-opacity: 0.58;
+  --site-bg-vignette: radial-gradient(
+    ellipse 82% 72% at 50% 38%,
+    transparent 0%,
+    color-mix(in srgb, var(--background) 22%, transparent) 46%,
+    color-mix(in srgb, var(--background) 68%, transparent) 70%,
+    color-mix(in srgb, var(--background) 92%, transparent) 100%
+  );
+  --site-bg-edge-fade: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background) 55%, transparent) 0%,
+    transparent 12%,
+    transparent 88%,
+    color-mix(in srgb, var(--background) 50%, transparent) 100%
+  );
+
   /* Playground category accents — night */
   --pg-built-a: rgba(14, 165, 233, 0.28);
   --pg-built-b: rgba(56, 189, 248, 0.14);
@@ -250,37 +284,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light mode — decorative site background */
-html.light body {
-  background-color: var(--background);
-}
-
-html.light body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: url('/light-background.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}
-
-/* Night mode — decorative site background */
+/* Decorative site backgrounds — image + center vignette */
+html.light body,
 html.dark body {
   background-color: var(--background);
 }
 
+html.light body::before,
 html.dark body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;
-  background-image: url('/night-background.png');
+  z-index: -2;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
+  opacity: var(--site-bg-image-opacity);
+  pointer-events: none;
+}
+
+html.light body::before {
+  background-image: url('/light-background.png');
+}
+
+html.dark body::before {
+  background-image: url('/night-background.png');
+}
+
+html.light body::after,
+html.dark body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--site-bg-vignette), var(--site-bg-edge-fade);
   pointer-events: none;
 }
 
