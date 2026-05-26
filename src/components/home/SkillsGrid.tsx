@@ -33,7 +33,7 @@ export default function SkillsGrid({ categories, className }: SkillsGridProps) {
               {category.items.map((item) => (
                 <li
                   key={item}
-                  className="text-[11px] leading-tight px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 dark:bg-white dark:text-neutral-900"
+                  className="text-[11px] leading-tight px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 dark:bg-neutral-900 dark:text-white dark:border dark:border-neutral-700/80"
                 >
                   {item}
                 </li>
