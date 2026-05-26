@@ -24,7 +24,7 @@ export default function SkillsGrid({ categories, className }: SkillsGridProps) {
         {categories.map((category) => (
           <article
             key={category.title}
-            className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3.5 py-3 shadow-sm"
+            className="rounded-xl border border-neutral-200 dark:border-neutral-700/60 bg-white dark:bg-neutral-900/55 dark:backdrop-blur-sm px-3.5 py-3 shadow-sm"
           >
             <h3 className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-white mb-2">
               {category.title}
@@ -33,7 +33,7 @@ export default function SkillsGrid({ categories, className }: SkillsGridProps) {
               {category.items.map((item) => (
                 <li
                   key={item}
-                  className="text-[11px] leading-tight px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 dark:bg-neutral-900 dark:text-white dark:border dark:border-neutral-700/80"
+                  className="text-[11px] leading-tight px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 dark:bg-neutral-950 dark:text-white dark:border dark:border-neutral-600/70"
                 >
                   {item}
                 </li>
