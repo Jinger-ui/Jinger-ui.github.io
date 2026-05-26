@@ -71,8 +71,8 @@ export default function PlaygroundMasonry({
               className={cn(
                 'shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300',
                 active
-                  ? 'border-white/25 bg-white text-neutral-950'
-                  : 'border-white/10 bg-white/5 text-white/65 hover:border-white/20 hover:text-white'
+                  ? 'border-border bg-playground-accent text-playground-accent-foreground'
+                  : 'border-border bg-muted/60 text-muted-foreground hover:bg-surface-hover hover:text-foreground'
               )}
             >
               {category.label}
@@ -97,9 +97,9 @@ export default function PlaygroundMasonry({
                 transition={{ duration: 0.35, delay: mounted ? index * 0.03 : 0 }}
                 id={`playground-card-${project.id}`}
                 className={cn(
-                  'mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm transition-all duration-300',
+                  'mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card/85 text-card-foreground backdrop-blur-sm transition-all duration-300',
                   cardHeightClass(heightKey),
-                  isExpanded && 'ring-2 ring-white/30'
+                  isExpanded && 'ring-2 ring-playground-accent/40'
                 )}
               >
                 <button
@@ -107,20 +107,29 @@ export default function PlaygroundMasonry({
                   onClick={() => setExpandedId((prev) => (prev === project.id ? null : project.id))}
                   className="group relative block h-full w-full text-left"
                 >
-                  <div className={cn('absolute inset-0 bg-gradient-to-br opacity-80', project.accent)} />
-                  <div className="absolute inset-0 bg-neutral-950/20 transition duration-500 group-hover:bg-neutral-950/45 md:group-hover:bg-neutral-950/55" />
+                  <div className={cn('absolute inset-0 opacity-90', project.accent)} />
+                  <div
+                    className={cn(
+                      'pg-overlay absolute inset-0',
+                      isExpanded && 'pg-overlay-active'
+                    )}
+                  />
 
                   <div className="relative flex h-full flex-col justify-between p-5">
                     <div>
                       <div className="mb-3 flex items-center justify-between gap-3">
-                        <span className="rounded-full border border-white/10 bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-white/70">
+                        <span className="rounded-full border border-border bg-muted/70 px-2 py-0.5 text-[10px] uppercase tracking-wider text-card-foreground">
                           {categoryLabel(project.category)}
                         </span>
                         {project.date && (
-                          <span className="text-xs tabular-nums text-white/45">{project.date}</span>
+                          <span className="text-xs tabular-nums text-muted-foreground">
+                            {project.date}
+                          </span>
                         )}
                       </div>
-                      <h3 className="text-lg font-semibold leading-snug text-white">{project.title}</h3>
+                      <h3 className="text-lg font-semibold leading-snug text-card-foreground">
+                        {project.title}
+                      </h3>
                     </div>
 
                     <div className="mt-4 flex items-end justify-between gap-3">
@@ -128,16 +137,18 @@ export default function PlaygroundMasonry({
                         className={cn(
                           'space-y-2 transition-all duration-300',
                           'max-h-0 overflow-hidden opacity-0 md:group-hover:max-h-40 md:group-hover:opacity-100',
-                          expandedId === project.id && 'max-h-40 opacity-100'
+                          isExpanded && 'max-h-40 opacity-100'
                         )}
                       >
-                        <p className="text-sm leading-relaxed text-white/70">{project.summary}</p>
+                        <p className="text-sm leading-relaxed text-muted-foreground">
+                          {project.summary}
+                        </p>
                         {project.tags && (
                           <div className="flex flex-wrap gap-1.5">
                             {project.tags.slice(0, 3).map((tag) => (
                               <span
                                 key={tag}
-                                className="rounded-md border border-white/10 bg-black/20 px-2 py-0.5 text-[10px] text-white/55"
+                                className="rounded-md border border-border bg-surface/70 px-2 py-0.5 text-[10px] text-muted-foreground"
                               >
                                 {tag}
                               </span>
@@ -145,7 +156,7 @@ export default function PlaygroundMasonry({
                           </div>
                         )}
                       </div>
-                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 transition group-hover:scale-105 group-hover:bg-white group-hover:text-neutral-950">
+                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-muted/70 text-muted-foreground transition group-hover:scale-105 group-hover:bg-playground-accent group-hover:text-playground-accent-foreground">
                         <ArrowUpRightIcon className="h-4 w-4" />
                       </span>
                     </div>

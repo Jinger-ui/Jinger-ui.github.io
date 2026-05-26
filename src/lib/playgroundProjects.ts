@@ -56,10 +56,10 @@ const SUMMARY_BY_TITLE: Record<string, string> = {
 };
 
 const ACCENT_BY_CATEGORY: Record<PlaygroundCategory, string> = {
-  built: 'from-sky-500/40 via-cyan-500/20 to-neutral-900',
-  designed: 'from-violet-500/40 via-fuchsia-500/20 to-neutral-900',
-  researched: 'from-amber-500/35 via-orange-500/15 to-neutral-900',
-  explored: 'from-emerald-500/35 via-teal-500/15 to-neutral-900',
+  built: 'pg-accent-built',
+  designed: 'pg-accent-designed',
+  researched: 'pg-accent-researched',
+  explored: 'pg-accent-explored',
 };
 
 export const DEFAULT_FEATURED_TITLES = [

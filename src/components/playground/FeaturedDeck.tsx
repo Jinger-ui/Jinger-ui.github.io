@@ -28,22 +28,22 @@ function DeckCardFace({
   return (
     <div
       className={cn(
-        'relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/80 shadow-2xl backdrop-blur-md transition-shadow duration-300',
+        'relative h-full w-full overflow-hidden rounded-2xl border border-border bg-card/90 text-card-foreground shadow-lg backdrop-blur-md transition-shadow duration-300',
         interactive && 'group',
-        lifted && 'shadow-[0_24px_60px_rgba(0,0,0,0.45)]'
+        lifted && 'shadow-[0_24px_60px_var(--playground-section-shadow)]'
       )}
     >
-      <div className={cn('absolute inset-0 bg-gradient-to-br', project.accent)} />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_55%)]" />
+      <div className={cn('absolute inset-0', project.accent)} />
+      <div className="pg-card-sheen absolute inset-0" />
 
       <div className="relative flex h-full flex-col p-5 sm:p-6">
-        <div className="mb-4 aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-black/20">
+        <div className="pg-media-frame mb-4 aspect-[16/10] overflow-hidden rounded-xl">
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={project.image} alt="" className="h-full w-full object-cover" />
           ) : (
             <div className="flex h-full items-end p-4">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-white/50">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 {categoryLabel(project.category)}
               </span>
             </div>
@@ -52,23 +52,27 @@ function DeckCardFace({
 
         <div className="mt-auto space-y-3">
           <div className="flex items-center justify-between gap-3">
-            <span className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/80">
+            <span className="rounded-full border border-border bg-muted/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-card-foreground">
               {categoryLabel(project.category)}
             </span>
             {project.date && (
-              <span className="text-xs tabular-nums text-white/45">{project.date}</span>
+              <span className="text-xs tabular-nums text-muted-foreground">{project.date}</span>
             )}
           </div>
 
-          <h3 className="text-lg font-semibold leading-snug text-white sm:text-xl">{project.title}</h3>
-          <p className="line-clamp-2 text-sm leading-relaxed text-white/65">{project.summary}</p>
+          <h3 className="text-lg font-semibold leading-snug text-card-foreground sm:text-xl">
+            {project.title}
+          </h3>
+          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+            {project.summary}
+          </p>
 
           {project.tags && project.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
               {project.tags.slice(0, 4).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-white/60"
+                  className="rounded-md border border-border bg-surface/70 px-2 py-0.5 text-[10px] text-muted-foreground"
                 >
                   {tag}
                 </span>
@@ -78,8 +82,8 @@ function DeckCardFace({
 
           <div
             className={cn(
-              'flex items-center gap-1 text-sm font-medium text-white/85 transition-all duration-300',
-              interactive && 'group-hover:gap-2 group-hover:text-white'
+              'flex items-center gap-1 text-sm font-medium text-playground-accent transition-all duration-300',
+              interactive && 'group-hover:gap-2'
             )}
           >
             View Project
@@ -136,14 +140,14 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
           <button
             type="button"
             onClick={drawProject}
-            className="rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white/15 hover:border-white/25"
+            className="rounded-full border border-border bg-playground-accent px-5 py-2.5 text-sm font-medium text-playground-accent-foreground transition hover:brightness-110"
           >
             Draw a Project
           </button>
           <button
             type="button"
             onClick={shuffleDeck}
-            className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-white/70 transition hover:border-white/20 hover:text-white"
+            className="rounded-full border border-border bg-muted/70 px-5 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-surface-hover hover:text-foreground"
           >
             Shuffle
           </button>
@@ -151,13 +155,13 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
 
         {topProject && (
           <div className="mt-6 hidden max-w-md space-y-3 lg:block">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/40">Now showing</p>
-            <h3 className="text-2xl font-serif font-bold text-white">{topProject.title}</h3>
-            <p className="text-sm leading-relaxed text-white/60">{topProject.summary}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Now showing</p>
+            <h3 className="text-2xl font-serif font-bold text-foreground">{topProject.title}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{topProject.summary}</p>
             <button
               type="button"
               onClick={() => onViewProject(topProject.id)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-white/85 transition hover:gap-3 hover:text-white"
+              className="inline-flex items-center gap-2 text-sm font-medium text-playground-accent transition hover:gap-3"
             >
               View Project
               <ArrowRightIcon className="h-4 w-4" />
