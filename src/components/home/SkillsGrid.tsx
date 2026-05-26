@@ -26,14 +26,14 @@ export default function SkillsGrid({ categories, className }: SkillsGridProps) {
             key={category.title}
             className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3.5 py-3 shadow-sm"
           >
-            <h3 className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-2">
+            <h3 className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-white mb-2">
               {category.title}
             </h3>
             <ul className="flex flex-wrap gap-1.5">
               {category.items.map((item) => (
                 <li
                   key={item}
-                  className="text-[11px] leading-tight px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                  className="text-[11px] leading-tight px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 dark:bg-white dark:text-neutral-900"
                 >
                   {item}
                 </li>

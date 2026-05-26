@@ -25,9 +25,9 @@ interface JourneyProps {
 }
 
 const kindStyles: Record<'education' | 'internship' | 'research', string> = {
-  education: 'bg-accent/15 text-accent border-accent/25',
-  internship: 'bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700',
-  research: 'bg-sky-500/10 text-sky-700 border-sky-500/25 dark:text-sky-300 dark:border-sky-500/30',
+  education: 'bg-accent/15 text-accent border-accent/25 dark:bg-white/15 dark:text-white dark:border-white/30',
+  internship: 'bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-white/15 dark:text-white dark:border-white/30',
+  research: 'bg-sky-500/10 text-sky-700 border-sky-500/25 dark:bg-white/15 dark:text-white dark:border-white/30',
 };
 
 const kindLabels: Record<'education' | 'internship' | 'research', string> = {
@@ -120,7 +120,7 @@ interface TimelineListProps {
 function TimelineList({ items, isFullscreen, ariaLabel }: TimelineListProps) {
   if (!items.length) {
     return (
-      <p className="text-[11px] text-neutral-400 dark:text-neutral-500 italic px-1 py-2">
+      <p className="text-[11px] text-neutral-400 dark:text-neutral-300 italic px-1 py-2">
         No entries yet.
       </p>
     );
@@ -151,8 +151,8 @@ function TimelineList({ items, isFullscreen, ariaLabel }: TimelineListProps) {
                     <time
                       className={
                         isFullscreen
-                          ? 'text-sm font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums'
-                          : 'text-[11px] font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums'
+                          ? 'text-sm font-semibold text-neutral-600 dark:text-white tabular-nums'
+                          : 'text-[11px] font-semibold text-neutral-600 dark:text-white tabular-nums'
                       }
                     >
                       {formatJourneyPeriod(item)}
@@ -167,8 +167,8 @@ function TimelineList({ items, isFullscreen, ariaLabel }: TimelineListProps) {
             <p
               className={
                 isFullscreen
-                  ? 'text-sm leading-relaxed text-neutral-700 dark:text-neutral-400'
-                  : 'text-[11px] leading-relaxed text-neutral-700 dark:text-neutral-400'
+                  ? 'text-sm leading-relaxed text-neutral-700 dark:text-white'
+                  : 'text-[11px] leading-relaxed text-neutral-700 dark:text-white'
               }
             >
               {item.content}
@@ -281,7 +281,7 @@ export default function Journey({
         <div className={`${panelClass} flex flex-col min-h-0`}>
           <div className="grid grid-cols-1 sm:grid-cols-2 flex-1 min-h-0 divide-y sm:divide-y-0 sm:divide-x divide-neutral-200/80 dark:divide-neutral-800/80">
             <div className="flex flex-col min-h-0 min-w-0">
-              <h3 className="shrink-0 px-4 pt-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 border-b border-neutral-200/60 dark:border-neutral-800/60">
+              <h3 className="shrink-0 px-4 pt-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-white border-b border-neutral-200/60 dark:border-neutral-800/60">
                 Internship
               </h3>
               <TimelinePanel
@@ -292,7 +292,7 @@ export default function Journey({
               />
             </div>
             <div className="flex flex-col min-h-0 min-w-0">
-              <h3 className="shrink-0 px-4 pt-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 border-b border-neutral-200/60 dark:border-neutral-800/60">
+              <h3 className="shrink-0 px-4 pt-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-white border-b border-neutral-200/60 dark:border-neutral-800/60">
                 Academic
               </h3>
               <TimelinePanel
