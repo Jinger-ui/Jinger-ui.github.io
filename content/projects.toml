@@ -4,11 +4,11 @@ description = "Five most recent projects — capstone, NUS-ISS coursework, and t
 
 [[items]]
 title = "EcoGo — Sustainability Capstone"
-subtitle = "Technical Lead · NUS-ISS Graduate Diploma · Singapore"
+subtitle = "Full Stack Developer · NUS-ISS Graduate Diploma · Singapore"
 date = "2026"
 tags = ["React", "Kotlin", "Spring Boot", "Python", "RAG", "Kafka", "Elasticsearch", "CI/CD"]
-content = """- Led a six-member capstone delivering **EcoGo**: route-level **carbon visibility**, recommendation workflows, and AI-assisted mobility guidance.
-- End-to-end planning: React, Kotlin, Java **Spring Boot**, Python, MongoDB, MySQL, Redis, MinIO, Elasticsearch, Docker, SonarQube, JUnit, **GitHub Actions** — owned **Android**, **ML**, and **CI/CD** personally.
+content = """- Full-stack developer on a six-member capstone team delivering **EcoGo**: route-level **carbon visibility**, recommendation workflows, and AI-assisted mobility guidance.
+- Built across the stack: React, Kotlin, Java **Spring Boot**, Python, MongoDB, MySQL, Redis, MinIO, Elasticsearch, Docker, SonarQube, JUnit, **GitHub Actions** — owned **Android**, **ML**, and **CI/CD** personally.
 - **Low-carbon routing** integrating **NUS NextBus** and **Google Directions** APIs with carbon estimation; compare routes by time and emissions.
 - **LoRA²** conversational assistant (**Ollama** middleware + intent detection); **RAG** via Apache Tika, chunking/embeddings, **Elasticsearch hybrid** retrieval (KNN + IK keywords + BM25 re-ranking), **Kafka** async parsing/vectorization/indexing pipelines."""
 
