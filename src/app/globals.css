@@ -62,22 +62,8 @@
   --playground-accent-foreground: #f8fafc;
   --playground-section-shadow: rgba(15, 23, 42, 0.08);
 
-  /* Site background — soften edges, keep center clear for content */
+  /* Site background image opacity */
   --site-bg-image-opacity: 0.85;
-  --site-bg-vignette: radial-gradient(
-    ellipse 74% 64% at 50% 38%,
-    transparent 0%,
-    color-mix(in srgb, var(--background) 28%, transparent) 42%,
-    color-mix(in srgb, var(--background) 72%, transparent) 66%,
-    color-mix(in srgb, var(--background) 96%, transparent) 100%
-  );
-  --site-bg-edge-fade: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--background) 58%, transparent) 0%,
-    transparent 18%,
-    transparent 82%,
-    color-mix(in srgb, var(--background) 52%, transparent) 100%
-  );
 
   /* Playground category accents — light */
   --pg-built-a: rgba(59, 130, 246, 0.2);
@@ -229,22 +215,8 @@ html[data-locale^="zh"] {
   --playground-accent-foreground: #082f49;
   --playground-section-shadow: rgba(2, 8, 23, 0.42);
 
-  /* Site background — night */
-  --site-bg-image-opacity: 0.68;
-  --site-bg-vignette: radial-gradient(
-    ellipse 74% 64% at 50% 38%,
-    transparent 0%,
-    color-mix(in srgb, var(--background) 32%, transparent) 40%,
-    color-mix(in srgb, var(--background) 78%, transparent) 64%,
-    color-mix(in srgb, var(--background) 97%, transparent) 100%
-  );
-  --site-bg-edge-fade: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--background) 68%, transparent) 0%,
-    transparent 16%,
-    transparent 84%,
-    color-mix(in srgb, var(--background) 62%, transparent) 100%
-  );
+  /* Site background image opacity */
+  --site-bg-image-opacity: 0.73;
 
   /* Playground category accents — night */
   --pg-built-a: rgba(14, 165, 233, 0.28);
@@ -284,7 +256,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Decorative site backgrounds — image + center vignette */
+/* Decorative site backgrounds */
 html.light body,
 html.dark body {
   background-color: var(--background);
@@ -295,7 +267,7 @@ html.dark body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -1;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -309,16 +281,6 @@ html.light body::before {
 
 html.dark body::before {
   background-image: url('/night-background.png');
-}
-
-html.light body::after,
-html.dark body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: var(--site-bg-vignette), var(--site-bg-edge-fade);
-  pointer-events: none;
 }
 
 /* Typography utilities */
