@@ -250,6 +250,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Light mode — decorative site background */
+html.light body {
+  background-color: var(--background);
+}
+
+html.light body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/light-background.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
 /* Typography utilities */
 .text-balance {
   text-wrap: balance;
