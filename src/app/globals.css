@@ -63,7 +63,7 @@
   --playground-section-shadow: rgba(15, 23, 42, 0.08);
 
   /* Site background — soften edges, keep center clear for content */
-  --site-bg-image-opacity: 0.55;
+  --site-bg-image-opacity: 0.75;
   --site-bg-vignette: radial-gradient(
     ellipse 74% 64% at 50% 38%,
     transparent 0%,
@@ -230,7 +230,7 @@ html[data-locale^="zh"] {
   --playground-section-shadow: rgba(2, 8, 23, 0.42);
 
   /* Site background — night */
-  --site-bg-image-opacity: 0.48;
+  --site-bg-image-opacity: 0.68;
   --site-bg-vignette: radial-gradient(
     ellipse 74% 64% at 50% 38%,
     transparent 0%,
