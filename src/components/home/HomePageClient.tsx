@@ -85,7 +85,11 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24">
               {page.type === 'card' && (
-                <CardPage config={page.config} embedded={true} />
+                <CardPage
+                  config={page.config}
+                  embedded={true}
+                  cardStyle={page.id === 'awards' ? 'solid' : 'glass'}
+                />
               )}
               {page.type === 'publication' && (
                 <PublicationsList

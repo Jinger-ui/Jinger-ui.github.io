@@ -61,6 +61,7 @@ export default function ProjectsByYearPageClient({
                   config={{ type: 'card', title: '', items }}
                   embedded
                   hideHeader
+                  cardStyle="glass"
                 />
               </div>
             </div>

@@ -33,15 +33,31 @@ const markdownComponents = {
  * Framer Motion SSR for static export emitted `opacity:0` on cards; if JS is slow or blocked,
  * only the first batches could appear visible — all items must show without client animation.
  */
+const cardSurfaceClass = {
+    solid: 'bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm',
+    glass:
+        'bg-white/55 dark:bg-neutral-900/35 backdrop-blur-xl backdrop-saturate-150 border border-white/50 dark:border-white/10 shadow-sm',
+} as const;
+
 export default function CardPage({
     config,
     embedded = false,
     hideHeader = false,
+    cardStyle = 'solid',
 }: {
     config: CardPageConfig;
     embedded?: boolean;
     hideHeader?: boolean;
+    cardStyle?: keyof typeof cardSurfaceClass;
 }) {
+    const isGlass = cardStyle === 'glass';
+    const dateBadgeClass = isGlass
+        ? 'text-sm text-neutral-600 dark:text-neutral-300 font-medium bg-white/45 dark:bg-neutral-800/45 backdrop-blur-sm px-2 py-1 rounded border border-white/40 dark:border-white/10'
+        : 'text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded';
+    const tagClass = isGlass
+        ? 'text-xs text-neutral-600 dark:text-neutral-400 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-sm px-2 py-1 rounded border border-white/35 dark:border-white/10'
+        : 'text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2 py-1 rounded border border-neutral-100 dark:border-neutral-800';
+
     return (
         <div>
             {!hideHeader && (
@@ -61,12 +77,12 @@ export default function CardPage({
                 {config.items.map((item, index) => (
                     <div
                         key={index}
-                        className={`bg-white dark:bg-neutral-900 ${embedded ? "p-4" : "p-6"} rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all duration-200 hover:scale-[1.01]`}
+                        className={`${cardSurfaceClass[cardStyle]} ${embedded ? "p-4" : "p-6"} rounded-xl hover:shadow-lg transition-all duration-200 hover:scale-[1.01] ${isGlass ? 'hover:bg-white/70 dark:hover:bg-neutral-900/50' : ''}`}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
                             {item.date && (
-                                <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                                <span className={dateBadgeClass}>
                                     {item.date}
                                 </span>
                             )}
@@ -84,7 +100,7 @@ export default function CardPage({
                         {item.tags && (
                             <div className="flex flex-wrap gap-2 mt-4">
                                 {item.tags.map(tag => (
-                                    <span key={tag} className="text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2 py-1 rounded border border-neutral-100 dark:border-neutral-800">
+                                    <span key={tag} className={tagClass}>
                                         {tag}
                                     </span>
                                 ))}
