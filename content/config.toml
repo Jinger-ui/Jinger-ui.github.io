@@ -1,12 +1,12 @@
 [site]
 title = "Jingjia Huang"
-description = "Incoming MSc Artificial Intelligence (NTU) · Graduate Diploma in Systems Analysis (NUS-ISS). ML/CV, full-stack engineering, privacy computing."
+description = "Incoming MSc Applied Artificial Intelligence / AAI (NTU CCDS) · Graduate Diploma in Systems Analysis (NUS-ISS). ML/CV, full-stack engineering, privacy computing."
 favicon = "/favicon.svg"
 last_updated = "May 2026"
 
 [author]
 name = "Jingjia Huang"
-title = "Graduate Diploma (NUS-ISS) · Incoming MSc AI Student (NTU, Aug 2026)"
+title = "Graduate Diploma (NUS-ISS) · Incoming MSc AAI Student (NTU CCDS, Aug 2026)"
 institution = "National University of Singapore Institute of Systems Science · Nanyang Technological University"
 avatar = "/avatar.png"
 
