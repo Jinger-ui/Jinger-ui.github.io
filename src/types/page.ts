@@ -22,7 +22,11 @@ export interface CardItem {
     tags?: string[];
     link?: string;
     image?: string;
+    category?: PlaygroundCategory;
+    summary?: string;
 }
+
+export type PlaygroundCategory = 'built' | 'designed' | 'researched' | 'explored';
 
 export interface CardPageConfig extends BasePageConfig {
     type: 'card';

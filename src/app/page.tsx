@@ -46,12 +46,16 @@ function loadHomePageData(locale?: string): HomePageLocaleData {
   const projectsConfig = getPageConfig('projects', locale) as CardPageConfig | null;
   if (projectsConfig?.items?.length) {
     const projectSections = splitProjectsConfig(projectsConfig);
-    projectSections.forEach((config, index) => {
-      pagesToShow.push({
-        type: 'card',
-        id: index === 0 ? 'selected-projects' : 'playground',
-        config,
-      });
+    pagesToShow.push({
+      type: 'card',
+      id: 'selected-projects',
+      config: projectSections[0],
+    });
+
+    pagesToShow.push({
+      type: 'playground',
+      id: 'playground',
+      items: projectsConfig.items,
     });
   }
 

@@ -5,6 +5,7 @@ import SkillsGrid, { type SkillCategory } from '@/components/home/SkillsGrid';
 import HomeContact from '@/components/home/HomeContact';
 import PublicationsList from '@/components/publications/PublicationsList';
 import CardPage from '@/components/pages/CardPage';
+import PlaygroundSection from '@/components/playground/PlaygroundSection';
 import Journey, { type JourneyItem } from '@/components/layout/Journey';
 import type { SiteConfig } from '@/lib/config';
 import { Publication } from '@/types/publication';
@@ -13,7 +14,8 @@ import { useLocaleStore } from '@/lib/stores/localeStore';
 
 type PageData =
   | { type: 'publication'; id: string; config: PublicationPageConfig; publications: Publication[] }
-  | { type: 'card'; id: string; config: CardPageConfig };
+  | { type: 'card'; id: string; config: CardPageConfig }
+  | { type: 'playground'; id: 'playground'; items: CardPageConfig['items'] };
 
 export interface HomePageLocaleData {
   author: SiteConfig['author'];
@@ -91,6 +93,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                   cardStyle={page.id === 'awards' ? 'solid' : 'glass'}
                 />
               )}
+              {page.type === 'playground' && <PlaygroundSection items={page.items} />}
               {page.type === 'publication' && (
                 <PublicationsList
                   config={page.config}
