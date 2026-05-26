@@ -63,20 +63,20 @@
   --playground-section-shadow: rgba(15, 23, 42, 0.08);
 
   /* Site background — soften edges, keep center clear for content */
-  --site-bg-image-opacity: 0.68;
+  --site-bg-image-opacity: 0.55;
   --site-bg-vignette: radial-gradient(
-    ellipse 82% 72% at 50% 38%,
+    ellipse 74% 64% at 50% 38%,
     transparent 0%,
-    color-mix(in srgb, var(--background) 18%, transparent) 48%,
-    color-mix(in srgb, var(--background) 62%, transparent) 72%,
-    color-mix(in srgb, var(--background) 90%, transparent) 100%
+    color-mix(in srgb, var(--background) 28%, transparent) 42%,
+    color-mix(in srgb, var(--background) 72%, transparent) 66%,
+    color-mix(in srgb, var(--background) 96%, transparent) 100%
   );
   --site-bg-edge-fade: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--background) 45%, transparent) 0%,
-    transparent 14%,
-    transparent 86%,
-    color-mix(in srgb, var(--background) 40%, transparent) 100%
+    color-mix(in srgb, var(--background) 58%, transparent) 0%,
+    transparent 18%,
+    transparent 82%,
+    color-mix(in srgb, var(--background) 52%, transparent) 100%
   );
 
   /* Playground category accents — light */
@@ -230,20 +230,20 @@ html[data-locale^="zh"] {
   --playground-section-shadow: rgba(2, 8, 23, 0.42);
 
   /* Site background — night */
-  --site-bg-image-opacity: 0.58;
+  --site-bg-image-opacity: 0.48;
   --site-bg-vignette: radial-gradient(
-    ellipse 82% 72% at 50% 38%,
+    ellipse 74% 64% at 50% 38%,
     transparent 0%,
-    color-mix(in srgb, var(--background) 22%, transparent) 46%,
-    color-mix(in srgb, var(--background) 68%, transparent) 70%,
-    color-mix(in srgb, var(--background) 92%, transparent) 100%
+    color-mix(in srgb, var(--background) 32%, transparent) 40%,
+    color-mix(in srgb, var(--background) 78%, transparent) 64%,
+    color-mix(in srgb, var(--background) 97%, transparent) 100%
   );
   --site-bg-edge-fade: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--background) 55%, transparent) 0%,
-    transparent 12%,
-    transparent 88%,
-    color-mix(in srgb, var(--background) 50%, transparent) 100%
+    color-mix(in srgb, var(--background) 68%, transparent) 0%,
+    transparent 16%,
+    transparent 84%,
+    color-mix(in srgb, var(--background) 62%, transparent) 100%
   );
 
   /* Playground category accents — night */
