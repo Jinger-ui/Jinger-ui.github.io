@@ -31,7 +31,7 @@ export default function ProjectsByYearPageClient({
   const yearGroups = groupProjectsByYear(data.items);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-transparent dark:bg-background min-h-screen">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-transparent min-h-screen">
       <header className="mb-12">
         <h1 className="text-4xl font-serif font-bold text-primary mb-4">{data.title}</h1>
         {data.description && (
@@ -54,7 +54,7 @@ export default function ProjectsByYearPageClient({
 
               <div className="relative lg:border-l-2 lg:border-accent/25 lg:pl-10">
                 <span
-                  className="hidden lg:block absolute -left-[7px] top-2 h-3 w-3 rounded-full border-2 border-accent bg-white dark:bg-background"
+                  className="hidden lg:block absolute -left-[7px] top-2 h-3 w-3 rounded-full border-2 border-accent bg-white dark:bg-neutral-900"
                   aria-hidden="true"
                 />
                 <CardPage

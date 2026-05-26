@@ -267,6 +267,23 @@ html.light body::before {
   pointer-events: none;
 }
 
+/* Night mode — decorative site background */
+html.dark body {
+  background-color: var(--background);
+}
+
+html.dark body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/night-background.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
 /* Typography utilities */
 .text-balance {
   text-wrap: balance;
