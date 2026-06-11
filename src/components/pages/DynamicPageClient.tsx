@@ -14,7 +14,13 @@ import { useLocaleStore } from '@/lib/stores/localeStore';
 export type DynamicPageLocaleData =
   | { type: 'publication'; config: PublicationPageConfig; publications: Publication[] }
   | { type: 'text'; config: TextPageConfig; content: string }
-  | { type: 'card'; config: CardPageConfig };
+  | { type: 'card'; config: CardPageConfig }
+  | {
+      type: 'recognition';
+      publicationConfig: PublicationPageConfig;
+      publications: Publication[];
+      awardsConfig: CardPageConfig;
+    };
 
 interface DynamicPageClientProps {
   dataByLocale: Record<string, DynamicPageLocaleData>;
@@ -40,6 +46,15 @@ export default function DynamicPageClient({ dataByLocale, defaultLocale }: Dynam
       )}
       {pageData.type === 'card' && (
         <CardPage config={pageData.config} />
+      )}
+      {pageData.type === 'recognition' && (
+        <div className="space-y-12">
+          <PublicationsList
+            config={pageData.publicationConfig}
+            publications={pageData.publications}
+          />
+          <CardPage config={pageData.awardsConfig} />
+        </div>
       )}
     </div>
   );

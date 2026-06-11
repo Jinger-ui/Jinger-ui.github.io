@@ -1,6 +1,25 @@
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 import type { PlaygroundProject } from '@/lib/playgroundProjects';
 import { playgroundHref, categoryLabel } from '@/lib/playgroundProjects';
+
+const markdownComponents = {
+  p: ({ children }: React.ComponentProps<'p'>) => (
+    <p className="mb-3 last:mb-0 leading-7">{children}</p>
+  ),
+  ul: ({ children }: React.ComponentProps<'ul'>) => (
+    <ul className="mb-3 list-disc space-y-2 pl-5">{children}</ul>
+  ),
+  ol: ({ children }: React.ComponentProps<'ol'>) => (
+    <ol className="mb-3 list-decimal space-y-2 pl-5">{children}</ol>
+  ),
+  li: ({ children }: React.ComponentProps<'li'>) => <li>{children}</li>,
+  strong: ({ children }: React.ComponentProps<'strong'>) => (
+    <strong className="rounded bg-playground-accent/15 px-1 font-semibold text-foreground dark:bg-playground-accent/25 dark:text-white">
+      {children}
+    </strong>
+  ),
+};
 
 function extractSignals(content?: string): string[] {
   if (!content) return [];
@@ -15,9 +34,9 @@ function extractSignals(content?: string): string[] {
 
 function MetaCard({ label, value }: { label: string; value: string }) {
   return (
-    <article className="rounded-[1.4rem] border border-border bg-card/85 p-5 backdrop-blur">
-      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">{value}</p>
+    <article className="rounded-[1.4rem] border border-border bg-card/90 p-5 backdrop-blur dark:bg-neutral-950/75">
+      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-foreground/60 dark:text-white/70">{label}</p>
+      <p className="mt-2 text-sm leading-6 text-foreground/78 dark:text-white/86">{value}</p>
     </article>
   );
 }
@@ -32,13 +51,13 @@ function RelatedCard({
   return (
     <Link
       href={playgroundHref(project)}
-      className="group block rounded-[1.4rem] border border-border bg-card/85 p-5 shadow-sm transition hover:-translate-y-1 hover:border-playground-accent"
+      className="group block rounded-[1.4rem] border border-border bg-card/90 p-5 shadow-sm transition hover:-translate-y-1 hover:border-playground-accent dark:bg-neutral-950/75"
     >
       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-playground-accent">
         {label || project.date || categoryLabel(project.category)}
       </p>
       <h3 className="mt-3 text-lg font-semibold tracking-tight text-foreground">{project.title}</h3>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">{project.summary}</p>
+      <p className="mt-2 text-sm leading-6 text-foreground/75 dark:text-white/82">{project.summary}</p>
     </Link>
   );
 }
@@ -79,7 +98,7 @@ export default function PlaygroundDetailPage({
               {project.title}
             </h1>
             {project.subtitle && <p className="mt-3 text-sm font-medium text-playground-accent">{project.subtitle}</p>}
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{project.summary}</p>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground/75 dark:text-white/86">{project.summary}</p>
 
             <div className="mt-7 flex flex-wrap gap-3 text-sm">
               {project.subtitle && (
@@ -102,7 +121,7 @@ export default function PlaygroundDetailPage({
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-semibold text-muted-foreground"
+                    className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-semibold text-foreground/75 dark:text-white/86"
                   >
                     {tag}
                   </span>
@@ -139,7 +158,7 @@ export default function PlaygroundDetailPage({
                 <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-playground-accent">
                   Key signal {indexValue + 1}
                 </p>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item}</p>
+                <p className="mt-2 text-sm leading-6 text-foreground/75 dark:text-white/86">{item}</p>
               </article>
             ))}
           </section>
@@ -153,8 +172,8 @@ export default function PlaygroundDetailPage({
             <h2 className="mt-3 inline-flex border-b-2 border-playground-accent pb-2 font-serif text-3xl font-bold tracking-tight text-foreground">
               What this playground note covers
             </h2>
-            <div className="mt-5 text-sm leading-7 text-muted-foreground whitespace-pre-line">
-              {project.content}
+            <div className="mt-5 text-sm leading-7 text-foreground/80 dark:text-white/88 sm:text-base">
+              <ReactMarkdown components={markdownComponents}>{project.content}</ReactMarkdown>
             </div>
           </section>
         )}

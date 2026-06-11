@@ -13,8 +13,8 @@ function extractYear(date?: string): string {
   return match ? match[0] : date.trim();
 }
 
-export function groupProjectsByYear(items: CardItem[]): YearProjectGroup[] {
-  const groups = new Map<string, CardItem[]>();
+export function groupProjectsByYear<T extends CardItem>(items: T[]): Array<{ year: string; items: T[] }> {
+  const groups = new Map<string, T[]>();
 
   for (const item of items) {
     const year = extractYear(item.date);

@@ -23,7 +23,9 @@ const markdownComponents = {
     />
   ),
   strong: ({ children }: React.ComponentProps<'strong'>) => (
-    <strong className="font-semibold text-foreground">{children}</strong>
+    <strong className="rounded bg-accent/15 px-1 font-semibold text-primary dark:bg-accent/25 dark:text-white">
+      {children}
+    </strong>
   ),
   code: ({ children }: React.ComponentProps<'code'>) => (
     <code className="rounded bg-muted px-1.5 py-0.5 text-[0.92em]">{children}</code>
@@ -84,7 +86,7 @@ function RelatedCard({
       <h3 className="mt-2 text-base font-semibold leading-snug text-primary group-hover:text-accent">
         {project.title}
       </h3>
-      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-100">
         {project.summary}
       </p>
     </Link>
@@ -108,7 +110,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
   return (
     <div className="bg-transparent">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <section className="relative overflow-hidden rounded-[2rem] border border-neutral-200/70 bg-white/78 p-8 shadow-[0_28px_80px_rgba(15,23,42,0.08)] backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/75">
+        <section className="relative overflow-hidden rounded-[2rem] border border-neutral-200/70 bg-white/78 p-8 shadow-[0_28px_80px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-neutral-950/88">
           <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(212,165,98,0.16),transparent)]" />
           <div className="relative">
             <Link
@@ -129,7 +131,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                 {project.subtitle && (
                   <p className="mt-3 text-sm font-medium text-accent sm:text-base">{project.subtitle}</p>
                 )}
-                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-100">
                   {project.summary}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -164,7 +166,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[1.3rem] border border-neutral-200/80 bg-neutral-50 shadow-lg dark:border-neutral-800 dark:bg-neutral-900/50">
+              <div className="overflow-hidden rounded-[1.3rem] border border-neutral-200/80 bg-neutral-50 shadow-lg dark:border-white/10 dark:bg-neutral-900/90">
                 {project.image ? (
                   <div className="aspect-[16/10]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -187,7 +189,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
           </div>
         </section>
 
-        <section className="mt-8 rounded-[1.6rem] border border-neutral-200/70 bg-white/55 p-6 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-900/35 sm:p-8">
+        <section className="mt-8 rounded-[1.6rem] border border-neutral-200/70 bg-white/55 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/75 sm:p-8">
           <p className="text-xs font-bold uppercase tracking-[0.12em] text-accent">01 / Snapshot</p>
           <h2 className="mt-2 inline-block border-b-2 border-accent pb-1 font-serif text-2xl text-primary">
             Project snapshot
@@ -235,8 +237,8 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
             <h2 className="mt-2 inline-block border-b-2 border-accent pb-1 font-serif text-2xl text-primary">
               What this project delivered
             </h2>
-            <div className="mt-6 rounded-[1.3rem] border border-neutral-200/80 bg-white/70 p-6 dark:border-neutral-800 dark:bg-neutral-900/70">
-              <div className="text-sm text-neutral-700 dark:text-neutral-300 sm:text-base">
+          <div className="mt-6 rounded-[1.3rem] border border-neutral-200/80 bg-white/70 p-6 dark:border-white/10 dark:bg-neutral-950/82">
+              <div className="text-sm text-neutral-700 dark:text-neutral-100 sm:text-base">
                 <ReactMarkdown components={markdownComponents}>{project.content}</ReactMarkdown>
               </div>
             </div>
@@ -244,7 +246,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
         )}
 
         {project.tags && project.tags.length > 0 && (
-          <section className="mt-8 rounded-[1.6rem] border border-neutral-200/70 bg-white/55 p-6 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-900/35 sm:p-8">
+          <section className="mt-8 rounded-[1.6rem] border border-neutral-200/70 bg-white/55 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/75 sm:p-8">
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-accent">03 / Tooling</p>
             <h2 className="mt-2 inline-block border-b-2 border-accent pb-1 font-serif text-2xl text-primary">
               Technology stack

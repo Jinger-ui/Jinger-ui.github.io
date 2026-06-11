@@ -78,10 +78,6 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
             <SkillsGrid categories={data.skillCategories} className="mt-10" />
           )}
 
-          <HomeContact
-            social={data.social}
-            className="mt-10 pt-8 border-t border-neutral-200/60 dark:border-neutral-800/60"
-          />
         </section>
 
         <div className="space-y-12">
@@ -112,6 +108,11 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
             </section>
           ))}
         </div>
+
+        <HomeContact
+          social={data.social}
+          className="mt-12 pt-8 border-t border-neutral-200/60 dark:border-neutral-800/60"
+        />
       </div>
     </div>
   );

@@ -17,11 +17,15 @@ const markdownComponents = {
         />
     ),
     blockquote: ({ children }: React.ComponentProps<'blockquote'>) => (
-        <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600 dark:text-neutral-500">
+        <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600 dark:text-neutral-200">
             {children}
         </blockquote>
     ),
-    strong: ({ children }: React.ComponentProps<'strong'>) => <strong className="font-semibold text-primary">{children}</strong>,
+    strong: ({ children }: React.ComponentProps<'strong'>) => (
+        <strong className="rounded bg-accent/15 px-1 font-semibold text-primary dark:bg-accent/25 dark:text-white">
+            {children}
+        </strong>
+    ),
     em: ({ children }: React.ComponentProps<'em'>) => <em className="italic">{children}</em>,
     code: ({ children }: React.ComponentProps<'code'>) => (
         <code className="px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-[0.95em]">{children}</code>
@@ -55,7 +59,7 @@ export default function CardPage({
         ? 'text-sm text-neutral-600 dark:text-neutral-300 font-medium bg-white/45 dark:bg-neutral-800/45 backdrop-blur-sm px-2 py-1 rounded border border-white/40 dark:border-white/10'
         : 'text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded';
     const tagClass = isGlass
-        ? 'text-xs text-neutral-600 dark:text-neutral-400 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-sm px-2 py-1 rounded border border-white/35 dark:border-white/10'
+        ? 'text-xs text-neutral-600 dark:text-neutral-100 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-sm px-2 py-1 rounded border border-white/35 dark:border-white/10'
         : 'text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2 py-1 rounded border border-neutral-100 dark:border-neutral-800';
     const coverFrameClass = isGlass
         ? 'border-white/40 dark:border-white/10 bg-white/30 dark:bg-neutral-800/30'
@@ -67,7 +71,7 @@ export default function CardPage({
             <div className={embedded ? "mb-4" : "mb-8"}>
                 <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
                 {config.description && (
-                    <div className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl leading-relaxed`}>
+                    <div className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-200 max-w-2xl leading-relaxed`}>
                         <ReactMarkdown components={markdownComponents}>
                             {config.description}
                         </ReactMarkdown>
@@ -107,7 +111,7 @@ export default function CardPage({
                             </div>
                         )}
                         {item.content && (
-                            <div className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-500 leading-relaxed`}>
+                            <div className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-100 leading-relaxed`}>
                                 <ReactMarkdown components={markdownComponents}>
                                     {item.content}
                                 </ReactMarkdown>

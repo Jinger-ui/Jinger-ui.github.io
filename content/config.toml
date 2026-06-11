@@ -59,6 +59,6 @@ href = "/projects-by-year"
 
 [[navigation]]
 title = "Awards"
-type = "section"
+type = "page"
 target = "awards"
-href = "/#awards"
+href = "/awards"

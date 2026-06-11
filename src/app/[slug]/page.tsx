@@ -20,6 +20,23 @@ import { Metadata } from 'next';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 
 function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleData | null {
+  if (slug === 'awards') {
+    const publicationConfig = getPageConfig('publications', locale) as PublicationPageConfig | null;
+    const awardsConfig = getPageConfig('awards', locale) as CardPageConfig | null;
+
+    if (!publicationConfig || !awardsConfig?.items?.length) {
+      return null;
+    }
+
+    const bibtex = getBibtexContent(publicationConfig.source, locale);
+    return {
+      type: 'recognition',
+      publicationConfig,
+      publications: parseBibTeX(bibtex, locale),
+      awardsConfig,
+    };
+  }
+
   const pageConfig = getPageConfig(slug, locale) as BasePageConfig | null;
 
   if (!pageConfig) {
