@@ -57,6 +57,9 @@ export default function CardPage({
     const tagClass = isGlass
         ? 'text-xs text-neutral-600 dark:text-neutral-400 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-sm px-2 py-1 rounded border border-white/35 dark:border-white/10'
         : 'text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2 py-1 rounded border border-neutral-100 dark:border-neutral-800';
+    const coverFrameClass = isGlass
+        ? 'border-white/40 dark:border-white/10 bg-white/30 dark:bg-neutral-800/30'
+        : 'border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/50';
 
     return (
         <div>
@@ -89,6 +92,19 @@ export default function CardPage({
                         </div>
                         {item.subtitle && (
                             <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mb-3`}>{item.subtitle}</p>
+                        )}
+                        {item.image && (
+                            <div
+                                className={`mb-4 aspect-[16/10] overflow-hidden rounded-xl border ${coverFrameClass}`}
+                            >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={item.image}
+                                    alt=""
+                                    className="h-full w-full object-cover"
+                                    loading="lazy"
+                                />
+                            </div>
                         )}
                         {item.content && (
                             <div className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-500 leading-relaxed`}>

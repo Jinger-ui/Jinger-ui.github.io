@@ -2,6 +2,8 @@ import type { CardItem, PlaygroundCategory } from '@/types/page';
 
 export interface PlaygroundProject extends CardItem {
   id: string;
+  slug: string;
+  href: string;
   category: PlaygroundCategory;
   summary: string;
   accent: string;
@@ -63,6 +65,8 @@ const ACCENT_BY_CATEGORY: Record<PlaygroundCategory, string> = {
 };
 
 export const DEFAULT_FEATURED_TITLES = [
+  'EcoGo — Sustainability Capstone',
+  'Flip Card Memory Game',
   'Classroom Behavior Analytics Platform',
   'Campus Digital Twin — Navigation Platform',
   'Privacy-Preserving Financial Computing',
@@ -76,6 +80,10 @@ function slugify(title: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
+}
+
+export function playgroundHref(project: Pick<PlaygroundProject, 'slug'>): string {
+  return `/playground/${project.slug}/`;
 }
 
 function firstContentLine(content?: string): string {
@@ -102,9 +110,12 @@ function inferCategory(item: CardItem): PlaygroundCategory {
 
 export function enrichPlaygroundProject(item: CardItem, index: number): PlaygroundProject {
   const category = inferCategory(item);
+  const slug = slugify(item.title) || `project-${index}`;
   return {
     ...item,
-    id: slugify(item.title) || `project-${index}`,
+    id: slug,
+    slug,
+    href: playgroundHref({ slug }),
     category,
     summary: item.summary || SUMMARY_BY_TITLE[item.title] || firstContentLine(item.content) || item.subtitle || '',
     accent: ACCENT_BY_CATEGORY[category],
@@ -146,4 +157,11 @@ export function shuffleIds(ids: string[]): string[] {
 
 export function categoryLabel(category: PlaygroundCategory): string {
   return PLAYGROUND_CATEGORIES.find((c) => c.id === category)?.label ?? category;
+}
+
+export function findPlaygroundProjectBySlug(
+  projects: PlaygroundProject[],
+  slug: string
+): PlaygroundProject | null {
+  return projects.find((project) => project.slug === slug) ?? null;
 }

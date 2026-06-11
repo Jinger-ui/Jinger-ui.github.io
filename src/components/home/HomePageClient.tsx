@@ -5,6 +5,7 @@ import SkillsGrid, { type SkillCategory } from '@/components/home/SkillsGrid';
 import HomeContact from '@/components/home/HomeContact';
 import PublicationsList from '@/components/publications/PublicationsList';
 import CardPage from '@/components/pages/CardPage';
+import ProjectCardGrid from '@/components/projects/ProjectCardGrid';
 import PlaygroundSection from '@/components/playground/PlaygroundSection';
 import Journey, { type JourneyItem } from '@/components/layout/Journey';
 import type { SiteConfig } from '@/lib/config';
@@ -86,13 +87,20 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
         <div className="space-y-12">
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24">
-              {page.type === 'card' && (
-                <CardPage
-                  config={page.config}
-                  embedded={true}
-                  cardStyle={page.id === 'awards' ? 'solid' : 'glass'}
-                />
-              )}
+              {page.type === 'card' &&
+                (page.id === 'selected-projects' ? (
+                  <ProjectCardGrid
+                    config={page.config}
+                    embedded={true}
+                    cardStyle="glass"
+                  />
+                ) : (
+                  <CardPage
+                    config={page.config}
+                    embedded={true}
+                    cardStyle={page.id === 'awards' ? 'solid' : 'glass'}
+                  />
+                ))}
               {page.type === 'playground' && <PlaygroundSection items={page.items} />}
               {page.type === 'publication' && (
                 <PublicationsList

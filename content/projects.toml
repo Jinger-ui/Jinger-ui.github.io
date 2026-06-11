@@ -6,6 +6,7 @@ description = "Five most recent projects — capstone, NUS-ISS coursework, and t
 title = "EcoGo — Sustainability Capstone"
 subtitle = "Full Stack Developer · NUS-ISS Graduate Diploma · Singapore"
 date = "2026"
+image = "/projects/ecogo-cover.png"
 tags = ["React", "Kotlin", "Spring Boot", "Python", "RAG", "Kafka", "Elasticsearch", "CI/CD"]
 content = """- Full-stack developer on a six-member capstone team delivering **EcoGo**: route-level **carbon visibility**, recommendation workflows, and AI-assisted mobility guidance.
 - Built across the stack: React, Kotlin, Java **Spring Boot**, Python, MongoDB, MySQL, Redis, MinIO, Elasticsearch, Docker, SonarQube, JUnit, **GitHub Actions** — owned **Android**, **ML**, and **CI/CD** personally.
@@ -26,6 +27,7 @@ content = """- Full-stack app (React.js, Spring Boot, SQL) to manage/browse prog
 title = "Flip Card Memory Game"
 subtitle = "Android Developer · NUS-ISS Team Project"
 date = "2025"
+image = "/projects/flipcard-cover.png"
 tags = ["Android Studio", "Java", "XML"]
 content = """- Android memory game (**Java**, Android Studio): card-state logic, validation, animations, responsiveness.
 - Animations + sound/audio for match/mismatch/completion; optimized repeated interactions.

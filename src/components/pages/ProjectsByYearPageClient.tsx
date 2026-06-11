@@ -1,6 +1,6 @@
 'use client';
 
-import CardPage from '@/components/pages/CardPage';
+import ProjectCardGrid from '@/components/projects/ProjectCardGrid';
 import { groupProjectsByYear } from '@/lib/projectsByYear';
 import { useLocaleStore } from '@/lib/stores/localeStore';
 import type { CardItem } from '@/types/page';
@@ -57,7 +57,7 @@ export default function ProjectsByYearPageClient({
                   className="hidden lg:block absolute -left-[7px] top-2 h-3 w-3 rounded-full border-2 border-accent bg-white dark:bg-neutral-900"
                   aria-hidden="true"
                 />
-                <CardPage
+                <ProjectCardGrid
                   config={{ type: 'card', title: '', items }}
                   embedded
                   hideHeader

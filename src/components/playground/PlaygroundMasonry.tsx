@@ -16,6 +16,7 @@ interface PlaygroundMasonryProps {
   activeFilter: PlaygroundFilter;
   onFilterChange: (filter: PlaygroundFilter) => void;
   highlightedId?: string | null;
+  onViewProject?: (id: string) => void;
 }
 
 const heightPattern = ['md', 'lg', 'sm', 'md', 'sm', 'lg', 'md', 'sm'] as const;
@@ -36,9 +37,9 @@ export default function PlaygroundMasonry({
   activeFilter,
   onFilterChange,
   highlightedId,
+  onViewProject,
 }: PlaygroundMasonryProps) {
   const [mounted, setMounted] = useState(false);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -48,9 +49,6 @@ export default function PlaygroundMasonry({
     if (!highlightedId) return;
     const node = document.getElementById(`playground-card-${highlightedId}`);
     node?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setExpandedId(highlightedId);
-    const timer = window.setTimeout(() => setExpandedId(null), 1800);
-    return () => window.clearTimeout(timer);
   }, [highlightedId]);
 
   const filteredProjects = useMemo(() => {
@@ -85,7 +83,7 @@ export default function PlaygroundMasonry({
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => {
             const heightKey = heightPattern[index % heightPattern.length];
-            const isExpanded = expandedId === project.id;
+            const isHighlighted = highlightedId === project.id;
 
             return (
               <motion.article
@@ -99,24 +97,41 @@ export default function PlaygroundMasonry({
                 className={cn(
                   'mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card/85 text-card-foreground backdrop-blur-sm transition-all duration-300',
                   cardHeightClass(heightKey),
-                  isExpanded && 'ring-2 ring-playground-accent/40'
+                  isHighlighted && 'ring-2 ring-playground-accent/40'
                 )}
               >
                 <button
                   type="button"
-                  onClick={() => setExpandedId((prev) => (prev === project.id ? null : project.id))}
+                  onClick={() => onViewProject?.(project.id)}
                   className="group relative block h-full w-full text-left"
                 >
                   <div className={cn('absolute inset-0 opacity-90', project.accent)} />
                   <div
                     className={cn(
                       'pg-overlay absolute inset-0',
-                      isExpanded && 'pg-overlay-active'
+                      isHighlighted && 'pg-overlay-active'
                     )}
                   />
 
                   <div className="relative flex h-full flex-col justify-between p-5">
                     <div>
+                      <div className="pg-media-frame mb-3 aspect-[16/10] overflow-hidden rounded-xl">
+                        {project.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={project.image}
+                            alt=""
+                            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="flex h-full items-end p-4">
+                            <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                              {categoryLabel(project.category)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                       <div className="mb-3 flex items-center justify-between gap-3">
                         <span className="rounded-full border border-border bg-muted/70 px-2 py-0.5 text-[10px] uppercase tracking-wider text-card-foreground">
                           {categoryLabel(project.category)}
@@ -133,14 +148,8 @@ export default function PlaygroundMasonry({
                     </div>
 
                     <div className="mt-4 flex items-end justify-between gap-3">
-                      <div
-                        className={cn(
-                          'space-y-2 transition-all duration-300',
-                          'max-h-0 overflow-hidden opacity-0 md:group-hover:max-h-40 md:group-hover:opacity-100',
-                          isExpanded && 'max-h-40 opacity-100'
-                        )}
-                      >
-                        <p className="text-sm leading-relaxed text-muted-foreground">
+                      <div className="space-y-2">
+                        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                           {project.summary}
                         </p>
                         {project.tags && (
