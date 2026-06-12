@@ -140,10 +140,10 @@ function TimelineList({ items, isFullscreen, ariaLabel }: TimelineListProps) {
           <li
             key={`${item.date}-${index}-${kind}`}
             role="listitem"
-            className={`relative pl-5 ${isLast ? 'pb-1' : isFullscreen ? 'pb-6' : 'pb-5'}`}
+            className={`relative pl-5 ${isLast ? 'pb-1' : isFullscreen ? 'pb-6' : 'pb-5'} rounded-lg transition-colors duration-200 hover:bg-accent/[0.04]`}
           >
             <span
-              className="absolute -left-[6px] top-1.5 z-10 h-2.5 w-2.5 rounded-full border-2 border-accent bg-white dark:bg-neutral-900 shadow-sm"
+              className="absolute -left-[6px] top-1.5 z-10 h-2.5 w-2.5 rounded-full border-2 border-accent bg-white dark:bg-neutral-900 shadow-sm transition-shadow duration-300 hover:shadow-[0_0_8px_rgba(212,165,98,0.5)]"
               aria-hidden="true"
             />
 
@@ -272,7 +272,7 @@ export default function Journey({
             sizeClass={titleImageSizeClass}
           />
         )}
-        <span className="text-xs uppercase tracking-wider text-neutral-400 select-none" aria-hidden="true">
+        <span className="text-xs uppercase tracking-wider text-neutral-400 select-none animate-subtle-pulse" aria-hidden="true">
           wheel ↓
         </span>
       </div>

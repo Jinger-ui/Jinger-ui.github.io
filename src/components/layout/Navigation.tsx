@@ -62,6 +62,7 @@ export default function Navigation({
   const pathname = usePathname();
   const locale = useLocaleStore((state) => state.locale);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [activeHash, setActiveHash] = useState('');
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
   const messages = useMessages();
@@ -90,6 +91,8 @@ export default function Navigation({
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -212,6 +215,11 @@ export default function Navigation({
     <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
       {({ open }) => (
         <>
+          <div
+            className="scroll-progress-bar"
+            style={{ transform: `scaleX(${scrollProgress})` }}
+            aria-hidden="true"
+          />
           <motion.div
             initial={{ y: -100 }}
             animate={{ y: 0 }}

@@ -82,10 +82,10 @@ export default function ProjectCardGrid({
             href={project.href}
             aria-label={`Open project page for ${project.title}`}
             className={cn(
-              'group block h-[360px] rounded-[1.6rem] outline-none [perspective:1300px]',
+              'group block h-[360px] rounded-[1.6rem] outline-none [perspective:1300px] animate-fade-in-up',
               'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background'
             )}
-            style={{ animationDelay: `${index * 45}ms` }}
+            style={{ animationDelay: `${index * 80}ms` }}
           >
             <article
               className={cn(
@@ -97,7 +97,7 @@ export default function ProjectCardGrid({
                 className={cn(
                   cardSurfaceClass[cardStyle],
                   'absolute inset-0 flex flex-col overflow-hidden rounded-[1.6rem] text-left [backface-visibility:hidden]',
-                  'shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition group-hover:shadow-[0_24px_70px_rgba(15,23,42,0.15)]',
+                  'shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-500 group-hover:shadow-[0_24px_70px_rgba(15,23,42,0.15),0_0_0_1px_rgba(212,165,98,0.15)]',
                   isGlass && 'dark:bg-neutral-950/60'
                 )}
               >
@@ -113,7 +113,7 @@ export default function ProjectCardGrid({
                   ) : (
                     <div
                       className={cn(
-                        'flex h-full w-full items-end bg-gradient-to-br p-4',
+                        'flex h-full w-full items-end bg-gradient-to-br p-4 animate-gradient-shift',
                         placeholderGradient(project.title)
                       )}
                     >

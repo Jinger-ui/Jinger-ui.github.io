@@ -84,7 +84,8 @@ export default function CardPage({
                 {config.items.map((item, index) => (
                     <div
                         key={index}
-                        className={`${cardSurfaceClass[cardStyle]} ${embedded ? "p-4" : "p-6"} rounded-xl hover:shadow-lg transition-all duration-200 hover:scale-[1.01] ${isGlass ? 'hover:bg-white/70 dark:hover:bg-neutral-900/50' : ''}`}
+                        className={`${cardSurfaceClass[cardStyle]} ${embedded ? "p-4" : "p-6"} rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-[1.01] card-hover-glow animate-fade-in-up ${isGlass ? 'hover:bg-white/70 dark:hover:bg-neutral-900/50' : ''}`}
+                        style={{ animationDelay: `${index * 70}ms` }}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>

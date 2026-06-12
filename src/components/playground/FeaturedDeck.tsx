@@ -140,32 +140,43 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
           <button
             type="button"
             onClick={drawProject}
-            className="rounded-full border border-border bg-playground-accent px-5 py-2.5 text-sm font-medium text-playground-accent-foreground transition hover:brightness-110"
+            className="rounded-full border border-border bg-playground-accent px-5 py-2.5 text-sm font-medium text-playground-accent-foreground transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_16px_rgba(75,127,212,0.3)]"
           >
             Draw a Project
           </button>
           <button
             type="button"
             onClick={shuffleDeck}
-            className="rounded-full border border-border bg-muted/70 px-5 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-surface-hover hover:text-foreground"
+            className="rounded-full border border-border bg-muted/70 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:bg-surface-hover hover:text-foreground hover:shadow-md"
           >
             Shuffle
           </button>
         </div>
 
         {topProject && (
-          <div className="mt-6 hidden max-w-md space-y-3 lg:block">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Now showing</p>
-            <h3 className="text-2xl font-serif font-bold text-foreground">{topProject.title}</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">{topProject.summary}</p>
-            <button
-              type="button"
-              onClick={() => onViewProject(topProject.id)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-playground-accent transition hover:gap-3"
-            >
-              View Project
-              <ArrowRightIcon className="h-4 w-4" />
-            </button>
+          <div className="mt-6 hidden max-w-md lg:block">
+            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground mb-3">Now showing</p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={topProject.id}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-3"
+              >
+                <h3 className="text-2xl font-serif font-bold text-foreground">{topProject.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{topProject.summary}</p>
+                <button
+                  type="button"
+                  onClick={() => onViewProject(topProject.id)}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-playground-accent transition hover:gap-3"
+                >
+                  View Project
+                  <ArrowRightIcon className="h-4 w-4" />
+                </button>
+              </motion.div>
+            </AnimatePresence>
           </div>
         )}
       </div>

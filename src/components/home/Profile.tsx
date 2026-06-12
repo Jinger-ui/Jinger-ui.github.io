@@ -296,7 +296,7 @@ export default function Profile({ author, social, features, researchInterests, h
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 sm:p-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200"
+                            className="p-2 sm:p-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-all duration-200 hover:-translate-y-0.5"
                             aria-label={link.name}
                         >
                             <IconComponent className="h-5 w-5" />
@@ -310,9 +310,9 @@ export default function Profile({ author, social, features, researchInterests, h
             {researchInterests && researchInterests.length > 0 && (
                 <div className={`bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 hover:shadow-lg transition-all duration-200 hover:scale-[1.02] ${hideContactLinks && !features.enable_likes ? 'mb-0' : 'mb-6'}`}>
                     <h3 className="font-semibold text-primary mb-3">{messages.profile.researchInterests}</h3>
-                    <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
+                    <div className="space-y-1 text-sm text-neutral-700 dark:text-neutral-500">
                         {researchInterests.map((interest, index) => (
-                            <div key={index}>{interest}</div>
+                            <div key={index} className="px-2 py-1 -mx-2 rounded-md transition-colors duration-200 hover:bg-accent/8 hover:text-accent cursor-default">{interest}</div>
                         ))}
                     </div>
                 </div>
