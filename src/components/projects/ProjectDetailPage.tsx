@@ -5,15 +5,17 @@ import { cn } from '@/lib/utils';
 
 const markdownComponents = {
   p: ({ children }: React.ComponentProps<'p'>) => (
-    <p className="mb-3 last:mb-0 leading-relaxed">{children}</p>
+    <p className="mb-3 last:mb-0 leading-relaxed text-neutral-700 dark:text-white">{children}</p>
   ),
   ul: ({ children }: React.ComponentProps<'ul'>) => (
-    <ul className="mb-3 list-disc space-y-2 pl-5">{children}</ul>
+    <ul className="mb-3 list-disc space-y-2 pl-5 text-neutral-700 dark:text-white">{children}</ul>
   ),
   ol: ({ children }: React.ComponentProps<'ol'>) => (
-    <ol className="mb-3 list-decimal space-y-2 pl-5">{children}</ol>
+    <ol className="mb-3 list-decimal space-y-2 pl-5 text-neutral-700 dark:text-white">{children}</ol>
   ),
-  li: ({ children }: React.ComponentProps<'li'>) => <li>{children}</li>,
+  li: ({ children }: React.ComponentProps<'li'>) => (
+    <li className="text-neutral-700 dark:text-white">{children}</li>
+  ),
   a: ({ ...props }) => (
     <a
       {...props}
@@ -63,7 +65,7 @@ function MetaCard({ label, value }: { label: string; value: string }) {
   return (
     <article className="rounded-2xl border border-neutral-200/80 bg-white/80 p-4 dark:border-neutral-800 dark:bg-neutral-900/70">
       <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent">{label}</span>
-      <p className="mt-2 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{value}</p>
+      <p className="mt-2 text-sm leading-relaxed text-neutral-700 dark:text-white">{value}</p>
     </article>
   );
 }
@@ -80,13 +82,13 @@ function RelatedCard({
       href={project.href}
       className="group block rounded-2xl border border-neutral-200/80 bg-white/70 p-4 transition hover:-translate-y-0.5 hover:border-accent dark:border-neutral-800 dark:bg-neutral-900/70"
     >
-      <span className="text-xs font-semibold tabular-nums text-neutral-500">
+      <span className="text-xs font-semibold tabular-nums text-neutral-500 dark:text-white">
         {label || project.date}
       </span>
       <h3 className="mt-2 text-base font-semibold leading-snug text-primary group-hover:text-accent">
         {project.title}
       </h3>
-      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-100">
+      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-neutral-600 dark:text-white">
         {project.summary}
       </p>
     </Link>
@@ -131,15 +133,15 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                 {project.subtitle && (
                   <p className="mt-3 text-sm font-medium text-accent sm:text-base">{project.subtitle}</p>
                 )}
-                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-100">
+                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-white">
                   {project.summary}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <span className="rounded-full border border-neutral-200 bg-accent/10 px-4 py-2 text-sm font-semibold text-neutral-700 dark:border-neutral-700 dark:text-neutral-200">
+                  <span className="rounded-full border border-neutral-200 bg-accent/10 px-4 py-2 text-sm font-semibold text-neutral-700 dark:border-neutral-700 dark:text-white">
                     {roleLabel}
                   </span>
                   {project.date && (
-                    <span className="rounded-full border border-neutral-200 bg-accent/10 px-4 py-2 text-sm font-semibold tabular-nums text-neutral-700 dark:border-neutral-700 dark:text-neutral-200">
+                    <span className="rounded-full border border-neutral-200 bg-accent/10 px-4 py-2 text-sm font-semibold tabular-nums text-neutral-700 dark:border-neutral-700 dark:text-white">
                       {project.date}
                     </span>
                   )}
@@ -149,7 +151,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-neutral-700 dark:text-neutral-300"
+                        className="rounded-full bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-neutral-700 dark:text-white"
                       >
                         {tag}
                       </span>
@@ -179,7 +181,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                       placeholderGradient(project.title)
                     )}
                   >
-                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-600/80 dark:text-neutral-300/80">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-600/80 dark:text-white">
                       {project.date || 'Project'}
                     </span>
                   </div>
@@ -203,7 +205,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                 {(project.tags || []).slice(0, 3).map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-neutral-700 dark:text-neutral-300"
+                    className="rounded-full bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-neutral-700 dark:text-white"
                   >
                     {tag}
                   </span>
@@ -223,11 +225,23 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent">
                   Key signal {signalIndex + 1}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700 dark:text-white">
                   {signal}
                 </p>
               </article>
             ))}
+          </section>
+        )}
+
+        {project.summary && (
+          <section className="mt-8 rounded-[1.6rem] border border-neutral-200/70 bg-white/55 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/75 sm:p-8">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-accent">01b / Overview</p>
+            <h2 className="mt-2 inline-block border-b-2 border-accent pb-1 font-serif text-2xl text-primary">
+              Project overview
+            </h2>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-neutral-700 dark:text-white sm:text-lg">
+              {project.summary}
+            </p>
           </section>
         )}
 
@@ -238,9 +252,34 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
               What this project delivered
             </h2>
           <div className="mt-6 rounded-[1.3rem] border border-neutral-200/80 bg-white/70 p-6 dark:border-white/10 dark:bg-neutral-950/82">
-              <div className="text-sm text-neutral-700 dark:text-neutral-100 sm:text-base">
+              <div className="text-sm text-neutral-700 dark:text-white sm:text-base">
                 <ReactMarkdown components={markdownComponents}>{project.content}</ReactMarkdown>
               </div>
+            </div>
+          </section>
+        )}
+
+        {project.detailImages && project.detailImages.length > 0 && (
+          <section className="mt-8 rounded-[1.6rem] border border-neutral-200/70 bg-white/55 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/75 sm:p-8">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-accent">02b / Gallery</p>
+            <h2 className="mt-2 inline-block border-b-2 border-accent pb-1 font-serif text-2xl text-primary">
+              Project visuals
+            </h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {project.detailImages.map((src, index) => (
+                <figure
+                  key={src}
+                  className="overflow-hidden rounded-[1.1rem] border border-neutral-200/80 bg-white shadow-lg dark:border-white/10 dark:bg-neutral-900/90"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt={`${project.title} screenshot ${index + 1}`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </figure>
+              ))}
             </div>
           </section>
         )}
@@ -255,7 +294,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-neutral-200 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-neutral-700 dark:border-neutral-700 dark:text-neutral-200"
+                  className="rounded-full border border-neutral-200 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-neutral-700 dark:border-neutral-700 dark:text-white"
                 >
                   {tag}
                 </span>

@@ -23,6 +23,7 @@ export interface CardItem {
     tags?: string[];
     link?: string;
     image?: string;
+    detailImages?: string[];
     category?: PlaygroundCategory;
     summary?: string;
 }
