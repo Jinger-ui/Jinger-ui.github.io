@@ -121,7 +121,7 @@ export default function PlaygroundMasonry({
                           <img
                             src={project.image}
                             alt=""
-                            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                            className="h-full w-full object-contain object-center bg-muted/40 transition duration-300 group-hover:scale-105"
                             loading="lazy"
                           />
                         ) : (

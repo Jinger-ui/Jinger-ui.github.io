@@ -172,7 +172,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                 {project.image ? (
                   <div className="aspect-[16/10]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
+                    <img src={project.image} alt={project.title} className="h-full w-full object-contain object-center" />
                   </div>
                 ) : (
                   <div
@@ -275,7 +275,7 @@ export default function ProjectDetailPage({ project, allProjects }: ProjectDetai
                   <img
                     src={src}
                     alt={`${project.title} screenshot ${index + 1}`}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain object-center bg-neutral-50 dark:bg-neutral-900/90"
                     loading="lazy"
                   />
                 </figure>

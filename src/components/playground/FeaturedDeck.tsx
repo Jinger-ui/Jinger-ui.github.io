@@ -40,7 +40,7 @@ function DeckCardFace({
         <div className="pg-media-frame mb-4 aspect-[16/10] overflow-hidden rounded-xl">
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.image} alt="" className="h-full w-full object-cover" />
+            <img src={project.image} alt="" className="h-full w-full object-contain object-center bg-muted/40" />
           ) : (
             <div className="flex h-full items-end p-4">
               <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">

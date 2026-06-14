@@ -128,6 +128,8 @@ title = "Deep Learning-Based Defect Detection — Power Transmission"
 subtitle = "Project Researcher · China Southern Power Grid · Industrial CV"
 date = "2024"
 summary = "Automated visual inspection for power transmission infrastructure detects insulator damage, bird nests, and corrosion in challenging outdoor scenes. I extended YOLOv8 into a custom CSG-YOLO variant with backbone and attention ablations tuned for small-defect recall. Curated datasets with fog, glare, and low-light augmentation supported field-oriented validation that improved maintenance planning efficiency."
+image = "/projects/Grids-cover.png"
+detailImages = ["/projects/Grids-cover02.png"]
 tags = ["CSG-YOLO", "YOLOv8"]
 content = """- Automated inspection for transmission infrastructure — insulator damage, bird nests, corrosion in complex outdoors.
 - **CSG-YOLO** (**YOLOv8** backbone); ablations (backbone, attention) for small defects and background suppression.
