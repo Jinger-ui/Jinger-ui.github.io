@@ -45,7 +45,12 @@ title = "GetFreshFood Application"
 subtitle = "UI/UX Designer & Requirements Analyst · NUS-ISS Team Project"
 date = "2025"
 summary = "GetFreshFood is a food-delivery application design focused on clarity, consistency, and user-centered workflows. I translated functional requirements into high-fidelity Figma prototypes with coherent navigation across ordering and account screens. Supporting SRS and UML artifacts—including use case, sequence, and class diagrams—plus relational normalization from 1NF to 3NF grounded the design in structured data planning."
-image = "/projects/getfreshfood-cover02.png"
+image = "/projects/getfreshfood-cover04.png"
+detailImages = [
+  "/projects/getfreshfood-cover.png",
+  "/projects/getfreshfood-cover02.png",
+  "/projects/getfreshfood-cover03.png",
+]
 tags = ["Figma", "PlantUML", "UML"]
 content = """- User-centered UX in **Figma**: navigation, consistency, workflows from functional requirements.
 - SRS and UML (**PlantUML**: use case, sequence, class diagrams).
@@ -57,6 +62,7 @@ title = "CI/CD Workflow Automation"
 subtitle = "DevOps Engineer · NUS-ISS Team Project"
 date = "2025"
 summary = "This DevOps project defines an end-to-end CI/CD pipeline covering integration, automated build, deployment, release, and post-deployment monitoring. I established Git and GitHub branching practices to support reliable collaborative delivery and traceable releases. Automated testing and deployment stages reduced manual release effort while improving consistency across environments."
+image = "/projects/CICD-cover.png"
 tags = ["Git", "GitHub", "CI/CD"]
 content = """- Designed full **CI/CD**: integration, automated build, deployment, release, post-deploy monitoring.
 - Git/GitHub workflows: branching, merges, repositories, collaborative practice.
@@ -96,6 +102,8 @@ title = "Classroom Behavior Analytics Platform"
 subtitle = "Individual Developer · Xiamen University Dept. Computer Science"
 date = "2024"
 summary = "An end-to-end analytics platform monitors six classroom behaviors in high-density settings with 30+ students, addressing occlusion, viewpoint shifts, and identity fragmentation. YOLOv8 detection, face recognition, and ByteTrack provide temporally consistent tracking, with asynchronous event streaming into MySQL for engagement analysis. Delivery includes a PyQt5 real-time client, a web dashboard for batch review, and Docker plus CI/CD for deployment."
+image = "/projects/Classbehavior-cover.png"
+detailImages = ["/projects/Classbehavior-cover02.png"]
 tags = ["YOLOv8", "Face recognition", "ByteTrack", "MySQL", "Docker"]
 content = """- End-to-end behavior analytics for **high-density classrooms** (~30+ students): occlusion, viewpoint, fragmented IDs.
 - Pipeline: **YOLOv8** detection + face recognition + **ByteTrack** — six behaviors; temporal ID consistency under motion/occlusion.
@@ -128,8 +136,11 @@ title = "Parallelism for High-Performance Processors"
 subtitle = "Project Researcher · Systems · Xiamen University"
 date = "2024"
 summary = "A systems research survey examines heterogeneous processors—including Apple M1, Tesla FSD, and NVIDIA H100—through power, performance, and parallelism trade-offs. Analysis covers hardware pipelines, neural-network scheduling, irregular workloads, and limits of automatic parallelization. Experiments with Rhino scheduling, DNN partitioning, and parallelized clustering benchmarks on Colab and Kaggle illustrate memory-wall and scaling constraints in AI silicon."
-image = "/projects/highperformance-cover.png"
-detailImages = ["/projects/highperformance-cover02.png"]
+image = "/projects/highperformance-subcover.png"
+detailImages = [
+  "/projects/highperformance-cover.png",
+  "/projects/highperformance-cover02.png",
+]
 tags = ["M1", "H100", "Colab", "Kaggle"]
 content = """- Survey of heterogeneous architectures (**Apple M1**, Tesla FSD, **NVIDIA H100**): power/performance scalability under extreme parallelism.
 - Pipelines vs NN scheduling vs irregular workloads; limits of automated parallelization.
@@ -141,6 +152,11 @@ title = "Privacy-Preserving Financial Computing"
 subtitle = "Project Researcher · Xiamen University × Industrial Bank & Hyperfusion · 2023"
 date = "2023"
 summary = "A privacy-preserving pipeline enables Industrial Bank credit records to migrate to Hyperfusion Cloud without exposing personal data. SecretFlow SPU supports federated and ciphertext-based ML workloads, while a React.js portal orchestrates distributed jobs and monitors shard execution. PSI preprocessing secures entity alignment and optimized three-party SPU graphs reduce communication rounds for risk scoring models."
+image = "/projects/PrivacyPreserving-cover.png"
+detailImages = [
+  "/projects/PrivacyPreserving-cover02.png",
+  "/projects/PrivacyPreserving-cover03.png",
+]
 tags = ["SecretFlow", "SPU", "PSI", "Federated Learning", "React"]
 content = """- Encrypted migration pipeline for **Industrial Bank** credit records to **Hyperfusion Cloud**.
 - **SecretFlow / SPU** privacy-preserving ML & federated learning on ciphertext — no cloud PII exposure.
@@ -177,6 +193,8 @@ title = "Campus Digital Twin — Navigation Platform"
 subtitle = "Technical Lead · Award-winning · Xiamen University · 2023"
 date = "2023"
 summary = "Led an eight-person team over nine months to deliver a Unity-based campus digital twin for historical reconstruction, navigation, and interactive digital-human guidance. The platform manages 40+ optimized 3D models with LOD balancing, spatial wayfinding, multi-terminal deployment, and voice plus motion-enabled guides. Partner pilots across 10+ provinces and third prize in the Cross-Strait University IT competition validated real-world usability."
+image = "/projects/TwinCampus-cover.png"
+detailImages = ["/projects/TwinCampus-cover02.png"]
 tags = ["Unity", "LOD"]
 content = """- Led **~8-member**, **nine-month** Unity digital twin for historical campuses: reconstruction, navigation, interactive digital-human guide.
 - Owned 3D production, modular scenes, optimization, integration, interaction; **LOD** for **40+** models balancing mobile fidelity.
