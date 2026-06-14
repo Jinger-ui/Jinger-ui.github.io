@@ -2,6 +2,23 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import type { PlaygroundProject } from '@/lib/playgroundProjects';
 import { playgroundHref, categoryLabel } from '@/lib/playgroundProjects';
+import { cn } from '@/lib/utils';
+
+const PLACEHOLDER_GRADIENTS = [
+  'from-amber-500/40 via-orange-300/25 to-yellow-200/20',
+  'from-sky-500/40 via-blue-300/25 to-indigo-200/20',
+  'from-emerald-500/40 via-teal-300/25 to-cyan-200/20',
+  'from-violet-500/40 via-purple-300/25 to-fuchsia-200/20',
+  'from-rose-500/40 via-pink-300/25 to-orange-200/20',
+];
+
+function placeholderGradient(title: string): string {
+  let hash = 0;
+  for (let i = 0; i < title.length; i += 1) {
+    hash = (hash + title.charCodeAt(i) * (i + 1)) % PLACEHOLDER_GRADIENTS.length;
+  }
+  return PLACEHOLDER_GRADIENTS[hash];
+}
 
 const markdownComponents = {
   p: ({ children }: React.ComponentProps<'p'>) => (
@@ -94,40 +111,73 @@ export default function PlaygroundDetailPage({
             <p className="mt-6 text-[0.76rem] font-semibold uppercase tracking-[0.24em] text-playground-accent">
               Playground study / {project.date}
             </p>
-            <h1 className="mt-4 font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              {project.title}
-            </h1>
-            {project.subtitle && <p className="mt-3 text-sm font-medium text-playground-accent">{project.subtitle}</p>}
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground/75 dark:text-white/86">{project.summary}</p>
 
-            <div className="mt-7 flex flex-wrap gap-3 text-sm">
-              {project.subtitle && (
-                <span className="rounded-full border border-border bg-muted/70 px-4 py-2 font-semibold">
-                  {project.subtitle.split('·')[0]?.trim() || project.subtitle}
-                </span>
-              )}
-              {project.date && (
-                <span className="rounded-full border border-border bg-muted/70 px-4 py-2 font-semibold">
-                  {project.date}
-                </span>
-              )}
-              <span className="rounded-full border border-border bg-muted/70 px-4 py-2 font-semibold">
-                {categoryLabel(project.category)}
-              </span>
-            </div>
+            <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
+              <div>
+                <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                  {project.title}
+                </h1>
+                {project.subtitle && (
+                  <p className="mt-3 text-sm font-medium text-playground-accent">{project.subtitle}</p>
+                )}
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground/75 dark:text-white/86">
+                  {project.summary}
+                </p>
 
-            {project.tags && project.tags.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-semibold text-foreground/75 dark:text-white/86"
-                  >
-                    {tag}
+                <div className="mt-7 flex flex-wrap gap-3 text-sm">
+                  {project.subtitle && (
+                    <span className="rounded-full border border-border bg-muted/70 px-4 py-2 font-semibold">
+                      {project.subtitle.split('·')[0]?.trim() || project.subtitle}
+                    </span>
+                  )}
+                  {project.date && (
+                    <span className="rounded-full border border-border bg-muted/70 px-4 py-2 font-semibold">
+                      {project.date}
+                    </span>
+                  )}
+                  <span className="rounded-full border border-border bg-muted/70 px-4 py-2 font-semibold">
+                    {categoryLabel(project.category)}
                   </span>
-                ))}
+                </div>
+
+                {project.tags && project.tags.length > 0 && (
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-semibold text-foreground/75 dark:text-white/86"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+
+              <div className="overflow-hidden rounded-[1.4rem] border border-border bg-muted/40 shadow-lg">
+                {project.image ? (
+                  <div className="aspect-[16/10]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="h-full w-full object-contain object-center"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={cn(
+                      'flex aspect-[16/10] items-end bg-gradient-to-br p-5',
+                      placeholderGradient(project.title)
+                    )}
+                  >
+                    <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-foreground/60 dark:text-white/70">
+                      {project.date || 'Playground'}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -174,6 +224,33 @@ export default function PlaygroundDetailPage({
             </h2>
             <div className="mt-5 text-sm leading-7 text-foreground/80 dark:text-white/88 sm:text-base">
               <ReactMarkdown components={markdownComponents}>{project.content}</ReactMarkdown>
+            </div>
+          </section>
+        )}
+
+        {project.detailImages && project.detailImages.length > 0 && (
+          <section className="rounded-[1.85rem] border border-border bg-card/80 p-6 shadow-[0_18px_50px_var(--playground-section-shadow)] backdrop-blur">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-playground-accent">
+              02b / Gallery
+            </p>
+            <h2 className="mt-3 inline-flex border-b-2 border-playground-accent pb-2 font-serif text-3xl font-bold tracking-tight text-foreground">
+              Project visuals
+            </h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {project.detailImages.map((src, index) => (
+                <figure
+                  key={src}
+                  className="overflow-hidden rounded-[1.2rem] border border-border bg-muted/40 shadow-lg"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt={`${project.title} screenshot ${index + 1}`}
+                    className="h-full w-full object-contain object-center bg-muted/30"
+                    loading="lazy"
+                  />
+                </figure>
+              ))}
             </div>
           </section>
         )}
