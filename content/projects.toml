@@ -91,6 +91,8 @@ title = "Machine Learning Model Evaluation"
 subtitle = "Machine Learning Engineer · NUS-ISS Team Project"
 date = "2025"
 summary = "A comparative machine learning study evaluates multiple algorithms through preprocessing, feature engineering, training, and performance benchmarking. Using Python, Pandas, and scikit-learn, I compared models on accuracy, classification metrics, and parameter sensitivity. NumPy and Matplotlib visualizations summarized trade-offs to support model selection and reporting."
+image = "/projects/Grids-cover.png"
+detailImages = ["/projects/Grids-cover02.png"]
 tags = ["Python", "Pandas", "Scikit-learn"]
 content = """- Built/evaluated multiple models (**Python**, Pandas, scikit-learn): preprocessing, features, train/predict/compare.
 - Compared algorithms via accuracy, classification metrics, parameter sensitivities.
@@ -115,6 +117,7 @@ title = "Multimodal Attention Analysis System"
 subtitle = "Individual Developer · Xiamen University Dept. Computer Science"
 date = "2024"
 summary = "This system analyzes student attention in restricted study and exam environments by synchronizing gaze estimation with object detection. YOLOv8 identifies laptops, tablets, phones, and papers while real-time gaze tracking measures focus under occlusion and pose variation. Attention scores combine region-of-interest alignment and focus-duration metrics to distinguish productive study from distraction or misconduct."
+image = "/projects/MultiStudenybehavior-cover.png"
 tags = ["YOLOv8", "Gaze tracking"]
 content = """- Attention analysis for **restricted study/exam** settings (small groups ~1–3): study-focus reporting vs automated exam modes; timestamps, realtime viz, backend logging.
 - Pipeline: **YOLOv8** object detection + **real-time gaze** for laptops/tablets/phones/test papers under occlusion/varied pose.
@@ -169,6 +172,8 @@ title = "Credit Card Fraud & Illegal Trading Analysis"
 subtitle = "Project Researcher · Guizhou Univ. Finance & Economics · Risk Analytics · 2023"
 date = "2023"
 summary = "Risk analytics for regional governance identifies credit card fraud and illicit account trading patterns from structured transaction data. Standardized preprocessing handles outliers, normalization, and feature engineering for downstream machine learning detectors. Segment analysis across age and occupation supports differentiated monitoring and prevention strategies."
+image = "/projects/CardFraud-cover.png"
+detailImages = ["/projects/CardFraud-cover-02.png"]
 tags = ["ML", "Feature engineering"]
 content = """- Fraud & illicit-account trading analytics supporting regional governance and ops risk control.
 - Standardized preprocessing: outliers, normalization, structured features for downstream models.
@@ -180,6 +185,8 @@ title = "BERT — Car Reviews (Topic & Sentiment)"
 subtitle = "Project Lead · Publication · EMIE 2023 · Proc. SPIE 12919"
 date = "2023"
 summary = "As project lead, I built a BERT-based framework for automotive review topic and sentiment classification, published at EMIE 2023 (Proc. SPIE 12919). A custom summative attention mechanism with domain vocabulary injection and penalty loss for class imbalance improved topic accuracy from 0.676 to 0.816 and sentiment accuracy from 0.701 to 0.746. I owned the full pipeline from preprocessing and augmentation through training, validation, and baseline comparison."
+image = "/projects/Bert-carreview-cover.png"
+detailImages = ["/projects/Bert-carreview-cover02.png"]
 tags = ["BERT", "NLP"]
 content = """- Two-person publication team: automotive review **topic** + **sentiment** classification.
 - **Summative attention** injecting summarized domain vocab into BERT (position & weight matrices); stronger salience vs vanilla BERT.
@@ -207,6 +214,8 @@ title = "ROP Attack Mitigation (OS + Hardware-Assisted)"
 subtitle = "Project Contributor · IEEE ICSECS 2023 publication"
 date = "2023"
 summary = "Contributed to an IEEE ICSECS 2023 publication on return-oriented programming mitigation combining operating-system protections with hardware-assisted control-flow monitoring. The framework analyzes trade-offs among ASLR, DEP, and Intel LBR for branch anomaly detection in virtualized environments. A workflow integrating overflow mitigation, LBR analysis, and VMI improves visibility into indirect jumps and supports visualization-driven alerting."
+image = "/projects/Rop-cover.png"
+detailImages = ["/projects/Rop-cover02.png"]
 tags = ["ASLR", "DEP", "LBR", "VMI"]
 content = """- Defenses spanning **ROP** mitigation: OS + hardware-assisted monitoring.
 - Analyzed ASLR/DEP/**Intel LBR** trade-offs; abnormal-branch detection resilience.
