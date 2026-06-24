@@ -1,0 +1,28 @@
+# Build probes
+_prism_build_probe/
+_prism_build_probe2/
+_remote_repo_inspect/
+
+# Screenshots / checks
+_*-check.png
+
+# LaTeX auxiliary
+*.aux
+*.log
+*.out
+
+# Other portfolios (separate repos)
+li-xingbang-portfolio/
+jj_resume/
+prism-portfolio/
+
+# LaTeX files for other person
+li_xingbang_resume.*
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+.cursor/
+.vscode/

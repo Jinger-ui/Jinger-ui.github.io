@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Jingjia's Grimoire — AI systems, research spells, and engineering journeys collected along the way." />
+  <title>Jingjia's Grimoire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg-deep: #0a0d14;
+  --bg-parchment: #12151c;
+  --bg-card: rgba(16, 18, 22, 0.94);
+  --gold: #c8a55a;
+  --gold-light: #e6c878;
+  --gold-warm: #dda54c;
+  --gold-muted: rgba(200, 165, 90, 0.12);
+  --cream: #e8dcc8;
+  --sage: #7a9e7e;
+  --lavender: #9b8ec4;
+  --ice-blue: #8bb8d0;
+  --text-primary: #d4cfc6;
+  --text-muted: #8a8578;
+  --text-body: #b0aaa0;
+  --border-gold: rgba(193, 140, 66, 0.35);
+  --border-subtle: rgba(100, 85, 60, 0.2);
+  --shadow-deep: 0 20px 50px rgba(0,0,0,0.5);
+  --font-script: "Allura", cursive;
+  --font-manuscript: "Cormorant Garamond", "IM Fell English", serif;
+  --font-chinese: "Zhi Mang Xing", cursive;
+  --font-ui: "Inter", "Noto Sans SC", system-ui, sans-serif;
+  --radius: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: var(--bg-deep);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(139,184,208,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 85%, rgba(200,165,90,0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(10,13,20,0.95) 0%, transparent 80%),
+    linear-gradient(180deg, #0c0f18 0%, #0a0d14 40%, #0e1018 100%);
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0.5rem;
+  padding: 0.5rem 1rem; background: var(--gold); color: #111;
+  border-radius: 6px; z-index: 999; text-decoration: none;
+}
+.skip-link:focus { left: 0.5rem; }
+
+.grimoire-wrap {
+  width: min(60rem, 100% - 2rem);
+  margin-inline: auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* ---- NAV ---- */
+.grimoire-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(10, 13, 20, 0.88);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: box-shadow 0.3s ease;
+}
+.grimoire-nav.is-scrolled {
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 1px 0 rgba(200,165,90,0.08);
+}
+.nav-inner {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0;
+}
+.nav-brand {
+  font-family: var(--font-manuscript); font-weight: 600;
+  font-size: 0.95rem; color: var(--gold); text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-brand:hover { color: var(--gold-light); }
+.nav-scroll {
+  display: flex; flex-wrap: nowrap; gap: 0.1rem;
+  overflow-x: auto; margin-left: auto; padding-bottom: 2px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+@media (min-width: 900px) { .nav-scroll { flex-wrap: wrap; justify-content: flex-end; overflow: visible; } }
+.nav-scroll a {
+  flex: 0 0 auto; padding: 0.4rem 0.6rem; border-radius: 0.5rem;
+  font-size: 0.78rem; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-scroll a:hover, .nav-scroll a.is-active {
+  color: var(--gold-light); background: var(--gold-muted);
+}
+.header-progress { display: block; height: 2px; background: transparent; }
+.header-progress-bar {
+  display: block; width: 100%; height: 100%;
+  transform-origin: left center; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+
+/* ---- SECTION BASE ---- */
+.grimoire-section {
+  padding: 4rem 0 3rem;
+  border-top: 1px solid var(--border-subtle);
+  scroll-margin-top: 4.5rem;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.grimoire-section.section-visible {
+  opacity: 1; transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .grimoire-section { opacity: 1; transform: none; transition: none; }
+}
+.section-kicker {
+  margin: 0 0 0.3rem; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+}
+.section-heading-script {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 400; line-height: 0.95; letter-spacing: 0.02em;
+  color: var(--gold-light);
+  text-shadow: 0 0 20px rgba(221,165,76,0.15);
+  margin: 0 0 0.6rem;
+}
+.section-heading-serif {
+  font-family: var(--font-manuscript);
+  font-size: 1.5rem; font-weight: 400; color: var(--cream);
+  margin: 0 0 1rem; padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border-gold);
+  display: inline-block; min-width: min(100%, 10rem);
+}
+.section-lede {
+  color: var(--text-muted); margin: -0.2rem 0 1.2rem;
+  max-width: 48rem; font-size: 0.92rem;
+}
+
+/* ---- HERO ---- */
+.hero-grimoire {
+  position: relative; padding: 5rem 0 4rem;
+  border-top: none; min-height: 85vh;
+  display: flex; align-items: center;
+}
+.hero-grimoire.section-visible { opacity: 1; transform: none; }
+.hero-grid {
+  display: grid; gap: 2rem; align-items: center;
+}
+@media (min-width: 800px) {
+  .hero-grid { grid-template-columns: 1.2fr 0.8fr; }
+}
+.hero-text { position: relative; z-index: 5; }
+.hero-title {
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 400; line-height: 0.9;
+  color: var(--gold-light); margin: 0;
+  text-shadow: 0 0 40px rgba(228,185,118,0.2), 0 0 80px rgba(228,185,118,0.08);
+  animation: heroTitleIn 1.5s ease-out both;
+}
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: translateY(20px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.hero-subtitle {
+  font-family: var(--font-manuscript); font-size: 1.15rem;
+  font-style: italic; color: var(--text-body); margin: 1rem 0 1.5rem;
+  max-width: 32rem; line-height: 1.6;
+  animation: heroFadeIn 1.8s ease-out 0.3s both;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-chips {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  animation: heroFadeIn 2s ease-out 0.6s both;
+}
+.hero-chip {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.25rem 0.6rem;
+  border-radius: 0.35rem; color: var(--gold-light);
+  background: var(--gold-muted); border: 1px solid rgba(200,165,90,0.2);
+}
+.hero-social {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+  margin-top: 1.2rem;
+  animation: heroFadeIn 2.2s ease-out 0.8s both;
+}
+.hero-social a {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.35rem 0.75rem; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 500; color: var(--text-body);
+  background: rgba(20,23,30,0.6); border: 1px solid var(--border-subtle);
+  text-decoration: none; transition: color 0.2s, border-color 0.2s;
+}
+.hero-social a:hover { color: var(--gold-light); border-color: var(--gold); }
+
+.hero-visual {
+  position: relative; display: flex;
+  align-items: center; justify-content: center;
+  min-height: 280px;
+}
+.magic-circle {
+  width: 100%; max-width: 340px; height: auto;
+  animation: magicCircleSpin 60s linear infinite;
+}
+.magic-circle .ring {
+  fill: none; stroke-linecap: round;
+}
+.magic-circle .ring-outer {
+  stroke: rgba(155,142,196,0.18); stroke-width: 1;
+  stroke-dasharray: 1200; stroke-dashoffset: 1200;
+  animation: drawRing 2.5s ease-out 0.5s forwards;
+}
+.magic-circle .ring-mid {
+  stroke: rgba(139,184,208,0.15); stroke-width: 0.7;
+  stroke-dasharray: 900; stroke-dashoffset: 900;
+  animation: drawRing 2.8s ease-out 0.8s forwards;
+}
+.magic-circle .ring-inner {
+  stroke: rgba(200,165,90,0.2); stroke-width: 0.8;
+  stroke-dasharray: 600; stroke-dashoffset: 600;
+  animation: drawRing 2.2s ease-out 1s forwards;
+}
+.magic-circle .rune-marks {
+  stroke: rgba(200,165,90,0.12); stroke-width: 0.5;
+  fill: none;
+}
+.magic-circle .star-dot {
+  fill: rgba(232,220,200,0.3); r: 1.5;
+}
+@keyframes drawRing {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes magicCircleSpin {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .magic-circle { animation: none; }
+  .magic-circle .ring-outer,
+  .magic-circle .ring-mid,
+  .magic-circle .ring-inner { animation: none; stroke-dashoffset: 0; }
+  .hero-title, .hero-subtitle, .hero-chips, .hero-social { animation: none; }
+}
+
+.scroll-indicator {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.15em;
+  text-transform: uppercase; display: flex; flex-direction: column;
+  align-items: center; gap: 0.5rem;
+  animation: scrollFloat 2.5s ease-in-out infinite;
+}
+.scroll-indicator::after {
+  content: ""; width: 1px; height: 28px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+}
+@keyframes scrollFloat {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ---- JOURNEY / ADVENTURE LOG ---- */
+.journey-container { position: relative; padding: 1rem 0; }
+.journey-svg-wrap {
+  position: absolute; top: 0; left: 30px; bottom: 0;
+  width: 4px; z-index: 1;
+}
+@media (min-width: 800px) {
+  .journey-svg-wrap { left: 50%; transform: translateX(-50%); }
+}
+.journey-path-line {
+  stroke: var(--gold); stroke-width: 2; fill: none;
+  stroke-linecap: round;
+}
+.journey-nodes { position: relative; z-index: 2; }
+.journey-station {
+  position: relative; padding: 0 0 3rem;
+  padding-left: 56px;
+}
+@media (min-width: 800px) {
+  .journey-station { padding-left: 0; width: 45%; }
+  .journey-station:nth-child(odd) { margin-left: 0; text-align: right; padding-right: 40px; }
+  .journey-station:nth-child(even) { margin-left: 55%; padding-left: 40px; text-align: left; }
+}
+.journey-node {
+  position: absolute; left: 22px; top: 0;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--bg-deep); border: 2px solid var(--gold);
+  cursor: pointer; z-index: 3;
+  transition: box-shadow 0.4s, transform 0.3s, border-color 0.3s;
+  opacity: 0; transform: scale(0.5);
+}
+@media (min-width: 800px) {
+  .journey-station:nth-child(odd) .journey-node { left: auto; right: -50px; }
+  .journey-station:nth-child(even) .journey-node { left: -50px; }
+}
+.journey-node.visible {
+  opacity: 1; transform: scale(1);
+  animation: nodePulse 2.5s ease-in-out infinite;
+}
+.journey-node.hovered, .journey-node.active {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 16px rgba(200,165,90,0.35);
+  transform: scale(1.15);
+}
+@keyframes nodePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(200,165,90,0.25); }
+  50% { box-shadow: 0 0 12px 4px rgba(200,165,90,0.12); }
+}
+.journey-station-title {
+  font-family: var(--font-manuscript); font-size: 1.2rem;
+  font-weight: 600; font-style: italic; color: var(--gold-light);
+  margin: 0 0 0.15rem;
+}
+.journey-station-subtitle {
+  font-size: 0.78rem; color: var(--text-muted); margin: 0 0 0.2rem;
+  font-weight: 600;
+}
+.journey-station-date {
+  font-size: 0.72rem; color: var(--gold); font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.journey-detail {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+  margin-top: 0;
+}
+.journey-detail.open {
+  max-height: 600px; opacity: 1; margin-top: 0.6rem;
+}
+.journey-detail-inner {
+  padding: 0.8rem 1rem; border-radius: var(--radius);
+  background: rgba(18,21,28,0.85); border: 1px solid var(--border-gold);
+  font-size: 0.88rem; color: var(--text-body); line-height: 1.6;
+}
+.journey-detail-inner ul {
+  margin: 0.3rem 0 0; padding-left: 1rem;
+}
+.journey-detail-inner li + li { margin-top: 0.3rem; }
+
+/* ---- SPELL SCHOOLS (SKILLS) ---- */
+.spell-schools-grid {
+  display: grid; gap: 1rem;
+}
+@media (min-width: 600px) {
+  .spell-schools-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .spell-schools-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.spell-school {
+  padding: 1.2rem 1.15rem; border-radius: var(--radius);
+  background: rgba(16,18,22,0.8); border: 1px solid var(--border-subtle);
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.4s, box-shadow 0.4s;
+}
+.spell-school.visible {
+  opacity: 1; transform: translateY(0);
+}
+.spell-school.school-glow {
+  border-color: rgba(200,165,90,0.4);
+  box-shadow: 0 0 20px rgba(200,165,90,0.08);
+}
+.spell-school-icon {
+  font-size: 1.4rem; margin-bottom: 0.4rem; display: block;
+}
+.spell-school-name {
+  font-family: var(--font-manuscript); font-size: 1.1rem;
+  font-weight: 600; font-style: italic; color: var(--gold-light);
+  margin: 0 0 0.6rem;
+}
+.skill-nodes {
+  display: flex; flex-wrap: wrap; gap: 0.35rem;
+}
+.skill-node {
+  position: relative; font-size: 0.72rem; font-weight: 600;
+  padding: 0.22rem 0.5rem; border-radius: 999px;
+  color: var(--text-body); background: rgba(200,165,90,0.08);
+  border: 1px solid rgba(200,165,90,0.12);
+  cursor: pointer; transition: all 0.3s ease;
+}
+.skill-node:hover, .skill-node.constellation-active {
+  color: var(--gold-light); border-color: rgba(200,165,90,0.4);
+  background: rgba(200,165,90,0.15);
+  box-shadow: 0 0 8px rgba(200,165,90,0.15);
+}
+.skill-tooltip {
+  display: none; position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%); margin-bottom: 8px;
+  background: rgba(12,14,20,0.95); border: 1px solid var(--border-gold);
+  border-radius: 6px; padding: 0.5rem 0.7rem;
+  font-size: 0.72rem; color: var(--text-body); white-space: nowrap;
+  z-index: 20; pointer-events: none;
+}
+.skill-tooltip.show { display: block; }
+
+/* ---- PROJECTS BY YEAR / SPELL SCROLLS ---- */
+.projects-timeline { position: relative; }
+.year-group { margin-bottom: 2.5rem; }
+.project-year {
+  font-family: var(--font-manuscript);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-style: italic; font-weight: 600; line-height: 1;
+  letter-spacing: 0.03em; color: var(--gold-light);
+  margin: 0 0 1rem; position: relative;
+  padding-left: 20px;
+}
+.project-year::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); transform: translateY(-50%);
+  box-shadow: 0 0 8px rgba(200,165,90,0.3);
+}
+.project-card {
+  position: relative; overflow: hidden;
+  padding: 28px 36px; border-radius: 10px; margin-bottom: 1rem;
+  background:
+    linear-gradient(90deg,
+      rgba(91,59,28,0.72) 0%, rgba(25,20,15,0.92) 10%,
+      rgba(16,18,22,0.94) 50%, rgba(25,20,15,0.92) 90%,
+      rgba(91,59,28,0.72) 100%);
+  border: 1px solid rgba(193,140,66,0.52);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,218,145,0.06),
+    inset 0 0 32px rgba(104,65,26,0.18),
+    0 14px 36px rgba(0,0,0,0.42);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  text-decoration: none; color: inherit; display: block;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(235,183,97,0.82);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,224,159,0.12),
+    inset 0 0 42px rgba(137,86,30,0.2),
+    0 0 24px rgba(205,151,70,0.15),
+    0 18px 42px rgba(0,0,0,0.48);
+}
+.project-card::before, .project-card::after {
+  content: ""; position: absolute; top: 14px; bottom: 14px;
+  width: 22px; pointer-events: none; opacity: 0.8;
+}
+.project-card::before {
+  left: 0; border-radius: 14px 0 0 14px;
+  background: linear-gradient(90deg, rgba(136,91,39,0.85), rgba(78,48,22,0.32), transparent);
+  box-shadow: inset 4px 0 7px rgba(255,204,122,0.15), 4px 0 12px rgba(0,0,0,0.24);
+}
+.project-card::after {
+  right: 0; border-radius: 0 14px 14px 0;
+  background: linear-gradient(270deg, rgba(136,91,39,0.85), rgba(78,48,22,0.32), transparent);
+  box-shadow: inset -4px 0 7px rgba(255,204,122,0.15), -4px 0 12px rgba(0,0,0,0.24);
+}
+.project-card__title {
+  font-family: var(--font-manuscript);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-style: italic; font-weight: 600; line-height: 1.1;
+  letter-spacing: 0.01em; color: #f0d19a; margin: 0 0 0.3rem;
+}
+.project-card__role {
+  font-family: var(--font-ui); font-size: 0.8rem;
+  font-weight: 600; color: var(--gold); margin: 0 0 0.5rem;
+}
+.project-card__desc {
+  font-family: var(--font-ui); font-size: 0.88rem;
+  color: var(--text-body); margin: 0 0 0.6rem; line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.project-card__tags {
+  display: flex; flex-wrap: wrap; gap: 0.3rem;
+}
+.project-card__tag {
+  font-family: var(--font-ui); font-size: 0.68rem; font-weight: 600;
+  padding: 0.18rem 0.5rem; border-radius: 999px;
+  color: var(--text-body); background: rgba(200,165,90,0.1);
+  border: 1px solid rgba(200,165,90,0.15);
+}
+.project-card__hint {
+  margin-top: 0.5rem; font-size: 0.72rem; font-weight: 600;
+  color: var(--gold); opacity: 0.7;
+}
+
+/* ---- PLAYGROUND / DRAW A SPELL ---- */
+.playground-controls {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  align-items: center; margin-bottom: 1.2rem;
+}
+.draw-spell-btn {
+  font-family: var(--font-manuscript); font-size: 1.05rem;
+  font-weight: 600; padding: 0.6rem 1.4rem;
+  border-radius: var(--radius); border: 1px solid var(--gold);
+  background: var(--gold-muted); color: var(--gold-light);
+  cursor: pointer; transition: all 0.3s;
+}
+.draw-spell-btn:hover {
+  background: rgba(200,165,90,0.2);
+  box-shadow: 0 0 16px rgba(200,165,90,0.2);
+}
+.playground-filter-btn {
+  font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600;
+  padding: 0.35rem 0.7rem; border-radius: 999px;
+  border: 1px solid var(--border-subtle); background: transparent;
+  color: var(--text-muted); cursor: pointer; transition: all 0.2s;
+}
+.playground-filter-btn:hover, .playground-filter-btn.active {
+  color: var(--gold-light); border-color: var(--gold);
+  background: var(--gold-muted);
+}
+.playground-grid {
+  display: grid; gap: 0.85rem; grid-template-columns: 1fr;
+}
+@media (min-width: 560px) {
+  .playground-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .playground-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.playground-card {
+  display: block; text-decoration: none; color: inherit;
+  perspective: 800px; opacity: 0; transform: translateY(20px) rotateY(-8deg);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.playground-card.dealt {
+  opacity: 1; transform: translateY(0) rotateY(0);
+}
+.playground-card-inner {
+  padding: 1rem 1.1rem; border-radius: var(--radius);
+  background: rgba(16,18,22,0.85); border: 1px solid var(--border-subtle);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.playground-card:hover .playground-card-inner {
+  border-color: rgba(200,165,90,0.4);
+  box-shadow: 0 0 16px rgba(200,165,90,0.1);
+  transform: translateY(-3px);
+}
+.playground-card-front {}
+.playground-card-back { display: none; }
+.playground-card-year {
+  font-size: 0.68rem; font-weight: 700; color: var(--gold);
+  letter-spacing: 0.08em;
+}
+.playground-card-title {
+  font-family: var(--font-manuscript); font-style: italic;
+  font-size: 1.05rem; font-weight: 600; color: var(--cream);
+  margin: 0.2rem 0 0.15rem;
+}
+.playground-card-role {
+  font-size: 0.78rem; color: var(--text-muted); margin: 0 0 0.4rem;
+}
+.playground-card-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.pg-tag {
+  font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.4rem;
+  border-radius: 999px; color: var(--text-body);
+  background: rgba(200,165,90,0.08); border: 1px solid rgba(200,165,90,0.1);
+}
+.shuffle-out .playground-card {
+  animation: shuffleOut 0.4s ease-in forwards;
+}
+@keyframes shuffleOut {
+  to { opacity: 0; transform: translateY(-10px) rotateY(15deg) scale(0.9); }
+}
+.shuffle-in .playground-card {
+  animation: shuffleIn 0.5s ease-out forwards;
+}
+@keyframes shuffleIn {
+  from { opacity: 0; transform: translateY(20px) rotateY(-10deg) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) rotateY(0) scale(1); }
+}
+
+/* ---- RESEARCH TOMES (PUBLICATIONS) ---- */
+.tome-card {
+  padding: 1.2rem 1.3rem; border-radius: var(--radius);
+  background: rgba(16,18,22,0.8); border: 1px solid var(--border-subtle);
+  margin-bottom: 0.85rem; position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.tome-card:hover {
+  border-color: rgba(200,165,90,0.35);
+  box-shadow: 0 0 16px rgba(200,165,90,0.06);
+}
+.tome-icon {
+  position: absolute; top: 1rem; right: 1rem;
+  font-size: 1.3rem; opacity: 0.4;
+}
+.tome-card p {
+  margin: 0; color: var(--text-body); font-size: 0.9rem; line-height: 1.65;
+}
+.tome-card cite {
+  font-style: normal; font-weight: 600; color: var(--cream);
+}
+.tome-card a {
+  color: var(--gold); font-weight: 600; text-decoration: none;
+}
+.tome-card a:hover { text-decoration: underline; color: var(--gold-light); }
+
+/* ---- ACHIEVEMENTS UNLOCKED (AWARDS) ---- */
+.achievements-grid {
+  display: grid; gap: 0.85rem;
+}
+@media (min-width: 600px) {
+  .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.achievement-card {
+  padding: 1.1rem 1.15rem; border-radius: var(--radius);
+  background: rgba(16,18,22,0.8); border: 1px solid var(--border-subtle);
+  cursor: pointer; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position: relative; overflow: hidden;
+}
+.achievement-card:hover {
+  border-color: rgba(200,165,90,0.35);
+  box-shadow: 0 0 14px rgba(200,165,90,0.08);
+  transform: translateY(-2px);
+}
+.achievement-card::before {
+  content: ""; position: absolute; top: -1px; right: -1px;
+  width: 32px; height: 32px; border-radius: 0 8px 0 14px;
+  background: linear-gradient(135deg, transparent 50%, rgba(200,165,90,0.15) 50%);
+}
+.achievement-seal {
+  font-size: 1.5rem; margin-bottom: 0.3rem; display: block;
+}
+.achievement-title {
+  font-family: var(--font-manuscript); font-size: 1rem;
+  font-weight: 600; font-style: italic; color: var(--cream);
+  margin: 0 0 0.3rem;
+}
+.achievement-meta {
+  font-size: 0.78rem; color: var(--text-muted); margin: 0;
+}
+.achievement-details {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+.achievement-card.expanded .achievement-details {
+  max-height: 200px; opacity: 1; margin-top: 0.6rem;
+}
+.achievement-details-inner {
+  font-size: 0.82rem; color: var(--text-body); line-height: 1.5;
+  padding-top: 0.5rem; border-top: 1px solid var(--border-subtle);
+}
+
+/* ---- SEND A RAVEN (CONTACT) ---- */
+.contact-portal {
+  text-align: center; padding: 2rem 0;
+  position: relative;
+}
+.contact-circle {
+  width: 120px; height: 120px; margin: 0 auto 1.5rem;
+  border-radius: 50%; position: relative;
+  border: 1px solid rgba(155,142,196,0.2);
+  display: grid; place-items: center;
+  animation: portalPulse 4s ease-in-out infinite;
+}
+@keyframes portalPulse {
+  0%,100% { box-shadow: 0 0 20px rgba(155,142,196,0.08), inset 0 0 20px rgba(139,184,208,0.05); }
+  50% { box-shadow: 0 0 35px rgba(155,142,196,0.14), inset 0 0 30px rgba(139,184,208,0.08); }
+}
+.contact-circle-icon { font-size: 2.2rem; opacity: 0.6; }
+.contact-links {
+  display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+}
+.contact-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.5rem 1rem; border-radius: 999px;
+  font-size: 0.85rem; font-weight: 500; color: var(--text-body);
+  background: rgba(20,23,30,0.6); border: 1px solid var(--border-subtle);
+  text-decoration: none; transition: all 0.3s;
+}
+.contact-link:hover {
+  color: var(--gold-light); border-color: var(--gold);
+  background: var(--gold-muted);
+  box-shadow: 0 0 12px rgba(200,165,90,0.1);
+}
+
+/* ---- CERTIFICATES ---- */
+.cert-list {
+  display: grid; gap: 0.5rem;
+}
+@media (min-width: 560px) {
+  .cert-list { grid-template-columns: repeat(2, 1fr); }
+}
+.cert-item {
+  padding: 0.7rem 0.9rem; border-radius: var(--radius);
+  background: rgba(16,18,22,0.6); border: 1px solid var(--border-subtle);
+  font-size: 0.85rem; color: var(--text-body);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.cert-icon { font-size: 1rem; opacity: 0.5; }
+
+/* ---- FOOTER ---- */
+.grimoire-footer {
+  padding: 2rem 0 2.5rem; text-align: center;
+  font-size: 0.78rem; color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+}
+.grimoire-footer a {
+  color: var(--gold); text-decoration: none;
+}
+.grimoire-footer a:hover { text-decoration: underline; }
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: rgba(200,165,90,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(200,165,90,0.35); }
+
+/* ---- REDUCED MOTION ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .journey-node { opacity: 1; transform: scale(1); }
+  .spell-school { opacity: 1; transform: none; }
+  .playground-card { opacity: 1; transform: none; }
+}
+
+/* ---- FOCUS VISIBLE ---- */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="grimoire-nav" id="site-nav">
+    <div class="grimoire-wrap nav-inner">
+      <a href="#top" class="nav-brand">Jingjia's Grimoire</a>
+      <nav class="nav-scroll" aria-label="Sections">
+        <a href="#journey">Adventure Log</a>
+        <a href="#skills">Spell Schools</a>
+        <a href="#projects">Spell Scrolls</a>
+        <a href="#playground">Draw a Spell</a>
+        <a href="#publications">Research Tomes</a>
+        <a href="#awards">Achievements</a>
+        <a href="#contact">Send a Raven</a>
+      </nav>
+    </div>
+    <span class="header-progress" aria-hidden="true"><span class="header-progress-bar" id="scroll-progress"></span></span>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero-grimoire grimoire-section section-visible grimoire-wrap" id="top">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <h1 class="hero-title">Jingjia's Grimoire</h1>
+          <p class="hero-subtitle">AI systems, research spells, and engineering journeys collected along the way.</p>
+          <div class="hero-chips">
+            <span class="hero-chip">RAG</span>
+            <span class="hero-chip">Computer Vision</span>
+            <span class="hero-chip">Privacy ML</span>
+            <span class="hero-chip">Full-stack Systems</span>
+            <span class="hero-chip">MLOps</span>
+          </div>
+          <div class="hero-social">
+            <a href="tel:+6585904020">+65 8590 4020</a>
+            <a href="mailto:e1511449@u.nus.edu">Email</a>
+            <a href="https://www.linkedin.com/in/jingjia-cleveland" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/Jinger-ui" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <svg class="magic-circle" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle class="ring ring-outer" cx="200" cy="200" r="185" />
+            <circle class="ring ring-mid" cx="200" cy="200" r="145" />
+            <circle class="ring ring-inner" cx="200" cy="200" r="100" />
+            <g class="rune-marks">
+              <line x1="200" y1="10" x2="200" y2="30" />
+              <line x1="200" y1="370" x2="200" y2="390" />
+              <line x1="10" y1="200" x2="30" y2="200" />
+              <line x1="370" y1="200" x2="390" y2="200" />
+              <line x1="68" y1="68" x2="82" y2="82" />
+              <line x1="318" y1="68" x2="332" y2="82" />
+              <line x1="68" y1="332" x2="82" y2="318" />
+              <line x1="318" y1="332" x2="332" y2="318" />
+              <path d="M200 55 L210 70 L190 70 Z" fill="rgba(200,165,90,0.12)" />
+              <path d="M200 345 L210 330 L190 330 Z" fill="rgba(200,165,90,0.12)" />
+              <circle cx="200" cy="200" r="60" stroke-dasharray="8 12" />
+              <circle cx="200" cy="200" r="40" stroke-dasharray="4 16" />
+            </g>
+            <circle class="star-dot" cx="130" cy="90" />
+            <circle class="star-dot" cx="280" cy="110" />
+            <circle class="star-dot" cx="310" cy="260" />
+            <circle class="star-dot" cx="100" cy="300" />
+            <circle class="star-dot" cx="200" cy="200" r="2" fill="rgba(232,220,200,0.45)" />
+            <circle class="star-dot" cx="160" cy="160" />
+            <circle class="star-dot" cx="240" cy="240" />
+            <circle class="star-dot" cx="250" cy="140" />
+            <circle class="star-dot" cx="150" cy="260" />
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-indicator" aria-hidden="true">
+        <span>scroll</span>
+      </div>
+    </section>
+
+    <!-- ===== JOURNEY / ADVENTURE LOG ===== -->
+    <section id="journey" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter I</p>
+      <h2 class="section-heading-script">Adventure Log</h2>
+      <p class="section-lede">Waypoints and chapters from the journey so far&mdash;each stop a new spell learned, a new world explored.</p>
+
+      <div class="journey-container">
+        <svg class="journey-svg-wrap" viewBox="0 0 4 800" preserveAspectRatio="none" aria-hidden="true">
+          <line id="journey-path" class="journey-path-line" x1="2" y1="0" x2="2" y2="800" />
+        </svg>
+
+        <div class="journey-nodes">
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="ntu" tabindex="0" role="button" aria-label="Next Destination: NTU"></div>
+            <h3 class="journey-station-title">Next Destination</h3>
+            <p class="journey-station-subtitle">M.Sc. Artificial Intelligence &middot; NTU</p>
+            <p class="journey-station-date">Aug 2026 &mdash; Upcoming</p>
+            <div class="journey-detail" data-journey="ntu">
+              <div class="journey-detail-inner">
+                Incoming M.Sc. in Artificial Intelligence at Nanyang Technological University. Continuing the journey deeper into AI research and applied machine learning.
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="spgroup" tabindex="0" role="button" aria-label="Power Grid Field: SP Group"></div>
+            <h3 class="journey-station-title">Power Grid Field</h3>
+            <p class="journey-station-subtitle">Systems Automation Intern &middot; SP Group</p>
+            <p class="journey-station-date">Apr 2026 &mdash; Aug 2026</p>
+            <div class="journey-detail" data-journey="spgroup">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>Vibration-sensor research; Online Random Forest for streaming operational data</li>
+                  <li>Weather-informed forecasting pipelines; XGBoost for alerting</li>
+                  <li>Azure migration support; CI/CD for integration and deployment</li>
+                  <li>Power BI optimization & Excel automation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="singapore" tabindex="0" role="button" aria-label="Singapore: NUS-ISS"></div>
+            <h3 class="journey-station-title">Singapore Guild</h3>
+            <p class="journey-station-subtitle">Graduate Diploma in Systems Analysis &middot; NUS-ISS</p>
+            <p class="journey-station-date">Feb 2025 &mdash; Present</p>
+            <div class="journey-detail" data-journey="singapore">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>Software Engineering, Cloud Systems, Agile Delivery, CI/CD, MLOps</li>
+                  <li>Java, Spring, C#, ASP.NET Core, Kotlin, Python, SQL</li>
+                  <li>5 NUS-ISS Graduate Certificates completed</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="boc" tabindex="0" role="button" aria-label="Banking Tower: Bank of China"></div>
+            <h3 class="journey-station-title">Banking Tower</h3>
+            <p class="journey-station-subtitle">IT Intern &middot; Bank of China</p>
+            <p class="journey-station-date">Aug 2025 &mdash; Nov 2025</p>
+            <div class="journey-detail" data-journey="boc">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>Private RAG assistant (Qwen3-8B, Ollama, Docker)</li>
+                  <li>12-server rollout: RAID, Linux hardening, validation</li>
+                  <li>~200-terminal provincial deployment</li>
+                  <li>HA operations and incident coordination</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="grcb" tabindex="0" role="button" aria-label="Rural Bank: Guizhou Rural Commercial Bank"></div>
+            <h3 class="journey-station-title">Rural Archive</h3>
+            <p class="journey-station-subtitle">IT Intern &middot; Guizhou Rural Commercial Bank</p>
+            <p class="journey-station-date">Aug 2024 &mdash; Jan 2025</p>
+            <div class="journey-detail" data-journey="grcb">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>~20 K-RPA automation workflows for loan data ops</li>
+                  <li>ITSM aligned with ISO 20000</li>
+                  <li>Data-center inspections; honeypot & security tooling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="csg" tabindex="0" role="button" aria-label="Power Grid: China Southern Power Grid"></div>
+            <h3 class="journey-station-title">Power Grid Outpost</h3>
+            <p class="journey-station-subtitle">IT Intern &middot; China Southern Power Grid</p>
+            <p class="journey-station-date">Nov 2023 &mdash; Jan 2024</p>
+            <div class="journey-detail" data-journey="csg">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>CSG-YOLO (YOLOv8-based) for transmission-line defect detection</li>
+                  <li>Kylin OS environment prep and verification</li>
+                  <li>O&M for critical assets; deployment reviews</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="research" tabindex="0" role="button" aria-label="Research Tower: Financial Privacy MPC"></div>
+            <h3 class="journey-station-title">Research Tower</h3>
+            <p class="journey-station-subtitle">Research Assistant &middot; Financial Privacy MPC Group</p>
+            <p class="journey-station-date">Jun 2022 &mdash; Jun 2023</p>
+            <div class="journey-detail" data-journey="research">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>Privacy-preserving pipeline for credit records; encrypted migration</li>
+                  <li>SecretFlow SPU: ML / federated learning on ciphertext</li>
+                  <li>React portal for distributed task orchestration</li>
+                  <li>PSI preprocessing; SPU graph optimization for 3PC</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-station">
+            <div class="journey-node" data-journey="academy" tabindex="0" role="button" aria-label="Academy: Xiamen University"></div>
+            <h3 class="journey-station-title">The Academy</h3>
+            <p class="journey-station-subtitle">B.Sc. Computer Science &middot; Xiamen University Malaysia</p>
+            <p class="journey-station-date">Sep 2020 &mdash; Jan 2025</p>
+            <div class="journey-detail" data-journey="academy">
+              <div class="journey-detail-inner">
+                <ul>
+                  <li>Computer Organization (4.0), Calculus II (4.0), Computer Vision (4.0)</li>
+                  <li>OS (3.7), UNIX Systems (3.7), Java Programming (3.7)</li>
+                  <li>Led 20+ academic & technical projects since 2020</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SPELL SCHOOLS (SKILLS) ===== -->
+    <section id="skills" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter II</p>
+      <h2 class="section-heading-script">Spell Schools</h2>
+      <p class="section-lede">Magic disciplines mastered across the journey&mdash;hover to illuminate the constellation.</p>
+
+      <div class="spell-schools-grid">
+        <div class="spell-school">
+          <span class="spell-school-icon" aria-hidden="true">&#10026;</span>
+          <h3 class="spell-school-name">Machine Learning Magic</h3>
+          <div class="skill-nodes">
+            <span class="skill-node" data-projects="EcoGo, BERT Car Reviews">RAG<span class="skill-tooltip">Used in EcoGo, BERT project</span></span>
+            <span class="skill-node" data-projects="BERT Car Reviews">BERT<span class="skill-tooltip">BERT Car Reviews (SPIE)</span></span>
+            <span class="skill-node" data-projects="Classroom Behavior, Defect Detection">YOLOv8<span class="skill-tooltip">Classroom Behavior, CSG-YOLO</span></span>
+            <span class="skill-node" data-projects="Classroom Behavior">ByteTrack<span class="skill-tooltip">Classroom Behavior Analytics</span></span>
+            <span class="skill-node" data-projects="Multimodal Attention">Gaze Tracking<span class="skill-tooltip">Multimodal Attention System</span></span>
+            <span class="skill-node" data-projects="Fruit Classification">TensorFlow<span class="skill-tooltip">Fruit Image Classification</span></span>
+            <span class="skill-node" data-projects="Fruit Classification">Keras<span class="skill-tooltip">Fruit Image Classification</span></span>
+            <span class="skill-node" data-projects="ML Model Evaluation">Scikit-learn<span class="skill-tooltip">ML Model Evaluation</span></span>
+          </div>
+        </div>
+        <div class="spell-school">
+          <span class="spell-school-icon" aria-hidden="true">&#9881;</span>
+          <h3 class="spell-school-name">Systems Magic</h3>
+          <div class="skill-nodes">
+            <span class="skill-node">Docker</span>
+            <span class="skill-node">CI/CD</span>
+            <span class="skill-node">Azure</span>
+            <span class="skill-node">AWS</span>
+            <span class="skill-node">Grafana</span>
+            <span class="skill-node">Prometheus</span>
+            <span class="skill-node">Linux</span>
+            <span class="skill-node">SonarQube</span>
+            <span class="skill-node">Ollama</span>
+          </div>
+        </div>
+        <div class="spell-school">
+          <span class="spell-school-icon" aria-hidden="true">&#9879;</span>
+          <h3 class="spell-school-name">Backend Alchemy</h3>
+          <div class="skill-nodes">
+            <span class="skill-node">Spring Boot</span>
+            <span class="skill-node">ASP.NET Core</span>
+            <span class="skill-node">Redis</span>
+            <span class="skill-node">Kafka</span>
+            <span class="skill-node">Elasticsearch</span>
+            <span class="skill-node">MySQL</span>
+            <span class="skill-node">MongoDB</span>
+            <span class="skill-node">MinIO</span>
+          </div>
+        </div>
+        <div class="spell-school">
+          <span class="spell-school-icon" aria-hidden="true">&#128737;</span>
+          <h3 class="spell-school-name">Privacy Magic</h3>
+          <div class="skill-nodes">
+            <span class="skill-node">SecretFlow</span>
+            <span class="skill-node">SPU</span>
+            <span class="skill-node">PSI</span>
+            <span class="skill-node">Federated Learning</span>
+            <span class="skill-node">DevSecOps</span>
+            <span class="skill-node">Threat Modeling</span>
+          </div>
+        </div>
+        <div class="spell-school">
+          <span class="spell-school-icon" aria-hidden="true">&#10022;</span>
+          <h3 class="spell-school-name">Interface Craft</h3>
+          <div class="skill-nodes">
+            <span class="skill-node">React.js</span>
+            <span class="skill-node">Android</span>
+            <span class="skill-node">Jetpack Compose</span>
+            <span class="skill-node">PyQt5</span>
+            <span class="skill-node">Figma</span>
+          </div>
+        </div>
+        <div class="spell-school">
+          <span class="spell-school-icon" aria-hidden="true">&#9998;</span>
+          <h3 class="spell-school-name">Languages &amp; Tools</h3>
+          <div class="skill-nodes">
+            <span class="skill-node">Python</span>
+            <span class="skill-node">Java</span>
+            <span class="skill-node">Kotlin</span>
+            <span class="skill-node">C / C++</span>
+            <span class="skill-node">C#</span>
+            <span class="skill-node">SQL</span>
+            <span class="skill-node">MATLAB</span>
+            <span class="skill-node">LaTeX</span>
+            <span class="skill-node">Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SPELL SCROLLS (PROJECTS BY YEAR) ===== -->
+    <section id="projects" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter III</p>
+      <h2 class="section-heading-script">Spell Scrolls</h2>
+      <p class="section-lede">Projects by year&mdash;each scroll a mission archived in the grimoire.</p>
+
+      <div class="projects-timeline" id="projects-timeline"></div>
+    </section>
+
+    <!-- ===== DRAW A SPELL (PLAYGROUND) ===== -->
+    <section id="playground" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter IV</p>
+      <h2 class="section-heading-script">Draw a Spell</h2>
+      <p class="section-lede">Shuffle the archive and draw a random project card from the collection.</p>
+
+      <div class="playground-controls">
+        <button type="button" class="draw-spell-btn" id="draw-spell-btn">Draw a Spell</button>
+        <button type="button" class="playground-filter-btn active" data-filter="all">All</button>
+        <button type="button" class="playground-filter-btn" data-filter="built">Built</button>
+        <button type="button" class="playground-filter-btn" data-filter="designed">Designed</button>
+        <button type="button" class="playground-filter-btn" data-filter="researched">Researched</button>
+        <button type="button" class="playground-filter-btn" data-filter="explored">Explored</button>
+      </div>
+      <div class="playground-grid" id="playground-cards"></div>
+    </section>
+
+    <!-- ===== RESEARCH TOMES (PUBLICATIONS) ===== -->
+    <section id="publications" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter V</p>
+      <h2 class="section-heading-script">Research Tomes</h2>
+      <p class="section-lede">Published works inscribed into the academic archives.</p>
+
+      <article class="tome-card">
+        <span class="tome-icon" aria-hidden="true">&#128214;</span>
+        <p>
+          Huang, J.; Huang, X. (2023).
+          Study on a simple summative attention mechanism used in BERT model for topic classification and sentiment analysis of car reviews.
+          <cite>International Conference on Electronic Materials and Information Engineering (EMIE 2023), Proc. SPIE 12919</cite>,
+          Article 1291914, Guangzhou, China, 14&ndash;16 Jul. 2023.
+          <a href="https://doi.org/10.1117/12.3011061">DOI: 10.1117/12.3011061</a>
+        </p>
+      </article>
+      <article class="tome-card">
+        <span class="tome-icon" aria-hidden="true">&#128220;</span>
+        <p>
+          Zhang, X.; Huang, J.; Feng, Y. (2023).
+          A comprehensive approach to mitigate return-oriented programming attacks: combining operating system protection mechanisms and hardware-assisted techniques.
+          <cite>2023 IEEE 8th International Conference on Software Engineering and Computer Systems (ICSECS 2023)</cite>, pp. 453&ndash;458, Aug. 2023.
+          <a href="https://doi.org/10.1109/ICSECS58457.2023.10256382">DOI: 10.1109/ICSECS58457.2023.10256382</a>
+        </p>
+      </article>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS UNLOCKED (AWARDS) ===== -->
+    <section id="awards" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter VI</p>
+      <h2 class="section-heading-script">Achievements Unlocked</h2>
+
+      <div class="achievements-grid">
+        <div class="achievement-card" tabindex="0" role="button" aria-expanded="false">
+          <span class="achievement-seal" aria-hidden="true">&#127942;</span>
+          <h3 class="achievement-title">Cross-Strait IT Innovation</h3>
+          <p class="achievement-meta">Third Prize &middot; 2023</p>
+          <div class="achievement-details">
+            <div class="achievement-details-inner">
+              13th Cross-Strait Information Service Innovation &amp; 17th Fujian Computer Software Design Contest. Project: Campus Digital Twin. Role: Technical Lead. Level: Provincial.
+            </div>
+          </div>
+        </div>
+        <div class="achievement-card" tabindex="0" role="button" aria-expanded="false">
+          <span class="achievement-seal" aria-hidden="true">&#129351;</span>
+          <h3 class="achievement-title">Internet+ Innovation</h3>
+          <p class="achievement-meta">Silver Medal &middot; Xiamen University</p>
+          <div class="achievement-details">
+            <div class="achievement-details-inner">
+              Internet+ Innovation and Entrepreneurship Competition. University-level recognition for entrepreneurial technology solutions. Role: Team Member.
+            </div>
+          </div>
+        </div>
+        <div class="achievement-card" tabindex="0" role="button" aria-expanded="false">
+          <span class="achievement-seal" aria-hidden="true">&#128200;</span>
+          <h3 class="achievement-title">Mathematical Modeling</h3>
+          <p class="achievement-meta">Second Prize &middot; 2023</p>
+          <div class="achievement-details">
+            <div class="achievement-details-inner">
+              Xiamen University Mathematical Modeling Competition 2023. Applied quantitative modeling and algorithmic problem-solving under time constraints. Role: Team Member.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CERTIFICATES ===== -->
+    <section id="certs" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter VII</p>
+      <h2 class="section-heading-script">Sealed Certificates</h2>
+      <p class="section-heading-serif">NUS-ISS Graduate Certificates</p>
+
+      <div class="cert-list">
+        <div class="cert-item"><span class="cert-icon" aria-hidden="true">&#10003;</span> Digital Solutions Development &mdash; Web Applications</div>
+        <div class="cert-item"><span class="cert-icon" aria-hidden="true">&#10003;</span> Digital Solutions Development &mdash; Design</div>
+        <div class="cert-item"><span class="cert-icon" aria-hidden="true">&#10003;</span> Digital Solutions Development &mdash; Agile Software Delivery</div>
+        <div class="cert-item"><span class="cert-icon" aria-hidden="true">&#10003;</span> Digital Solutions Development &mdash; Machine Learning Applications</div>
+        <div class="cert-item"><span class="cert-icon" aria-hidden="true">&#10003;</span> Digital Solutions Development &mdash; Mobile Applications</div>
+      </div>
+    </section>
+
+    <!-- ===== SEND A RAVEN (CONTACT) ===== -->
+    <section id="contact" class="grimoire-section grimoire-wrap">
+      <p class="section-kicker">Chapter VIII</p>
+      <h2 class="section-heading-script">Send a Raven</h2>
+
+      <div class="contact-portal">
+        <div class="contact-circle" aria-hidden="true">
+          <span class="contact-circle-icon">&#128366;</span>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="tel:+6585904020">+65 8590 4020</a>
+          <a class="contact-link" href="mailto:e1511449@u.nus.edu">e1511449@u.nus.edu</a>
+          <a class="contact-link" href="https://www.linkedin.com/in/jingjia-cleveland" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="contact-link" href="https://github.com/Jinger-ui" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="grimoire-footer grimoire-wrap">
+    <p>&copy; <span id="year"></span> Jingjia Huang &middot; The Grimoire continues.</p>
+  </footer>
+
+  <script src="js/project-data.js"></script>
+  <script src="js/site-shell.js"></script>
+  <script>
+  /* Projects-by-Year timeline renderer */
+  (function () {
+    var data = window.JingjiaProjectData;
+    var container = document.getElementById("projects-timeline");
+    if (!data || !container) return;
+
+    var yearMap = {};
+    data.projects.forEach(function (p) {
+      if (!yearMap[p.year]) yearMap[p.year] = [];
+      yearMap[p.year].push(p);
+    });
+
+    var years = Object.keys(yearMap).sort(function (a, b) { return b - a; });
+    var html = "";
+
+    years.forEach(function (year) {
+      html += '<div class="year-group">';
+      html += '<h3 class="project-year">' + data.escapeHtml(year) + '</h3>';
+      yearMap[year].forEach(function (project) {
+        var tags = (project.tags || []).slice(0, 4).map(function (t) {
+          return '<span class="project-card__tag">' + data.escapeHtml(t) + '</span>';
+        }).join('');
+        var excerpt = data.stripHtml(project.bullets[0] || '');
+        html += '<a class="project-card" href="project.html?project=' + encodeURIComponent(project.slug) + '">';
+        html += '<h4 class="project-card__title">' + data.escapeHtml(project.title) + '</h4>';
+        html += '<p class="project-card__role">' + data.escapeHtml(project.role) + '</p>';
+        html += '<p class="project-card__desc">' + data.escapeHtml(excerpt) + '</p>';
+        html += '<div class="project-card__tags">' + tags + '</div>';
+        html += '<span class="project-card__hint">Open scroll &rarr;</span>';
+        html += '</a>';
+      });
+      html += '</div>';
+    });
+
+    container.innerHTML = html;
+  })();
+  </script>
+  <script src="js/journey-map.js"></script>
+  <script src="js/spell-schools.js"></script>
+  <script src="js/draw-spell.js"></script>
+  <script src="js/grimoire-particles.js"></script>
+  <script src="js/clock-ripple.js"></script>
+  <script src="js/lantern-glow.js"></script>
+  <script>
+  /* Achievement card expand/collapse */
+  (function () {
+    var cards = document.querySelectorAll('.achievement-card');
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        var isExpanded = this.classList.contains('expanded');
+        cards.forEach(function (c) {
+          c.classList.remove('expanded');
+          c.setAttribute('aria-expanded', 'false');
+        });
+        if (!isExpanded) {
+          this.classList.add('expanded');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

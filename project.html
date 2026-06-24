@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Project detail page — Jingjia's Grimoire." />
+  <title>Spell Scroll | Jingjia's Grimoire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg-deep: #0a0d14;
+  --bg-parchment: #12151c;
+  --bg-card: rgba(16, 18, 22, 0.94);
+  --gold: #c8a55a;
+  --gold-light: #e6c878;
+  --gold-warm: #dda54c;
+  --gold-muted: rgba(200, 165, 90, 0.12);
+  --cream: #e8dcc8;
+  --sage: #7a9e7e;
+  --lavender: #9b8ec4;
+  --ice-blue: #8bb8d0;
+  --text-primary: #d4cfc6;
+  --text-muted: #8a8578;
+  --text-body: #b0aaa0;
+  --border-gold: rgba(193, 140, 66, 0.35);
+  --border-subtle: rgba(100, 85, 60, 0.2);
+  --shadow-deep: 0 20px 50px rgba(0,0,0,0.5);
+  --font-script: "Allura", cursive;
+  --font-manuscript: "Cormorant Garamond", serif;
+  --font-ui: "Inter", "Noto Sans SC", system-ui, sans-serif;
+  --radius: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+
+body {
+  margin: 0; font-family: var(--font-ui); font-size: 1rem;
+  line-height: 1.65; color: var(--text-primary);
+  background: var(--bg-deep); -webkit-font-smoothing: antialiased;
+  min-height: 100vh; overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(139,184,208,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 85%, rgba(200,165,90,0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(10,13,20,0.95) 0%, transparent 80%),
+    linear-gradient(180deg, #0c0f18 0%, #0a0d14 40%, #0e1018 100%);
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0.5rem;
+  padding: 0.5rem 1rem; background: var(--gold); color: #111;
+  border-radius: 6px; z-index: 999; text-decoration: none;
+}
+.skip-link:focus { left: 0.5rem; }
+
+.grimoire-wrap {
+  width: min(64rem, 100% - 2rem);
+  margin-inline: auto; position: relative; z-index: 10;
+}
+
+/* NAV */
+.grimoire-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(10,13,20,0.88);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: box-shadow 0.3s ease;
+}
+.grimoire-nav.is-scrolled {
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 1px 0 rgba(200,165,90,0.08);
+}
+.nav-inner {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0;
+}
+.nav-brand {
+  font-family: var(--font-manuscript); font-weight: 600;
+  font-size: 0.95rem; color: var(--gold); text-decoration: none;
+}
+.nav-brand:hover { color: var(--gold-light); }
+.nav-scroll {
+  display: flex; flex-wrap: nowrap; gap: 0.1rem;
+  overflow-x: auto; margin-left: auto; padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+@media (min-width: 900px) {
+  .nav-scroll { flex-wrap: wrap; justify-content: flex-end; overflow: visible; }
+}
+.nav-scroll a {
+  flex: 0 0 auto; padding: 0.4rem 0.6rem; border-radius: 0.5rem;
+  font-size: 0.78rem; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-scroll a:hover, .nav-scroll a.is-active {
+  color: var(--gold-light); background: var(--gold-muted);
+}
+.back-chip {
+  flex-shrink: 0; border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(20,23,30,0.6);
+  color: var(--text-body); text-decoration: none;
+  padding: 0.4rem 0.75rem; font-size: 0.75rem; font-weight: 600;
+  transition: color 0.2s, border-color 0.2s;
+}
+.back-chip:hover { border-color: var(--gold); color: var(--gold-light); }
+
+.header-progress { display: block; height: 2px; background: transparent; }
+.header-progress-bar {
+  display: block; width: 100%; height: 100%;
+  transform-origin: left center; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+
+/* HERO */
+.project-hero { padding: 3rem 0 1.5rem; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  text-decoration: none; color: var(--gold); font-weight: 700;
+  margin-bottom: 1rem; font-size: 0.85rem;
+}
+.back-link:hover { color: var(--gold-light); }
+.section-kicker {
+  margin: 0 0 0.35rem; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+}
+.project-hero-grid {
+  display: grid; gap: 1.4rem; align-items: start;
+}
+@media (min-width: 920px) {
+  .project-hero-grid { grid-template-columns: minmax(0,1.1fr) minmax(20rem,0.9fr); }
+}
+.project-title {
+  margin: 0; font-family: var(--font-manuscript);
+  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400;
+  font-style: italic; line-height: 1.05; letter-spacing: -0.02em;
+  color: #f0d19a;
+}
+.project-intro {
+  margin: 0.8rem 0 1rem; max-width: 38rem;
+  font-size: 1rem; color: var(--text-body); line-height: 1.7;
+}
+.project-meta-row {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;
+}
+.meta-pill {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  border-radius: 999px; background: var(--gold-muted);
+  padding: 0.35rem 0.7rem; font-size: 0.78rem;
+  font-weight: 700; color: var(--gold-light);
+  border: 1px solid rgba(200,165,90,0.15);
+}
+.project-tags, .stack-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.proj-tag, .stack-pill {
+  display: inline-flex; align-items: center; border-radius: 999px;
+  padding: 0.22rem 0.52rem; font-size: 0.72rem; font-weight: 600;
+  color: var(--text-body); background: rgba(200,165,90,0.08);
+  border: 1px solid rgba(200,165,90,0.12);
+}
+
+.project-cover {
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--shadow-deep);
+}
+.project-cover-media, .project-cover-media--placeholder {
+  min-height: 100%; aspect-ratio: 16/10;
+  background: rgba(18,21,28,0.8);
+}
+.project-cover-media img {
+  display: block; width: 100%; height: 100%;
+  object-fit: contain; object-position: center;
+}
+.project-cover-media--placeholder {
+  display: grid; place-items: center; min-height: 20rem;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.16em;
+  color: var(--text-muted);
+  background: linear-gradient(135deg, var(--gold-muted), rgba(16,18,22,0.6));
+}
+
+/* CONTENT SECTIONS */
+.content-section {
+  position: relative; padding: 1.25rem 0 2.5rem;
+}
+.section-heading {
+  margin: 0 0 1rem; display: inline-block;
+  padding-bottom: 0.35rem; min-width: min(100%, 12rem);
+  border-bottom: 1px solid var(--border-gold);
+  font-family: var(--font-manuscript); font-size: 1.45rem;
+  font-weight: 400; font-style: italic; color: var(--cream);
+}
+
+.snapshot-grid, .related-grid {
+  display: grid; gap: 0.85rem;
+}
+@media (min-width: 720px) {
+  .snapshot-grid { grid-template-columns: repeat(3, 1fr); }
+  .related-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.snapshot-card, .related-card {
+  display: block; height: 100%; padding: 1rem 1.05rem;
+  border-radius: var(--radius); border: 1px solid var(--border-subtle);
+  background: rgba(16,18,22,0.8); text-decoration: none; color: inherit;
+}
+.related-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.related-card:hover {
+  border-color: rgba(200,165,90,0.4); transform: translateY(-2px);
+}
+.snapshot-label, .related-year {
+  display: inline-block; margin-bottom: 0.4rem;
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+}
+.snapshot-value { margin: 0; color: var(--text-body); font-size: 0.9rem; }
+
+.project-description {
+  margin: 0 0 1.25rem; line-height: 1.75;
+  color: var(--text-body); max-width: 38rem; font-size: 0.95rem;
+}
+.project-list {
+  margin: 0; padding-left: 1.2rem; color: var(--text-body);
+}
+.project-list li + li { margin-top: 0.6rem; }
+
+.project-gallery-grid { display: grid; gap: 1rem; }
+@media (min-width: 720px) {
+  .project-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.project-gallery-item {
+  margin: 0; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: rgba(18,21,28,0.8); box-shadow: var(--shadow-deep);
+}
+.project-gallery-item img {
+  display: block; width: 100%; height: auto;
+  object-fit: contain; object-position: center;
+  background: rgba(18,21,28,0.6);
+}
+
+.pager { display: grid; gap: 0.75rem; margin-top: 1.2rem; }
+@media (min-width: 720px) {
+  .pager { grid-template-columns: repeat(2, 1fr); }
+}
+.pager a {
+  text-decoration: none; padding: 0.9rem 1rem;
+  border-radius: var(--radius); border: 1px solid var(--border-subtle);
+  background: rgba(16,18,22,0.8); color: var(--text-primary);
+  font-weight: 600; font-size: 0.88rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.pager a:hover { border-color: var(--gold); color: var(--gold-light); }
+
+.related-title {
+  margin: 0 0 0.4rem; font-family: var(--font-manuscript);
+  font-size: 1rem; font-style: italic; font-weight: 600; color: var(--cream);
+}
+.related-copy {
+  margin: 0; color: var(--text-body); font-size: 0.88rem; line-height: 1.5;
+}
+
+.grimoire-footer {
+  padding: 2rem 0 2.5rem; text-align: center;
+  font-size: 0.78rem; color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: rgba(200,165,90,0.2); border-radius: 3px; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 2px;
+}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="grimoire-nav" id="site-nav">
+    <div class="grimoire-wrap nav-inner">
+      <a href="index.html#top" class="nav-brand">Jingjia's Grimoire</a>
+      <nav class="nav-scroll" aria-label="Project sections">
+        <a href="#project-overview">Overview</a>
+        <a href="#project-contributions">Details</a>
+        <a href="#project-gallery-section">Gallery</a>
+        <a href="#project-stack-section">Stack</a>
+        <a href="#more-projects">More Scrolls</a>
+      </nav>
+      <a class="back-chip" href="index.html#projects">Back to Grimoire</a>
+    </div>
+    <span class="header-progress" aria-hidden="true"><span class="header-progress-bar" id="scroll-progress"></span></span>
+  </header>
+
+  <main id="main">
+    <section class="project-hero grimoire-wrap">
+      <a class="back-link" href="index.html#projects">&larr; Back to Spell Scrolls</a>
+      <p class="section-kicker" id="project-breadcrumb">Spell Scroll</p>
+      <div class="project-hero-grid">
+        <div>
+          <h1 class="project-title" id="project-title"></h1>
+          <p class="project-intro" id="project-intro"></p>
+          <div class="project-meta-row">
+            <span class="meta-pill" id="project-role"></span>
+            <span class="meta-pill" id="project-year"></span>
+          </div>
+          <div class="project-tags" id="project-tag-list"></div>
+        </div>
+        <div class="project-cover" id="project-cover"></div>
+      </div>
+    </section>
+
+    <section class="content-section grimoire-wrap" id="project-overview">
+      <p class="section-kicker">01 / Snapshot</p>
+      <h2 class="section-heading">Project snapshot</h2>
+      <div class="snapshot-grid">
+        <article class="snapshot-card">
+          <span class="snapshot-label">Role</span>
+          <p class="snapshot-value" id="project-role-summary"></p>
+        </article>
+        <article class="snapshot-card">
+          <span class="snapshot-label">Year</span>
+          <p class="snapshot-value" id="project-year-summary"></p>
+        </article>
+        <article class="snapshot-card">
+          <span class="snapshot-label">Focus</span>
+          <div class="stack-wrap" id="project-stack"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section grimoire-wrap" id="project-contributions">
+      <p class="section-kicker">02 / Delivery</p>
+      <h2 class="section-heading">What this spell delivered</h2>
+      <p class="project-description" id="project-description"></p>
+      <ul class="project-list" id="project-bullets"></ul>
+    </section>
+
+    <section class="content-section grimoire-wrap" id="project-gallery-section" hidden>
+      <p class="section-kicker">02b / Gallery</p>
+      <h2 class="section-heading">Visual artifacts</h2>
+      <div id="project-gallery"></div>
+    </section>
+
+    <section class="content-section grimoire-wrap" id="project-stack-section">
+      <p class="section-kicker">03 / Tooling</p>
+      <h2 class="section-heading">Technology stack</h2>
+      <div class="stack-wrap" id="project-stack-tags"></div>
+    </section>
+
+    <section class="content-section grimoire-wrap" id="more-projects">
+      <p class="section-kicker">04 / Continue</p>
+      <h2 class="section-heading">More scrolls to explore</h2>
+      <div class="related-grid" id="related-projects"></div>
+      <div class="pager">
+        <a id="prev-project" href="index.html#projects"></a>
+        <a id="next-project" href="index.html#projects"></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="grimoire-footer grimoire-wrap">
+    <p>&copy; <span id="year"></span> Jingjia Huang</p>
+  </footer>
+
+  <script src="js/project-data.js"></script>
+  <script src="js/site-shell.js"></script>
+  <script src="js/project-detail.js"></script>
+</body>
+</html>
