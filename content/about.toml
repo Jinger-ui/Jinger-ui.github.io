@@ -1,0 +1,17 @@
+type = "about"
+title = "About"
+
+[profile]
+research_interests = [
+  "Artificial Intelligence / Machine Learning",
+  "Systems & ML Engineering (CI/CD, MLOps, Cloud)",
+  "Privacy-preserving computing & federated learning",
+  "Computer Vision & NLP",
+  "Full-stack & mobile engineering"
+]
+
+[[sections]]
+id = "about"
+type = "markdown"
+source = "bio.md"
+title = "Bio"

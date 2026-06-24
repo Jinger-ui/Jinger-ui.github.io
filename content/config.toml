@@ -1,0 +1,64 @@
+[site]
+title = "Jingjia Huang"
+description = "Incoming MSc Applied Artificial Intelligence / AAI (NTU CCDS) · Graduate Diploma in Systems Analysis (NUS-ISS). ML/CV, full-stack engineering, privacy computing."
+favicon = "/favicon.png"
+last_updated = "May 2026"
+
+[author]
+name = "Jingjia Huang"
+title = "Graduate Diploma (NUS-ISS) · Incoming MSc AAI Student (NTU CCDS, Aug 2026)"
+institution = "National University of Singapore Institute of Systems Science · Nanyang Technological University"
+avatar = "/avatar.png"
+
+[social]
+email = "e1511449@u.nus.edu"
+location = "Singapore"
+location_url = "https://maps.google.com/?q=Singapore"
+location_details = ["Based in Singapore"]
+github = "https://github.com/Jinger-ui"
+linkedin = "https://www.linkedin.com/in/jingjia-cleveland"
+
+[features]
+enable_likes = false
+enable_one_page_mode = false
+enable_visitor_count = true
+visitor_count_key = "jinger-ui.github.io-visits"
+
+[i18n]
+enabled = false
+default_locale = "en"
+locales = ["en"]
+fixed_locale = "en"
+mode = "fixed"
+persist = false
+switcher = false
+
+[[navigation]]
+title = "Home"
+type = "page"
+target = "home"
+href = "/"
+
+[[navigation]]
+title = "About"
+type = "page"
+target = "about"
+href = "/about"
+
+[[navigation]]
+title = "Projects"
+type = "section"
+target = "selected-projects"
+href = "/#selected-projects"
+
+[[navigation]]
+title = "By Year"
+type = "page"
+target = "projects-by-year"
+href = "/projects-by-year"
+
+[[navigation]]
+title = "Awards"
+type = "page"
+target = "awards"
+href = "/awards"

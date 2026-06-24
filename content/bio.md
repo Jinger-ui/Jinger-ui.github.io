@@ -1,0 +1,5 @@
+I am an **incoming M.Sc. in Applied Artificial Intelligence (AAI)** student at **NTU CCDS** (August 2026 intake) and currently complete the **Graduate Diploma in Systems Analysis (GDipSA)** at **NUS-ISS**, with a **B.Sc. in Computer Science** background from **Xiamen University**.
+
+Professionally I have worked across **banking IT**, **energy / utility** projects, **research assistantships** (financial privacy MPC, fraud analytics), and **large team software deliveries** — including vibration sensing & forecasting (**SP Group** internship), enterprise **RAG** deployment and **Linux server rollout** (Bank of China), **RPA** and security operations (**rural commercial bank**), and **YOLO-class** pilots (**China Southern Power Grid**).
+
+I build **full-stack applications**, **data systems**, **CI/CD**, and workloads spanning **RAG**, **BERT-style NLP**, **YOLO/ByteTrack** vision pipelines, **federated learning** on **SecretFlow/SPU**, and **privacy-aware** architectures. Comfortable with **Java/Spring**, **Kotlin/Android**, **Python**, **Docker**, **Azure/AWS**, **Elasticsearch/Kafka**, and **Power BI / Excel automation** in operations contexts.

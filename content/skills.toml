@@ -1,0 +1,23 @@
+[[skills]]
+title = "Programming Languages"
+items = ["Python", "Java", "Kotlin", "C", "C++", "C#", "SQL", "MATLAB", "LaTeX"]
+
+[[skills]]
+title = "AI / Machine Learning"
+items = ["RAG", "LLM Deployment", "BERT", "YOLOv8", "ByteTrack", "Face Recognition", "NLP", "Computer Vision"]
+
+[[skills]]
+title = "Backend / Data"
+items = ["Spring Boot", "ASP.NET Core", "REST APIs", "MySQL", "Redis", "MongoDB", "MinIO", "Elasticsearch", "Kafka"]
+
+[[skills]]
+title = "Privacy & Security"
+items = ["SecretFlow", "SPU", "PSI", "Federated Learning", "DevSecOps", "Threat Modeling", "Access Control"]
+
+[[skills]]
+title = "Frontend / Mobile"
+items = ["React.js", "Android", "Jetpack Compose", "PyQt5", "Web Dashboards", "Figma"]
+
+[[skills]]
+title = "Infrastructure / DevOps"
+items = ["Docker", "Linux", "CI/CD", "GitHub Actions", "SonarQube", "AWS", "Azure", "Prometheus", "Grafana", "Ollama"]

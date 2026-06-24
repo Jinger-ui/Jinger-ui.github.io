@@ -1,0 +1,226 @@
+type = "card"
+title = "Selected Projects"
+description = "Five most recent projects — capstone, NUS-ISS coursework, and team deliveries."
+
+[[items]]
+title = "EcoGo — Sustainability Capstone"
+subtitle = "Full Stack Developer · NUS-ISS Graduate Diploma · Singapore"
+date = "2026"
+summary = "EcoGo is a sustainability capstone that helps campus users choose lower-carbon travel options. As technical lead, I coordinated a six-member team building route-level carbon visibility, personalized recommendations, and an AI mobility assistant across mobile, backend, and data pipelines. The platform integrates NUS NextBus and Google Directions for emissions-aware routing, complemented by a LoRA-based RAG assistant powered by Elasticsearch and Kafka-driven document processing."
+image = "/projects/ecogo-cover.png"
+detailImages = ["/projects/ecogo-cover02.png"]
+tags = ["React", "Kotlin", "Spring Boot", "Python", "RAG", "Kafka", "Elasticsearch", "CI/CD"]
+content = """- Full-stack developer on a six-member capstone team delivering **EcoGo**: route-level **carbon visibility**, recommendation workflows, and AI-assisted mobility guidance.
+- Built across the stack: React, Kotlin, Java **Spring Boot**, Python, MongoDB, MySQL, Redis, MinIO, Elasticsearch, Docker, SonarQube, JUnit, **GitHub Actions** — owned **Android**, **ML**, and **CI/CD** personally.
+- **Low-carbon routing** integrating **NUS NextBus** and **Google Directions** APIs with carbon estimation; compare routes by time and emissions.
+- **LoRA²** conversational assistant (**Ollama** middleware + intent detection); **RAG** via Apache Tika, chunking/embeddings, **Elasticsearch hybrid** retrieval (KNN + IK keywords + BM25 re-ranking), **Kafka** async parsing/vectorization/indexing pipelines."""
+
+[[items]]
+title = "Codex Code Book Web Platform"
+subtitle = "Full-Stack Developer · NUS-ISS Team Project"
+date = "2025"
+summary = "Codex is a full-stack programming reference CMS built for collaborative teams at NUS-ISS. I developed the React frontend, Spring Boot APIs, and SQL schema to support secure browsing, authoring, and management of coding resources. Spring Security with role-based access control ensures authenticated workflows, while Figma prototypes kept the interface consistent from design through implementation."
+image = "/projects/codex-cover.png"
+detailImages = ["/projects/codex-cover02.png"]
+tags = ["React", "Spring Boot", "Spring Security", "SQL", "Figma"]
+content = """- Full-stack app (React.js, Spring Boot, SQL) to manage/browse programming references: UI, APIs, relational schema design, CRUD.
+- Responsive components (HTML/CSS/JS/React); high-fidelity **Figma** prototypes for navigation and consistency.
+- **Spring Security** authentication and **role-based** authorization; relational persistence; Git/GitHub workflow.
+- **Technologies:** React.js, JavaScript, HTML/CSS, Spring Boot, Spring Security, SQL, Git, GitHub, Figma."""
+
+[[items]]
+title = "Flip Card Memory Game"
+subtitle = "Android Developer · NUS-ISS Team Project"
+date = "2025"
+summary = "This Android memory matching game challenges players to find card pairs through flip animations, sound feedback, and responsive touch interactions. I implemented card-state logic, validation rules, and polish for match, mismatch, and completion events to support repeat play sessions. XML-based layouts and login flows were tested across varied device scenarios in Android Studio with Java."
+image = "/projects/flipcard-cover.png"
+tags = ["Android Studio", "Java", "XML"]
+content = """- Android memory game (**Java**, Android Studio): card-state logic, validation, animations, responsiveness.
+- Animations + sound/audio for match/mismatch/completion; optimized repeated interactions.
+- Login UI (**XML layouts**); testing across gameplay scenarios; iterative build-test cycles.
+- **Technologies:** Android Studio, Java, XML, UI/UX."""
+
+[[items]]
+title = "GetFreshFood Application"
+subtitle = "UI/UX Designer & Requirements Analyst · NUS-ISS Team Project"
+date = "2025"
+summary = "GetFreshFood is a food-delivery application design focused on clarity, consistency, and user-centered workflows. I translated functional requirements into high-fidelity Figma prototypes with coherent navigation across ordering and account screens. Supporting SRS and UML artifacts—including use case, sequence, and class diagrams—plus relational normalization from 1NF to 3NF grounded the design in structured data planning."
+image = "/projects/getfreshfood-cover04.png"
+detailImages = [
+  "/projects/getfreshfood-cover.png",
+  "/projects/getfreshfood-cover02.png",
+  "/projects/getfreshfood-cover03.png",
+]
+tags = ["Figma", "PlantUML", "UML"]
+content = """- User-centered UX in **Figma**: navigation, consistency, workflows from functional requirements.
+- SRS and UML (**PlantUML**: use case, sequence, class diagrams).
+- Applied **normalization** (1NF–3NF) for structured datasets and design documentation.
+- **Technologies:** Figma, PlantUML, UML, database documentation."""
+
+[[items]]
+title = "CI/CD Workflow Automation"
+subtitle = "DevOps Engineer · NUS-ISS Team Project"
+date = "2025"
+summary = "This DevOps project defines an end-to-end CI/CD pipeline covering integration, automated build, deployment, release, and post-deployment monitoring. I established Git and GitHub branching practices to support reliable collaborative delivery and traceable releases. Automated testing and deployment stages reduced manual release effort while improving consistency across environments."
+image = "/projects/CICD-cover.png"
+tags = ["Git", "GitHub", "CI/CD"]
+content = """- Designed full **CI/CD**: integration, automated build, deployment, release, post-deploy monitoring.
+- Git/GitHub workflows: branching, merges, repositories, collaborative practice.
+- Automated testing/deployment pipelines; reduced manual release steps.
+- **Technologies:** Git, GitHub, CI/CD, automated testing, deployment automation."""
+
+[[items]]
+title = "Fruit Image Classification (Deep Learning)"
+subtitle = "Machine Learning Engineer · NUS-ISS Team Project"
+date = "2025"
+summary = "A deep learning pipeline classifies apple, banana, and orange images using TensorFlow and Keras with rigorous evaluation across lighting and background variation. I compared MobileNet, ResNet, and a custom CNN with transfer learning and hyperparameter tuning to maximize accuracy and robustness. The best configuration reached approximately 98% accuracy, supported by confusion matrices, precision-recall analysis, and error studies."
+image = "/projects/FruitClassifier-cover.png"
+detailImages = [
+  "/projects/FruitClassifier-cover02.png",
+  "/projects/FruitClassifier-cover03.png",
+  "/projects/FruitClassifier-cover04.png",
+]
+tags = ["TensorFlow", "Keras", "CNN"]
+content = """- Image classification (**Python**, TensorFlow, Keras): apples/bananas/oranges — preprocessing, augmentation, splits, training.
+- Compared **MobileNet**, **ResNet**, custom CNN; transfer learning & hyperparameter tuning.
+- Achieved **up to ~98%** accuracy; confusion matrices, P/R curves, plots, robustness/error analysis across lighting/orientation/background.
+- **Technologies:** Python, TensorFlow, Keras, CNN, NumPy, Matplotlib."""
+
+[[items]]
+title = "Machine Learning Model Evaluation"
+subtitle = "Machine Learning Engineer · NUS-ISS Team Project"
+date = "2025"
+summary = "A comparative machine learning study evaluates multiple algorithms through preprocessing, feature engineering, training, and performance benchmarking. Using Python, Pandas, and scikit-learn, I compared models on accuracy, classification metrics, and parameter sensitivity. NumPy and Matplotlib visualizations summarized trade-offs to support model selection and reporting."
+image = "/projects/Grids-cover.png"
+detailImages = ["/projects/Grids-cover02.png"]
+tags = ["Python", "Pandas", "Scikit-learn"]
+content = """- Built/evaluated multiple models (**Python**, Pandas, scikit-learn): preprocessing, features, train/predict/compare.
+- Compared algorithms via accuracy, classification metrics, parameter sensitivities.
+- Visualizations (**NumPy**, **Matplotlib**) for interpretation and reporting.
+- **Technologies:** Python, Pandas, scikit-learn, NumPy, Matplotlib."""
+
+[[items]]
+title = "Classroom Behavior Analytics Platform"
+subtitle = "Individual Developer · Xiamen University Dept. Computer Science"
+date = "2024"
+summary = "An end-to-end analytics platform monitors six classroom behaviors in high-density settings with 30+ students, addressing occlusion, viewpoint shifts, and identity fragmentation. YOLOv8 detection, face recognition, and ByteTrack provide temporally consistent tracking, with asynchronous event streaming into MySQL for engagement analysis. Delivery includes a PyQt5 real-time client, a web dashboard for batch review, and Docker plus CI/CD for deployment."
+image = "/projects/Classbehavior-cover.png"
+detailImages = ["/projects/Classbehavior-cover02.png"]
+tags = ["YOLOv8", "Face recognition", "ByteTrack", "MySQL", "Docker"]
+content = """- End-to-end behavior analytics for **high-density classrooms** (~30+ students): occlusion, viewpoint, fragmented IDs.
+- Pipeline: **YOLOv8** detection + face recognition + **ByteTrack** — six behaviors; temporal ID consistency under motion/occlusion.
+- Async ingestion → **MySQL** for engagement metrics (frequency, duration, confidence, sessions).
+- **PyQt5** live monitor + **web** batch dashboard; **Docker** + CI/CD for repeatable deploy."""
+
+[[items]]
+title = "Multimodal Attention Analysis System"
+subtitle = "Individual Developer · Xiamen University Dept. Computer Science"
+date = "2024"
+summary = "This system analyzes student attention in restricted study and exam environments by synchronizing gaze estimation with object detection. YOLOv8 identifies laptops, tablets, phones, and papers while real-time gaze tracking measures focus under occlusion and pose variation. Attention scores combine region-of-interest alignment and focus-duration metrics to distinguish productive study from distraction or misconduct."
+image = "/projects/MultiStudenybehavior-cover.png"
+tags = ["YOLOv8", "Gaze tracking"]
+content = """- Attention analysis for **restricted study/exam** settings (small groups ~1–3): study-focus reporting vs automated exam modes; timestamps, realtime viz, backend logging.
+- Pipeline: **YOLOv8** object detection + **real-time gaze** for laptops/tablets/phones/test papers under occlusion/varied pose.
+- Synchronized gaze with regions → focus-duration scoring; distinguishes productive vs distraction vs misconduct hypotheses."""
+
+[[items]]
+title = "Deep Learning-Based Defect Detection — Power Transmission"
+subtitle = "Project Researcher · China Southern Power Grid · Industrial CV"
+date = "2024"
+summary = "Automated visual inspection for power transmission infrastructure detects insulator damage, bird nests, and corrosion in challenging outdoor scenes. I extended YOLOv8 into a custom CSG-YOLO variant with backbone and attention ablations tuned for small-defect recall. Curated datasets with fog, glare, and low-light augmentation supported field-oriented validation that improved maintenance planning efficiency."
+image = "/projects/Grids-cover.png"
+detailImages = ["/projects/Grids-cover02.png"]
+tags = ["CSG-YOLO", "YOLOv8"]
+content = """- Automated inspection for transmission infrastructure — insulator damage, bird nests, corrosion in complex outdoors.
+- **CSG-YOLO** (**YOLOv8** backbone); ablations (backbone, attention) for small defects and background suppression.
+- Curated annotated dataset + augmentation simulating fog, glare, low light.
+- **Field-testing** validation: improved recall/efficiency for maintenance planning."""
+
+[[items]]
+title = "Parallelism for High-Performance Processors"
+subtitle = "Project Researcher · Systems · Xiamen University"
+date = "2024"
+summary = "A systems research survey examines heterogeneous processors—including Apple M1, Tesla FSD, and NVIDIA H100—through power, performance, and parallelism trade-offs. Analysis covers hardware pipelines, neural-network scheduling, irregular workloads, and limits of automatic parallelization. Experiments with Rhino scheduling, DNN partitioning, and parallelized clustering benchmarks on Colab and Kaggle illustrate memory-wall and scaling constraints in AI silicon."
+image = "/projects/highperformance-subcover.png"
+detailImages = [
+  "/projects/highperformance-cover.png",
+  "/projects/highperformance-cover02.png",
+]
+tags = ["M1", "H100", "Colab", "Kaggle"]
+content = """- Survey of heterogeneous architectures (**Apple M1**, Tesla FSD, **NVIDIA H100**): power/performance scalability under extreme parallelism.
+- Pipelines vs NN scheduling vs irregular workloads; limits of automated parallelization.
+- **Rhino** framework experiments for scheduling/DNN partitioning; parallel **clustering** benchmark for granularity/contention on multi-core.
+- Cloud repeats (**Google Colab**, **Kaggle**); bottlenecks: memory wall, contention, transistor scaling limits."""
+
+[[items]]
+title = "Privacy-Preserving Financial Computing"
+subtitle = "Project Researcher · Xiamen University × Industrial Bank & Hyperfusion · 2023"
+date = "2023"
+summary = "A privacy-preserving pipeline enables Industrial Bank credit records to migrate to Hyperfusion Cloud without exposing personal data. SecretFlow SPU supports federated and ciphertext-based ML workloads, while a React.js portal orchestrates distributed jobs and monitors shard execution. PSI preprocessing secures entity alignment and optimized three-party SPU graphs reduce communication rounds for risk scoring models."
+image = "/projects/PrivacyPreserving-cover.png"
+detailImages = [
+  "/projects/PrivacyPreserving-cover02.png",
+  "/projects/PrivacyPreserving-cover03.png",
+]
+tags = ["SecretFlow", "SPU", "PSI", "Federated Learning", "React"]
+content = """- Encrypted migration pipeline for **Industrial Bank** credit records to **Hyperfusion Cloud**.
+- **SecretFlow / SPU** privacy-preserving ML & federated learning on ciphertext — no cloud PII exposure.
+- **React.js** orchestration portal for distributed jobs and shard execution monitoring.
+- **PSI** in preprocessing for secure alignment in multi-party financial risk modeling.
+- Optimized SPU graph (**3-party**) to reduce communication rounds/latency for scoring & fraud models."""
+
+[[items]]
+title = "Credit Card Fraud & Illegal Trading Analysis"
+subtitle = "Project Researcher · Guizhou Univ. Finance & Economics · Risk Analytics · 2023"
+date = "2023"
+summary = "Risk analytics for regional governance identifies credit card fraud and illicit account trading patterns from structured transaction data. Standardized preprocessing handles outliers, normalization, and feature engineering for downstream machine learning detectors. Segment analysis across age and occupation supports differentiated monitoring and prevention strategies."
+image = "/projects/CardFraud-cover.png"
+detailImages = ["/projects/CardFraud-cover-02.png"]
+tags = ["ML", "Feature engineering"]
+content = """- Fraud & illicit-account trading analytics supporting regional governance and ops risk control.
+- Standardized preprocessing: outliers, normalization, structured features for downstream models.
+- ML for risk features/suspicious pattern detection across sources.
+- Cross-section vs demographics (age, occupation); differentiated prevention framework."""
+
+[[items]]
+title = "BERT — Car Reviews (Topic & Sentiment)"
+subtitle = "Project Lead · Publication · EMIE 2023 · Proc. SPIE 12919"
+date = "2023"
+summary = "As project lead, I built a BERT-based framework for automotive review topic and sentiment classification, published at EMIE 2023 (Proc. SPIE 12919). A custom summative attention mechanism with domain vocabulary injection and penalty loss for class imbalance improved topic accuracy from 0.676 to 0.816 and sentiment accuracy from 0.701 to 0.746. I owned the full pipeline from preprocessing and augmentation through training, validation, and baseline comparison."
+image = "/projects/Bert-carreview-cover.png"
+detailImages = ["/projects/Bert-carreview-cover02.png"]
+tags = ["BERT", "NLP"]
+content = """- Two-person publication team: automotive review **topic** + **sentiment** classification.
+- **Summative attention** injecting summarized domain vocab into BERT (position & weight matrices); stronger salience vs vanilla BERT.
+- Penalty-loss for **imbalance**; pipeline: preprocessing, augmentation, train/validation, benchmarking.
+- Topic accuracy **0.676 → 0.816**; epochs **70 → 20**; sentiment **0.701 → 0.746**.
+- Published: study on summative attention in BERT for car reviews (**SPIE**).
+- Methods: Python, BERT, imbalanced-learning, augmentation, Adam, cosine scheduler."""
+
+[[items]]
+title = "Campus Digital Twin — Navigation Platform"
+subtitle = "Technical Lead · Award-winning · Xiamen University · 2023"
+date = "2023"
+summary = "Led an eight-person team over nine months to deliver a Unity-based campus digital twin for historical reconstruction, navigation, and interactive digital-human guidance. The platform manages 40+ optimized 3D models with LOD balancing, spatial wayfinding, multi-terminal deployment, and voice plus motion-enabled guides. Partner pilots across 10+ provinces and third prize in the Cross-Strait University IT competition validated real-world usability."
+image = "/projects/TwinCampus-cover.png"
+detailImages = ["/projects/TwinCampus-cover02.png"]
+tags = ["Unity", "LOD"]
+content = """- Led **~8-member**, **nine-month** Unity digital twin for historical campuses: reconstruction, navigation, interactive digital-human guide.
+- Owned 3D production, modular scenes, optimization, integration, interaction; **LOD** for **40+** models balancing mobile fidelity.
+- Wayfinding; multi-terminal delivery; digital-human (**voice** and **gesture/motion**) tours.
+- Partners (e.g., education-tech in **Xiamen**) for rollout and pilots in **10+ provinces** usability/perf benchmarking.
+- **Third Prize** Cross-Strait Univ. IT competition (see Awards)."""
+
+[[items]]
+title = "ROP Attack Mitigation (OS + Hardware-Assisted)"
+subtitle = "Project Contributor · IEEE ICSECS 2023 publication"
+date = "2023"
+summary = "Contributed to an IEEE ICSECS 2023 publication on return-oriented programming mitigation combining operating-system protections with hardware-assisted control-flow monitoring. The framework analyzes trade-offs among ASLR, DEP, and Intel LBR for branch anomaly detection in virtualized environments. A workflow integrating overflow mitigation, LBR analysis, and VMI improves visibility into indirect jumps and supports visualization-driven alerting."
+image = "/projects/Rop-cover.png"
+detailImages = ["/projects/Rop-cover02.png"]
+tags = ["ASLR", "DEP", "LBR", "VMI"]
+content = """- Defenses spanning **ROP** mitigation: OS + hardware-assisted monitoring.
+- Analyzed ASLR/DEP/**Intel LBR** trade-offs; abnormal-branch detection resilience.
+- Defense workflow: buffer-overflow mitigation + LBR analysis + **VMI** legitimacy checks for indirect jumps in VMs.
+- Concept: Turing-detection tooling with baseline control-flow compare, Viz, alerts, NLP discrepancy summaries.
+- **IEEE ICSECS 2023** pp.453–458, DOI 10.1109/ICSECS58457.2023.10256382."""

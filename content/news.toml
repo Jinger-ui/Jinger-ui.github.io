@@ -1,0 +1,54 @@
+[[news]]
+date = "2026-08"
+kind = "education"
+content = "Incoming MSc in Applied Artificial Intelligence (AAI) at NTU CCDS — College of Computing and Data Science, Nanyang Technological University (Aug 2026 intake)."
+
+[[news]]
+date = "2026-04"
+end_date = "2026-08"
+kind = "internship"
+content = "Systems Automation Engineering internship at SP Group (Singapore) — vibration sensing, forecasting, Azure migration & CI/CD."
+
+[[news]]
+date = "2025-08"
+end_date = "2025-11"
+kind = "internship"
+content = "IT internship at Bank of China (Guizhou): private RAG assistant (Qwen3-8B, Docker/Ollama) and provincial server rollout."
+
+[[news]]
+date = "2025-02"
+kind = "education"
+content = "Began Graduate Diploma in Systems Analysis at NUS-ISS (full-stack, cloud, agile, ML pipelines)."
+
+[[news]]
+date = "2024-08"
+end_date = "2025-01"
+kind = "internship"
+content = "Rural commercial bank IT internship: ~20 loan-data RPA flows, honeypot & security tooling, ISO 20000–aligned ops."
+
+[[news]]
+date = "2023-11"
+end_date = "2024-01"
+kind = "internship"
+content = "China Southern Power Grid IT internship: CSG-YOLO (YOLOv8) pilot, Kylin OS deployment, dataset & inference review."
+
+[[news]]
+date = "2023-07"
+kind = "research"
+content = "Research Assistant at GUFE — credit-card fraud & illegal trading analytics, ML risk patterns, regional anti-fraud study."
+
+[[news]]
+date = "2022-06"
+kind = "research"
+content = "Research Assistant at XMU (Industrial Bank & Hyperfusion) — SecretFlow/SPU privacy-preserving ML, React orchestration portal, PSI preprocessing."
+
+[[news]]
+date = "2021-08"
+end_date = "2021-11"
+kind = "internship"
+content = "Guizhou Rural Credit Cooperative internship — SME banking ops, loan/transaction data cleansing, irregular card-behavior screening."
+
+[[news]]
+date = "2020-09"
+kind = "education"
+content = "Started B.Sc. in Computer Science and Technology at Xiamen University."
