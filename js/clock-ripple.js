@@ -39,10 +39,20 @@
 
     var rings = [];
     for (var i = 0; i < ringCount; i++) {
+      var visibleTicks = [];
+      for (var ti = 0; ti < 60; ti++) {
+        if (Math.random() <= 0.3) visibleTicks.push(ti);
+      }
+      var arcSpans = [];
+      for (var ai = 0; ai < 2; ai++) {
+        arcSpans.push(0.4 + Math.random() * 0.5);
+      }
       rings.push({
         delay: i * 0.15,
         romanIndices: shuffleArray([0,1,2,3,4,5,6,7,8,9,10,11]).slice(0, 2 + Math.floor(Math.random()*3)),
-        tickOffset: Math.random() * Math.PI * 2
+        tickOffset: Math.random() * Math.PI * 2,
+        visibleTicks: visibleTicks,
+        arcSpans: arcSpans
       });
     }
 
@@ -81,15 +91,14 @@
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.stroke();
 
-    var tickCount = 60;
     var innerTick = radius - 4;
     var outerTick = radius + 2;
     ctx.strokeStyle = "rgba(180,200,220," + Math.min(opacity * 2, 0.18) + ")";
     ctx.lineWidth = 0.5;
-    for (var i = 0; i < tickCount; i++) {
-      if (Math.random() > 0.3) continue;
-      var a = ring.tickOffset + (i / tickCount) * Math.PI * 2;
-      var iLen = i % 5 === 0 ? innerTick - 3 : innerTick;
+    for (var vi = 0; vi < ring.visibleTicks.length; vi++) {
+      var tickIdx = ring.visibleTicks[vi];
+      var a = ring.tickOffset + (tickIdx / 60) * Math.PI * 2;
+      var iLen = tickIdx % 5 === 0 ? innerTick - 3 : innerTick;
       ctx.beginPath();
       ctx.moveTo(cx + Math.cos(a) * iLen, cy + Math.sin(a) * iLen);
       ctx.lineTo(cx + Math.cos(a) * outerTick, cy + Math.sin(a) * outerTick);
@@ -110,7 +119,7 @@
     ctx.lineWidth = 0.4;
     for (var s = 0; s < 2; s++) {
       var sa = ring.tickOffset + s * Math.PI * 0.7 + 0.3;
-      var ea = sa + 0.4 + Math.random() * 0.5;
+      var ea = sa + ring.arcSpans[s];
       ctx.beginPath();
       ctx.arc(cx, cy, radius - 8 + s * 4, sa, ea);
       ctx.stroke();

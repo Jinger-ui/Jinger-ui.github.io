@@ -37,7 +37,7 @@
       '<pre class="spell-notation">cast("' + data.escapeHtml(project.title) + '")\n' +
       'role: ' + data.escapeHtml(project.role) + '\n' +
       'stack: ' + (project.tags || []).join(', ') + '\n' +
-      'effect: ' + data.escapeHtml(data.stripHtml(project.bullets[0] || '').slice(0, 80)) + '</pre>' +
+      'effect: ' + data.escapeHtml(data.stripHtml((project.bullets || [])[0] || '').slice(0, 80)) + '</pre>' +
       '</div></div></a>'
     );
   }
@@ -46,6 +46,10 @@
     var projects = getFiltered();
     var cls = animate && !REDUCED ? ' shuffling' : '';
     container.className = 'playground-grid' + cls;
+    if (projects.length === 0) {
+      container.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-style:italic;padding:2rem 0;">No spells found in this school.</p>';
+      return;
+    }
     container.innerHTML = projects.map(renderCard).join('');
     if (animate && !REDUCED) {
       setTimeout(function () { container.classList.remove('shuffling'); }, 80);

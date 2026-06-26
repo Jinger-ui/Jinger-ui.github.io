@@ -34,7 +34,6 @@
     });
 
     node.addEventListener("click", function () {
-      var projects = this.getAttribute("data-projects");
       var tooltip = this.querySelector(".skill-tooltip");
       if (tooltip) {
         tooltip.classList.toggle("show");

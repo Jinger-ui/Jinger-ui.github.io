@@ -39,11 +39,11 @@
   setText("project-year-summary", project.year);
   setText(
     "project-intro",
-    project.description || data.stripHtml(project.bullets[0] || "")
+    project.description || data.stripHtml((project.bullets || [])[0] || "")
   );
   setText(
     "project-description",
-    project.description || data.stripHtml(project.bullets[0] || "")
+    project.description || data.stripHtml((project.bullets || [])[0] || "")
   );
   setText("project-breadcrumb", "Spell Scroll / " + project.year);
   setHtml("project-cover", data.renderCover(project, "project-cover-media"));
@@ -62,7 +62,7 @@
   );
   setHtml(
     "project-bullets",
-    project.bullets
+    (project.bullets || [])
       .map(function (bullet) {
         return "<li>" + data.escapeHtml(data.stripHtml(bullet)) + "</li>";
       })
@@ -118,7 +118,7 @@
           data.escapeHtml(item.title) +
           "</h3>" +
           '<p class="related-copy">' +
-          data.escapeHtml(data.stripHtml(item.bullets[0] || "")) +
+          data.escapeHtml(data.stripHtml((item.bullets || [])[0] || "")) +
           "</p></a>"
         );
       })

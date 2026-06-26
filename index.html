@@ -734,9 +734,11 @@ body::before {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .journey-node { opacity: 1; transform: scale(1); }
-  .spell-school { opacity: 1; transform: none; }
+  .journey-node { opacity: 1; transform: scale(1); animation: none; }
+  .spell-school { opacity: 1; transform: none; transition: none; }
   .playground-card { opacity: 1; transform: none; }
+  .scroll-indicator { animation: none; }
+  .contact-circle { animation: none; }
 }
 
 /* ---- FOCUS VISIBLE ---- */

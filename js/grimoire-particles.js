@@ -27,6 +27,12 @@
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     isMobile = W < 768;
+    var newCount = isMobile ? 25 : 50;
+    if (newCount !== COUNT) {
+      COUNT = newCount;
+      while (particles.length > COUNT) particles.pop();
+      while (particles.length < COUNT) particles.push(createParticle());
+    }
   }
 
   function createParticle() {
