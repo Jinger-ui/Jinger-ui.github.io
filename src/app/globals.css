@@ -627,6 +627,129 @@ html.dark body::before {
   transform: rotate(0deg) translateY(-3px);
 }
 
+/* ── Grimoire / Quiet Fantasy Theme ── */
+
+:root, .light {
+  --grimoire-sage: #9bae93;
+  --grimoire-cream: #f6efdc;
+  --grimoire-gold: #cdaa69;
+  --grimoire-gold-muted: rgba(205, 170, 105, 0.35);
+  --grimoire-gold-glow: rgba(205, 170, 105, 0.18);
+  --grimoire-blue-violet: #c6bfdd;
+  --grimoire-pale-cyan: #9fc2c4;
+  --grimoire-parchment: #f0e6d0;
+  --grimoire-ink: #3e3124;
+  --grimoire-dust-gold: rgba(205, 170, 105, 0.35);
+  --grimoire-dust-cream: rgba(246, 239, 220, 0.25);
+  --grimoire-dust-cyan: rgba(159, 194, 196, 0.20);
+}
+
+.dark {
+  --grimoire-sage: #7a9a70;
+  --grimoire-cream: #2a2520;
+  --grimoire-gold: #e4b976;
+  --grimoire-gold-muted: rgba(228, 185, 118, 0.25);
+  --grimoire-gold-glow: rgba(228, 185, 118, 0.12);
+  --grimoire-blue-violet: #8a82a8;
+  --grimoire-pale-cyan: #6a8a8c;
+  --grimoire-parchment: #1a1612;
+  --grimoire-ink: #e2d9c8;
+  --grimoire-dust-gold: rgba(228, 185, 118, 0.25);
+  --grimoire-dust-cream: rgba(246, 239, 220, 0.12);
+  --grimoire-dust-cyan: rgba(159, 194, 196, 0.12);
+}
+
+/* Grimoire font families */
+.font-grimoire-display {
+  font-family: 'Allura', cursive;
+}
+
+.font-grimoire-heading {
+  font-family: 'Cormorant Garamond', 'Georgia CDN', Georgia, serif;
+}
+
+/* Magic circle stroke animation */
+@keyframes magicCircleDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes magicCircleBreathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.28; }
+}
+
+@keyframes grimoireTitleReveal {
+  0% { opacity: 0; filter: blur(8px); transform: translateY(8px); }
+  100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+@keyframes scrollIndicatorFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 0.3; }
+}
+
+@keyframes sealStamp {
+  0% { transform: scale(0.7) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(1.05) rotate(2deg); opacity: 0.9; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes rippleExpand {
+  0% { transform: scale(0.3); opacity: 0.25; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+@keyframes lanternBreathe {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.08); }
+}
+
+/* Grimoire card hover glow */
+.grimoire-card-glow {
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.grimoire-card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px var(--grimoire-gold-glow),
+    0 8px 28px var(--grimoire-gold-glow),
+    0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Parchment texture overlay */
+.grimoire-parchment {
+  position: relative;
+}
+
+.grimoire-parchment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.03'/></svg>");
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Tome / Research book styling */
+.grimoire-tome {
+  position: relative;
+  border-left: 4px solid var(--grimoire-gold-muted);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grimoire-tome:hover {
+  border-left-color: var(--grimoire-gold);
+  box-shadow: -4px 0 12px var(--grimoire-gold-glow);
+}
+
+/* Achievement seal animation */
+.grimoire-seal {
+  animation: sealStamp 0.5s ease-out both;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

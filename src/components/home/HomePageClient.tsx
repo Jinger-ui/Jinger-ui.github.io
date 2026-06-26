@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Profile from '@/components/home/Profile';
 import SkillsGrid, { type SkillCategory } from '@/components/home/SkillsGrid';
 import HomeContact from '@/components/home/HomeContact';
@@ -8,10 +9,15 @@ import CardPage from '@/components/pages/CardPage';
 import ProjectCardGrid from '@/components/projects/ProjectCardGrid';
 import PlaygroundSection from '@/components/playground/PlaygroundSection';
 import Journey, { type JourneyItem } from '@/components/layout/Journey';
+import GrimoireHero from '@/components/grimoire/GrimoireHero';
 import type { SiteConfig } from '@/lib/config';
 import { Publication } from '@/types/publication';
 import { CardPageConfig, PublicationPageConfig } from '@/types/page';
 import { useLocaleStore } from '@/lib/stores/localeStore';
+
+const StardustCanvas = dynamic(() => import('@/components/grimoire/StardustCanvas'), { ssr: false });
+const ClockRipple = dynamic(() => import('@/components/grimoire/ClockRipple'), { ssr: false });
+const LanternGlow = dynamic(() => import('@/components/grimoire/LanternGlow'), { ssr: false });
 
 type PageData =
   | { type: 'publication'; id: string; config: PublicationPageConfig; publications: Publication[] }
@@ -44,18 +50,23 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
   }
 
   return (
-    <div className="bg-transparent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <section id="home-intro" className="mb-12">
+    <div className="bg-transparent relative">
+      <StardustCanvas />
+      <LanternGlow />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-[1]">
+        <section id="home-intro" className="mb-12 relative">
+          <ClockRipple />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start lg:items-stretch">
             <div className="lg:col-span-1">
-              <Profile
-                author={data.author}
-                social={data.social}
-                features={data.features}
-                researchInterests={data.researchInterests}
-                hideContactLinks
-              />
+              <GrimoireHero>
+                <Profile
+                  author={data.author}
+                  social={data.social}
+                  features={data.features}
+                  researchInterests={data.researchInterests}
+                  hideContactLinks
+                />
+              </GrimoireHero>
             </div>
 
             {data.journeyItems.length > 0 && (
