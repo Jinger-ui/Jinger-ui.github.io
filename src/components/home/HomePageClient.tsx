@@ -10,6 +10,7 @@ import ProjectCardGrid from '@/components/projects/ProjectCardGrid';
 import PlaygroundSection from '@/components/playground/PlaygroundSection';
 import Journey, { type JourneyItem } from '@/components/layout/Journey';
 import GrimoireHero from '@/components/grimoire/GrimoireHero';
+import { usePerformanceMode } from '@/components/grimoire/usePerformanceMode';
 import type { SiteConfig } from '@/lib/config';
 import { Publication } from '@/types/publication';
 import { CardPageConfig, PublicationPageConfig } from '@/types/page';
@@ -42,6 +43,7 @@ interface HomePageClientProps {
 
 export default function HomePageClient({ dataByLocale, defaultLocale }: HomePageClientProps) {
   const locale = useLocaleStore((state) => state.locale);
+  const lowPowerMode = usePerformanceMode();
   const fallback = dataByLocale[defaultLocale] || Object.values(dataByLocale)[0];
   const data = dataByLocale[locale] || fallback;
 
@@ -51,11 +53,11 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
 
   return (
     <div className="bg-transparent relative">
-      <StardustCanvas />
-      <LanternGlow />
+      {!lowPowerMode && <StardustCanvas />}
+      {!lowPowerMode && <LanternGlow />}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-[1]">
         <section id="home-intro" className="mb-12 relative">
-          <ClockRipple />
+          {!lowPowerMode && <ClockRipple />}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start lg:items-stretch">
             <div className="lg:col-span-1">
               <GrimoireHero>

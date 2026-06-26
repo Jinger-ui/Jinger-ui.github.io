@@ -64,6 +64,7 @@ function nodeReached(index: number, total: number, progress: number): boolean {
 export default function JourneyMapOverlay({ containerRef }: JourneyMapOverlayProps) {
   const reduceMotion = useReducedMotion();
   const pathRef = useRef<SVGPathElement>(null);
+  const frameRef = useRef<number | null>(null);
   const [nodes, setNodes] = useState<NodePosition[]>([]);
   const [pathD, setPathD] = useState('');
   const [pathLength, setPathLength] = useState(0);
@@ -88,35 +89,47 @@ export default function JourneyMapOverlay({ containerRef }: JourneyMapOverlayPro
     setPathD(buildWindingPath(positions));
   }, [containerRef]);
 
+  const scheduleMeasure = useCallback(() => {
+    if (frameRef.current !== null) {
+      return;
+    }
+
+    frameRef.current = window.requestAnimationFrame(() => {
+      frameRef.current = null;
+      measure();
+    });
+  }, [measure]);
+
   useEffect(() => {
-    measure();
+    scheduleMeasure();
 
     const container = containerRef.current;
     if (!container) {
       return undefined;
     }
 
-    const resizeObserver = new ResizeObserver(measure);
+    const resizeObserver = new ResizeObserver(scheduleMeasure);
     resizeObserver.observe(container);
 
-    const mutationObserver = new MutationObserver(measure);
+    const mutationObserver = new MutationObserver(scheduleMeasure);
     mutationObserver.observe(container, {
       childList: true,
       subtree: true,
-      attributes: true,
-      characterData: true,
     });
 
-    container.addEventListener('scroll', measure, { passive: true });
-    window.addEventListener('resize', measure);
+    container.addEventListener('scroll', scheduleMeasure, { passive: true });
+    window.addEventListener('resize', scheduleMeasure);
 
     return () => {
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+      }
       resizeObserver.disconnect();
       mutationObserver.disconnect();
-      container.removeEventListener('scroll', measure);
-      window.removeEventListener('resize', measure);
+      container.removeEventListener('scroll', scheduleMeasure);
+      window.removeEventListener('resize', scheduleMeasure);
     };
-  }, [containerRef, measure]);
+  }, [containerRef, scheduleMeasure]);
 
   useEffect(() => {
     const container = containerRef.current;

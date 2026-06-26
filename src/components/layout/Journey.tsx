@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useRef, useState, type KeyboardEvent } from 'react';
 import JourneyMapOverlay from '@/components/grimoire/JourneyMapOverlay';
+import { usePerformanceMode } from '@/components/grimoire/usePerformanceMode';
 
 export interface JourneyItem {
   date: string;
@@ -260,6 +261,7 @@ interface TimelinePanelProps {
 
 function TimelinePanel({ items, isFullscreen, ariaLabel, className = '' }: TimelinePanelProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const lowPowerMode = usePerformanceMode();
 
   return (
     <div className={`relative flex flex-col min-h-0 min-w-0 ${className}`}>
@@ -268,7 +270,7 @@ function TimelinePanel({ items, isFullscreen, ariaLabel, className = '' }: Timel
         tabIndex={0}
         className="journey-scroll relative flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y px-4 py-3 scroll-smooth focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-[inherit]"
       >
-        <JourneyMapOverlay containerRef={scrollRef} />
+        {!lowPowerMode && <JourneyMapOverlay containerRef={scrollRef} />}
         <div className="relative z-[1]">
           <TimelineList items={items} isFullscreen={isFullscreen} ariaLabel={ariaLabel} />
         </div>
@@ -296,6 +298,7 @@ export default function Journey({
   const isFullscreen = variant === 'fullscreen';
   const isSplit = layout === 'split';
   const singleScrollRef = useRef<HTMLDivElement>(null);
+  const lowPowerMode = usePerformanceMode();
 
   if (!items.length) {
     return null;
@@ -396,7 +399,7 @@ export default function Journey({
             role="list"
             aria-label={`${title} timeline`}
           >
-            <JourneyMapOverlay containerRef={singleScrollRef} />
+            {!lowPowerMode && <JourneyMapOverlay containerRef={singleScrollRef} />}
             <div className="relative z-[1]">
               <TimelineList items={items} isFullscreen={isFullscreen} ariaLabel={`${title} timeline`} />
             </div>
