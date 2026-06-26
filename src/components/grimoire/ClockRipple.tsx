@@ -76,12 +76,13 @@ export default function ClockRipple({ className }: ClockRippleProps) {
     spawnRipple();
     scheduleNext();
 
+    const timeouts = removalTimeoutsRef.current;
     return () => {
       if (scheduleTimeoutRef.current) {
         clearTimeout(scheduleTimeoutRef.current);
       }
-      removalTimeoutsRef.current.forEach((timeout) => clearTimeout(timeout));
-      removalTimeoutsRef.current.clear();
+      timeouts.forEach((timeout) => clearTimeout(timeout));
+      timeouts.clear();
     };
   }, [reducedMotion]);
 
