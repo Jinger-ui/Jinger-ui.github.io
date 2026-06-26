@@ -69,8 +69,8 @@ export default function PlaygroundMasonry({
               className={cn(
                 'shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300',
                 active
-                  ? 'border-border bg-playground-accent text-playground-accent-foreground'
-                  : 'border-border bg-muted/60 text-muted-foreground hover:bg-surface-hover hover:text-foreground'
+                  ? 'border-border border-b-2 border-b-[var(--grimoire-gold)] bg-playground-accent text-playground-accent-foreground shadow-[0_2px_8px_var(--grimoire-gold-glow)]'
+                  : 'border-border bg-muted/60 text-muted-foreground hover:bg-surface-hover hover:text-foreground hover:border-b-[var(--grimoire-gold-muted)]'
               )}
             >
               {category.label}
@@ -79,7 +79,14 @@ export default function PlaygroundMasonry({
         })}
       </div>
 
-      <motion.div layout className="columns-1 gap-4 md:columns-2 lg:columns-3">
+      <motion.div
+        key={activeFilter}
+        layout
+        initial={{ opacity: 0.6 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.25 }}
+        className="columns-1 gap-4 md:columns-2 lg:columns-3"
+      >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => {
             const heightKey = heightPattern[index % heightPattern.length];
@@ -95,7 +102,7 @@ export default function PlaygroundMasonry({
                 transition={{ duration: 0.35, delay: mounted ? index * 0.03 : 0 }}
                 id={`playground-card-${project.id}`}
                 className={cn(
-                  'mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card/85 text-card-foreground backdrop-blur-sm transition-all duration-300',
+                  'mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card/85 text-card-foreground backdrop-blur-sm grimoire-card-glow',
                   cardHeightClass(heightKey),
                   isHighlighted && 'ring-2 ring-playground-accent/40'
                 )}

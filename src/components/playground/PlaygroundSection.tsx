@@ -42,15 +42,15 @@ export default function PlaygroundSection({ items }: PlaygroundSectionProps) {
       <div className="relative space-y-10">
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-playground-accent">
-            Playground
+            Spell Workshop
           </p>
           <h2 className="mt-3 font-serif text-3xl font-bold text-foreground sm:text-4xl">
-            Shuffle, filter, then open the deeper build note.
+            Draw a spell, shuffle the deck, or filter by school of magic.
           </h2>
           <p className="mt-4 text-sm leading-7 text-foreground/75 dark:text-white/78 sm:text-base">
-            Earlier research, individual builds, publications, and exploratory work from
-            undergraduate and industry collaborations. The cards are playful again, but each one now
-            lands on a shareable subpage.
+            Research incantations, solo builds, published findings, and exploratory work from
+            undergraduate and industry collaborations. Each card is a spell in the grimoire — draw
+            one, then open its deeper build note on a shareable subpage.
           </p>
         </div>
 

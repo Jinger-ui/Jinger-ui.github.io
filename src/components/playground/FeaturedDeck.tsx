@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import {
   categoryLabel,
@@ -14,6 +14,46 @@ import { cn } from '@/lib/utils';
 interface FeaturedDeckProps {
   projects: PlaygroundProject[];
   onViewProject: (id: string) => void;
+}
+
+function SpellParticles() {
+  const reduceMotion = useReducedMotion();
+  const particles = useMemo(() => {
+    const count = 6 + Math.floor(Math.random() * 5);
+    return Array.from({ length: count }, (_, i) => ({
+      id: i,
+      left: `${38 + Math.random() * 24}%`,
+      top: `${42 + Math.random() * 16}%`,
+      dx: `${(Math.random() - 0.5) * 32}px`,
+      dy: `${-32 - Math.random() * 40}px`,
+      delay: `${Math.random() * 0.2}s`,
+      size: Math.random() > 0.5 ? '2px' : '3px',
+    }));
+  }, []);
+
+  if (reduceMotion) return null;
+
+  return (
+    <div className="pointer-events-none absolute inset-0 z-20 overflow-visible" aria-hidden="true">
+      {particles.map((p) => (
+        <span
+          key={p.id}
+          className="spell-particle"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            animationDelay: p.delay,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ['--spell-dx' as any]: p.dx,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ['--spell-dy' as any]: p.dy,
+          }}
+        />
+      ))}
+    </div>
+  );
 }
 
 function DeckCardFace({
@@ -96,11 +136,14 @@ function DeckCardFace({
 }
 
 export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckProps) {
+  const reduceMotion = useReducedMotion();
   const featured = useMemo(() => pickFeaturedProjects(projects), [projects]);
   const [deckOrder, setDeckOrder] = useState(() => featured.map((p) => p.id));
   const [drawing, setDrawing] = useState(false);
   const [drawnId, setDrawnId] = useState<string | null>(null);
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [particleBurst, setParticleBurst] = useState(0);
+  const drawDuration = reduceMotion ? 0 : 520;
 
   const orderedProjects = useMemo(
     () =>
@@ -115,6 +158,9 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
     const topId = deckOrder[0];
     setDrawing(true);
     setDrawnId(topId);
+    if (!reduceMotion) {
+      setParticleBurst((n) => n + 1);
+    }
     window.setTimeout(() => {
       setDeckOrder((prev) => {
         const [top, ...rest] = prev;
@@ -122,8 +168,8 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
       });
       setDrawnId(null);
       setDrawing(false);
-    }, 520);
-  }, [deckOrder, drawing, orderedProjects.length]);
+    }, drawDuration);
+  }, [deckOrder, drawing, drawDuration, orderedProjects.length, reduceMotion]);
 
   const shuffleDeck = useCallback(() => {
     setDeckOrder((prev) => shuffleIds(prev));
@@ -142,7 +188,7 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
             onClick={drawProject}
             className="rounded-full border border-border bg-playground-accent px-5 py-2.5 text-sm font-medium text-playground-accent-foreground transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_16px_rgba(75,127,212,0.3)]"
           >
-            Draw a Project
+            Draw a Spell
           </button>
           <button
             type="button"
@@ -182,6 +228,8 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
       </div>
 
       <div className="relative order-1 mx-auto hidden h-[420px] w-full max-w-md lg:order-2 lg:block">
+        <div className="grimoire-deck-glow grimoire-parchment pointer-events-none absolute inset-0 rounded-[1.25rem]" aria-hidden="true" />
+        {particleBurst > 0 && <SpellParticles key={particleBurst} />}
         <AnimatePresence mode="popLayout">
           {stackProjects.map((project, index) => {
             const isTop = index === 0;
@@ -205,7 +253,11 @@ export default function FeaturedDeck({ projects, onViewProject }: FeaturedDeckPr
                   zIndex: stackProjects.length - index,
                 }}
                 whileHover={isTop && !drawing ? { y: -8, rotate: 0, scale: 1.02 } : undefined}
-                transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+                transition={
+                  reduceMotion
+                    ? { duration: 0 }
+                    : { type: 'spring', stiffness: 260, damping: 24 }
+                }
                 onClick={() => (isTop ? onViewProject(project.id) : undefined)}
                 className={cn(
                   'absolute inset-0 h-full w-full text-left',

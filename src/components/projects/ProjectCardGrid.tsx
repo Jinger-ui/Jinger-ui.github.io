@@ -32,6 +32,14 @@ function placeholderGradient(title: string): string {
   return PLACEHOLDER_GRADIENTS[hash];
 }
 
+const STARDUST_POSITIONS = [
+  { top: '8%', left: '6%' },
+  { top: '12%', right: '8%' },
+  { bottom: '14%', left: '10%' },
+  { bottom: '10%', right: '6%' },
+  { top: '48%', right: '4%' },
+] as const;
+
 interface ProjectCardGridProps {
   config: CardPageConfig;
   embedded?: boolean;
@@ -82,26 +90,37 @@ export default function ProjectCardGrid({
             href={project.href}
             aria-label={`Open project page for ${project.title}`}
             className={cn(
-              'group block h-[360px] rounded-[1.6rem] outline-none [perspective:1300px] animate-fade-in-up',
-              'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+              'group relative block h-[360px] rounded-[1.6rem] outline-none [perspective:1300px] animate-fade-in-up',
+              'transition-shadow duration-[600ms] ease-out',
+              'hover:shadow-[0_0_0_1px_var(--grimoire-gold-glow),0_8px_28px_var(--grimoire-gold-glow),0_2px_8px_rgba(0,0,0,0.06)]',
+              'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+              'focus-visible:shadow-[0_0_0_1px_var(--grimoire-gold-glow),0_8px_28px_var(--grimoire-gold-glow),0_2px_8px_rgba(0,0,0,0.06)]'
             )}
             style={{ animationDelay: `${index * 80}ms` }}
           >
+            <div className="grimoire-stardust pointer-events-none absolute inset-0 z-20 rounded-[1.6rem]" aria-hidden="true">
+              {STARDUST_POSITIONS.map((pos, dotIdx) => (
+                <span
+                  key={dotIdx}
+                  className="grimoire-stardust-dot"
+                  style={pos}
+                />
+              ))}
+            </div>
             <article
               className={cn(
-                'relative h-full w-full transition-all duration-500 [transform-style:preserve-3d]',
-                'group-hover:-translate-y-1 group-hover:[transform:rotateY(180deg)] group-focus-visible:[transform:rotateY(180deg)]'
+                'grimoire-flip-inner relative h-full w-full [transform-style:preserve-3d]'
               )}
             >
               <div
                 className={cn(
                   cardSurfaceClass[cardStyle],
-                  'absolute inset-0 flex flex-col overflow-hidden rounded-[1.6rem] text-left [backface-visibility:hidden]',
-                  'shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-500 group-hover:shadow-[0_24px_70px_rgba(15,23,42,0.15),0_0_0_1px_rgba(212,165,98,0.15)]',
+                  'grimoire-parchment absolute inset-0 flex flex-col overflow-hidden rounded-[1.6rem] text-left [backface-visibility:hidden]',
+                  'shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-[600ms] group-hover:shadow-[0_24px_70px_rgba(15,23,42,0.15),0_0_0_1px_var(--grimoire-gold-glow)]',
                   isGlass && 'dark:bg-neutral-950/60'
                 )}
               >
-                <div className={cn('relative aspect-[16/10] overflow-hidden border-b', coverFrameClass)}>
+                <div className={cn('relative z-10 aspect-[16/10] overflow-hidden border-b', coverFrameClass)}>
                   {project.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -130,7 +149,7 @@ export default function ProjectCardGrid({
                   )}
                 </div>
 
-                <div className="flex flex-1 flex-col p-4 sm:p-5">
+                <div className="relative z-10 flex flex-1 flex-col p-4 sm:p-5">
                   <span className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
                     Selected case study
                   </span>
@@ -149,11 +168,11 @@ export default function ProjectCardGrid({
               <div
                 className={cn(
                   cardSurfaceClass[cardStyle],
-                  'absolute inset-0 flex flex-col rounded-[1.6rem] p-5 text-left [backface-visibility:hidden] [transform:rotateY(180deg)]',
+                  'grimoire-parchment absolute inset-0 flex flex-col rounded-[1.6rem] p-5 text-left [backface-visibility:hidden] [transform:rotateY(180deg)]',
                   'bg-white/90 shadow-[0_24px_70px_rgba(15,23,42,0.13)] dark:bg-neutral-950/88'
                 )}
               >
-                <div className="flex items-start justify-between gap-3">
+                <div className="relative z-10 flex items-start justify-between gap-3">
                   <span className="rounded-full bg-accent/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-accent">
                     Back of card
                   </span>
@@ -163,15 +182,15 @@ export default function ProjectCardGrid({
                     </span>
                   )}
                 </div>
-                <h3 className="mt-5 text-xl font-serif font-bold leading-tight text-primary">
+                <h3 className="relative z-10 mt-5 text-xl font-serif font-bold leading-tight text-primary">
                   {project.title}
                 </h3>
-                <p className="mt-3 line-clamp-5 text-sm leading-7 text-neutral-700 dark:text-neutral-100">
+                <p className="relative z-10 mt-3 line-clamp-5 text-sm leading-7 text-neutral-700 dark:text-neutral-100">
                   {previewText(project)}
                 </p>
 
                 {project.tags && project.tags.length > 0 && (
-                  <div className="mt-5 flex flex-wrap gap-1.5">
+                  <div className="relative z-10 mt-5 flex flex-wrap gap-1.5">
                     {project.tags.slice(0, 5).map((tag) => (
                       <span
                         key={tag}
@@ -183,9 +202,19 @@ export default function ProjectCardGrid({
                   </div>
                 )}
 
-                <span className="mt-auto inline-flex w-fit rounded-full bg-neutral-950 px-4 py-2 text-xs font-semibold text-white transition group-hover:bg-accent dark:bg-white dark:text-neutral-950">
+                <span className="relative z-10 mt-auto inline-flex w-fit rounded-full bg-neutral-950 px-4 py-2 text-xs font-semibold text-white transition group-hover:bg-accent dark:bg-white dark:text-neutral-950">
                   {hintText}
                 </span>
+
+                <div
+                  className="relative z-10 mt-4 border-t border-neutral-200/70 pt-3 font-mono text-[9px] leading-relaxed text-neutral-500/80 dark:border-neutral-600/40 dark:text-neutral-400/75"
+                  aria-hidden="true"
+                >
+                  <p>cast(&quot;{project.title}&quot;)</p>
+                  <p>role: {project.subtitle || '—'}</p>
+                  <p>stack: {project.tags?.length ? project.tags.join(', ') : '—'}</p>
+                  <p>effect: {previewText(project)}</p>
+                </div>
               </div>
             </article>
           </Link>

@@ -1,7 +1,9 @@
 'use client';
 
+import { useCallback, useState, type KeyboardEvent } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { CardPageConfig } from '@/types/page';
+import { cn } from '@/lib/utils';
 
 const markdownComponents = {
     p: ({ children }: React.ComponentProps<'p'>) => <p className="mb-3 last:mb-0">{children}</p>,
@@ -55,6 +57,30 @@ export default function CardPage({
     cardStyle?: keyof typeof cardSurfaceClass;
 }) {
     const isGlass = cardStyle === 'glass';
+    const isSolid = cardStyle === 'solid';
+    const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+
+    const toggleCard = useCallback((index: number) => {
+        setExpandedCards((prev) => {
+            const next = new Set(prev);
+            if (next.has(index)) {
+                next.delete(index);
+            } else {
+                next.add(index);
+            }
+            return next;
+        });
+    }, []);
+
+    const handleCardKeyDown = useCallback(
+        (event: KeyboardEvent, index: number) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleCard(index);
+            }
+        },
+        [toggleCard]
+    );
     const dateBadgeClass = isGlass
         ? 'text-sm text-neutral-600 dark:text-neutral-300 font-medium bg-white/45 dark:bg-neutral-800/45 backdrop-blur-sm px-2 py-1 rounded border border-white/40 dark:border-white/10'
         : 'text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded';
@@ -81,12 +107,36 @@ export default function CardPage({
             )}
 
             <div className={`grid ${embedded ? "gap-4" : "gap-6"}`}>
-                {config.items.map((item, index) => (
+                {config.items.map((item, index) => {
+                    const isExpanded = expandedCards.has(index);
+                    const cardClassName = cn(
+                        cardSurfaceClass[cardStyle],
+                        embedded ? 'p-4' : 'p-6',
+                        'rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-[1.01] card-hover-glow animate-fade-in-up',
+                        isGlass && 'hover:bg-white/70 dark:hover:bg-neutral-900/50',
+                        isSolid && 'grimoire-parchment relative cursor-pointer',
+                        isSolid && !isExpanded && 'hover:border-[var(--grimoire-gold-muted)]'
+                    );
+
+                    return (
                     <div
                         key={index}
-                        className={`${cardSurfaceClass[cardStyle]} ${embedded ? "p-4" : "p-6"} rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-[1.01] card-hover-glow animate-fade-in-up ${isGlass ? 'hover:bg-white/70 dark:hover:bg-neutral-900/50' : ''}`}
+                        role={isSolid ? 'button' : undefined}
+                        tabIndex={isSolid ? 0 : undefined}
+                        aria-expanded={isSolid ? isExpanded : undefined}
+                        onClick={isSolid ? () => toggleCard(index) : undefined}
+                        onKeyDown={isSolid ? (e) => handleCardKeyDown(e, index) : undefined}
+                        className={cardClassName}
                         style={{ animationDelay: `${index * 70}ms` }}
                     >
+                        {isSolid && isExpanded && (
+                            <span
+                                className="grimoire-seal pointer-events-none absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full border border-[var(--grimoire-gold-muted)] bg-[var(--grimoire-dust-cream)] text-xs text-[var(--grimoire-gold)]"
+                                aria-hidden="true"
+                            >
+                                ✦
+                            </span>
+                        )}
                         <div className="flex justify-between items-start mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
                             {item.date && (
@@ -98,6 +148,8 @@ export default function CardPage({
                         {item.subtitle && (
                             <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mb-3`}>{item.subtitle}</p>
                         )}
+                        {(!isSolid || isExpanded) && (
+                            <>
                         {item.image && (
                             <div
                                 className={`mb-4 aspect-[16/10] overflow-hidden rounded-xl border ${coverFrameClass}`}
@@ -127,8 +179,11 @@ export default function CardPage({
                                 ))}
                             </div>
                         )}
+                            </>
+                        )}
                     </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );
