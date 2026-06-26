@@ -58,6 +58,16 @@ function MetaCard({ label, value }: { label: string; value: string }) {
   );
 }
 
+function GrimoireDivider() {
+  return (
+    <div className="flex items-center justify-center gap-3 py-2" aria-hidden="true">
+      <span className="h-px w-16 bg-[var(--grimoire-gold)] opacity-25 sm:w-24" />
+      <span className="text-sm leading-none text-[var(--grimoire-gold)] opacity-40">✦</span>
+      <span className="h-px w-16 bg-[var(--grimoire-gold)] opacity-25 sm:w-24" />
+    </div>
+  );
+}
+
 function RelatedCard({
   project,
   label,
@@ -97,7 +107,7 @@ export default function PlaygroundDetailPage({
 
   return (
     <div className="apple-site -mt-16 min-h-screen lg:-mt-20">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="grimoire-parchment mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <section className="playground-shell relative overflow-hidden rounded-[2.2rem] border px-8 py-10 shadow-[0_28px_80px_var(--playground-section-shadow)]">
           <div className="playground-shell-glow pointer-events-none absolute inset-x-0 top-0 h-44" />
           <div className="relative">
@@ -114,7 +124,7 @@ export default function PlaygroundDetailPage({
 
             <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
               <div>
-                <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                <h1 className="font-grimoire-heading font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
                   {project.title}
                 </h1>
                 {project.subtitle && (
@@ -181,6 +191,8 @@ export default function PlaygroundDetailPage({
           </div>
         </section>
 
+        <GrimoireDivider />
+
         <section className="rounded-[1.85rem] border border-border bg-card/80 p-6 shadow-[0_18px_50px_var(--playground-section-shadow)] backdrop-blur">
           <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-playground-accent">
             01 / Snapshot
@@ -215,17 +227,20 @@ export default function PlaygroundDetailPage({
         )}
 
         {project.content && (
-          <section className="rounded-[1.75rem] border border-border bg-card/85 p-6 shadow-[0_20px_60px_var(--playground-section-shadow)] backdrop-blur">
+          <>
+            <GrimoireDivider />
+            <section className="rounded-[1.75rem] border border-border bg-card/85 p-6 shadow-[0_20px_60px_var(--playground-section-shadow)] backdrop-blur">
             <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-playground-accent">
               02 / Delivery
             </p>
             <h2 className="mt-3 inline-flex border-b-2 border-playground-accent pb-2 font-serif text-3xl font-bold tracking-tight text-foreground">
               What this playground note covers
             </h2>
-            <div className="mt-5 text-sm leading-7 text-foreground/80 dark:text-white/88 sm:text-base">
+            <div className="grimoire-tome mt-5 pl-4 text-sm leading-7 text-foreground/80 dark:text-white/88 sm:text-base">
               <ReactMarkdown components={markdownComponents}>{project.content}</ReactMarkdown>
             </div>
           </section>
+          </>
         )}
 
         {project.detailImages && project.detailImages.length > 0 && (
